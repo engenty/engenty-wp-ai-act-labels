@@ -420,13 +420,30 @@ class AI_Act_Labels {
 				)
 			);
 		}
-		$suggested           = self::query_ids( 'suggested', 1000 );
-		$unchecked           = self::query_ids( 'unchecked', 1000 );
-		$counts['suggested'] = count( $suggested );
-		$counts['unchecked'] = count( $unchecked );
-		$counts['open']      = count( array_unique( array_merge( $suggested, $unchecked ) ) );
+		$counts['suggested'] = self::count_of( 'suggested' );
+		$counts['unchecked'] = self::count_of( 'unchecked' );
+		$counts['open']      = self::count_of( 'open' );
 		$counts['media']     = (int) array_sum( (array) wp_count_attachments() ) - (int) ( wp_count_attachments()->trash ?? 0 );
 		return $counts;
+	}
+
+	/**
+	 * How many files a list has, without loading them.
+	 *
+	 * @param string $filter A list of meta_query().
+	 * @return int
+	 */
+	public static function count_of( $filter ) {
+		$query = new WP_Query(
+			array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+				'meta_query'     => self::meta_query( $filter ), // phpcs:ignore WordPress.DB.SlowDBQuery
+			)
+		);
+		return (int) $query->found_posts;
 	}
 
 	/**
@@ -463,7 +480,7 @@ class AI_Act_Labels {
 	/**
 	 * The meta query of a list: also used by the media library's filters.
 	 *
-	 * @param string $filter suggested, unchecked, undecided, labelled, generated, modified, none.
+	 * @param string $filter suggested, unchecked, open, undecided, labelled, generated, modified, none.
 	 * @return array Empty for all.
 	 */
 	public static function meta_query( $filter ) {
@@ -503,6 +520,7 @@ class AI_Act_Labels {
 			case 'undecided':
 				return $undecided;
 			case 'suggested':
+			case 'open':
 				// Serialized arrays: a trace with a kind, or an assessment that says generated or modified.
 				$likes = array( 'relation' => 'OR' );
 				foreach ( array( self::META_SIGNALS, self::META_HINT ) as $key ) {
@@ -513,6 +531,13 @@ class AI_Act_Labels {
 							'compare' => 'LIKE',
 						);
 					}
+				}
+				// Open: a suggestion or used on the site, each once.
+				if ( 'open' === $filter ) {
+					$likes[] = array(
+						'key'     => self::META_USAGE,
+						'compare' => 'EXISTS',
+					);
 				}
 				return array(
 					'relation' => 'AND',

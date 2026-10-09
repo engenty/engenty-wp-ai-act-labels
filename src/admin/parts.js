@@ -20,6 +20,7 @@ export const CONTEXT_LABELS = {
 	audio: __( 'Audio', 'ai-act-labels' ),
 	url: __( 'nur als Adresse', 'ai-act-labels' ),
 	builder: __( 'Page Builder', 'ai-act-labels' ),
+	acf: __( 'ACF-Feld', 'ai-act-labels' ),
 	shop: __( 'Produktgalerie', 'ai-act-labels' ),
 	logo: __( 'Logo', 'ai-act-labels' ),
 	icon: __( 'Website-Icon', 'ai-act-labels' ),

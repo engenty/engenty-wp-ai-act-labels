@@ -44,7 +44,7 @@ msgstr ""
 #: includes/class-media.php:125
 #: includes/class-media.php:505
 #: src/admin/index.js:54
-#: src/admin/parts.js:113
+#: src/admin/parts.js:114
 msgid "KI-Kennzeichnung"
 msgstr "AI labels"
 
@@ -54,7 +54,7 @@ msgid "KI-Kennzeichnung lädt …"
 msgstr "AI labels are loading …"
 
 #: includes/class-admin.php:128
-#: src/admin/parts.js:267
+#: src/admin/parts.js:268
 msgid "Öffnen"
 msgstr "Open"
 
@@ -267,7 +267,7 @@ msgid "Aus der ersten Version im Theme übernommen."
 msgstr "Taken over from the first version in the theme."
 
 #: includes/class-media.php:136
-#: src/admin/parts.js:128
+#: src/admin/parts.js:129
 msgid "Vorschlag"
 msgstr "Suggestion"
 
@@ -384,22 +384,22 @@ msgstr "Write a question."
 msgid "Dafür braucht WordPress einen KI-Anbieter (Einstellungen › Konnektoren)."
 msgstr "For this, WordPress needs an AI provider (Settings › Connectors)."
 
-#: includes/class-usage.php:402
-#: includes/class-usage.php:428
+#: includes/class-usage.php:456
+#: includes/class-usage.php:482
 msgid "Website"
 msgstr "Website"
 
-#: includes/class-usage.php:422
+#: includes/class-usage.php:476
 msgid "Logo der Website"
 msgstr "Site logo"
 
-#: includes/class-usage.php:424
-#: src/admin/parts.js:25
+#: includes/class-usage.php:478
+#: src/admin/parts.js:26
 msgid "Website-Icon"
 msgstr "Site icon"
 
-#: includes/class-usage.php:426
-#: src/admin/parts.js:26
+#: includes/class-usage.php:480
+#: src/admin/parts.js:27
 msgid "Kopfbild"
 msgstr "Header image"
 
@@ -1013,53 +1013,53 @@ msgstr "only as a URL"
 msgid "Page Builder"
 msgstr "Page builder"
 
-#: src/admin/parts.js:23
+#: src/admin/parts.js:24
 msgid "Produktgalerie"
 msgstr "Product gallery"
 
-#: src/admin/parts.js:24
+#: src/admin/parts.js:25
 msgid "Logo"
 msgstr "Logo"
 
-#: src/admin/parts.js:174
+#: src/admin/parts.js:175
 msgid "Hinweis Pflicht"
 msgstr "Label required"
 
-#: src/admin/parts.js:175
+#: src/admin/parts.js:176
 msgid "Hinweis freiwillig"
 msgstr "Label voluntary"
 
-#: src/admin/parts.js:176
+#: src/admin/parts.js:177
 msgid "kein Hinweis nötig"
 msgstr "no label needed"
 
-#: src/admin/parts.js:177
+#: src/admin/parts.js:178
 msgid "unklar"
 msgstr "unclear"
 
-#: src/admin/parts.js:207
+#: src/admin/parts.js:208
 msgid "Auf keiner Seite gefunden"
 msgstr "Not found on any page"
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:225
+#: src/admin/parts.js:226
 #, js-format
 msgid "und %d weitere"
 msgstr "and %d more"
 
-#: src/admin/parts.js:247
+#: src/admin/parts.js:248
 msgid "Von engenty, den Machern dieses Plugins"
 msgstr "From engenty, the makers of this plugin"
 
-#: src/admin/parts.js:253
+#: src/admin/parts.js:254
 msgid "engenty wizards: geführte Abläufe für deine Besucher"
 msgstr "engenty wizards: guided flows for your visitors"
 
-#: src/admin/parts.js:259
+#: src/admin/parts.js:260
 msgid "Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert."
 msgstr "Enquiries, quotes, appointments – step by step on your site, built with AI instead of code."
 
-#: src/admin/parts.js:272
+#: src/admin/parts.js:273
 msgid "Plugin ansehen"
 msgstr "View plugin"
 
@@ -1310,3 +1310,7 @@ msgstr "AI label (AI Act)"
 #: includes/class-media.php:168
 msgid "AI Act, Artikel 50: Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen."
 msgstr "AI Act, Article 50: the label is required when real or plausible people, places or events look real. Ordinary photo editing needs none."
+
+#: src/admin/parts.js:23
+msgid "ACF-Feld"
+msgstr "ACF field"

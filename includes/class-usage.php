@@ -22,9 +22,10 @@ class AI_Act_Labels_Usage {
 	/** Places where the label comes by itself: WordPress prints these images through its own functions. */
 	const AUTO = array( 'featured', 'image', 'gallery', 'cover', 'media-text', 'video', 'audio', 'logo', 'icon', 'shop' );
 
-	/** Posts per step, files per step. */
+	/** Posts and files per chunk; a step takes chunks until its time is up, so big sites need fewer requests. */
 	const POSTS_PER_STEP = 40;
 	const FILES_PER_STEP = 25;
+	const SECONDS        = 2.5;
 
 	/**
 	 * One step of the check.
@@ -46,21 +47,27 @@ class AI_Act_Labels_Usage {
 			);
 		}
 		if ( 'posts' === $run['phase'] ) {
-			$batch = array_slice( $run['posts'], $run['done'], self::POSTS_PER_STEP );
-			foreach ( $batch as $post_id ) {
-				$post = get_post( $post_id );
-				if ( $post ) {
-					foreach ( self::in_post( $post ) as $attachment_id => $contexts ) {
-						foreach ( $contexts as $context ) {
-							$run['map'][ $attachment_id ][] = array(
-								'p' => $post->ID,
-								'c' => $context,
-							);
+			$start = microtime( true );
+			$total = count( $run['posts'] );
+			do {
+				$batch = array_slice( $run['posts'], $run['done'], self::POSTS_PER_STEP );
+				// One query for the meta of the whole chunk: featured images, ACF fields, builders.
+				update_meta_cache( 'post', $batch );
+				foreach ( $batch as $post_id ) {
+					$post = get_post( $post_id );
+					if ( $post ) {
+						foreach ( self::in_post( $post ) as $attachment_id => $contexts ) {
+							foreach ( $contexts as $context ) {
+								$run['map'][ $attachment_id ][] = array(
+									'p' => $post->ID,
+									'c' => $context,
+								);
+							}
 						}
 					}
 				}
-			}
-			$run['done'] += count( $batch );
+				$run['done'] += count( $batch );
+			} while ( $batch && $run['done'] < $total && microtime( true ) - $start < self::SECONDS );
 			if ( $run['done'] >= count( $run['posts'] ) ) {
 				foreach ( self::site_wide() as $attachment_id => $contexts ) {
 					foreach ( $contexts as $context ) {
@@ -78,15 +85,20 @@ class AI_Act_Labels_Usage {
 			return self::progress( $run );
 		}
 		if ( 'files' === $run['phase'] ) {
-			$batch = array_slice( $run['files'], $run['done'], self::FILES_PER_STEP );
 			$auto  = AI_Act_Labels::settings()['auto'];
-			foreach ( $batch as $attachment_id ) {
-				$signals = AI_Act_Labels_Detect::attachment( $attachment_id );
-				if ( $auto && 'strong' === $signals['strength'] && '' === AI_Act_Labels::get( $attachment_id ) ) {
-					AI_Act_Labels::set( $attachment_id, $signals['kind'], 'metadata', $signals['tool'] ? array( 'tool' => $signals['tool'] ) : array() );
+			$start = microtime( true );
+			$total = count( $run['files'] );
+			do {
+				$batch = array_slice( $run['files'], $run['done'], self::FILES_PER_STEP );
+				update_meta_cache( 'post', $batch );
+				foreach ( $batch as $attachment_id ) {
+					$signals = AI_Act_Labels_Detect::attachment( $attachment_id );
+					if ( $auto && 'strong' === $signals['strength'] && '' === AI_Act_Labels::get( $attachment_id ) ) {
+						AI_Act_Labels::set( $attachment_id, $signals['kind'], 'metadata', $signals['tool'] ? array( 'tool' => $signals['tool'] ) : array() );
+					}
 				}
-			}
-			$run['done'] += count( $batch );
+				$run['done'] += count( $batch );
+			} while ( $batch && $run['done'] < $total && microtime( true ) - $start < self::SECONDS );
 			if ( $run['done'] >= count( $run['files'] ) ) {
 				self::finish( $run );
 				$run['phase'] = 'done';
@@ -244,6 +256,11 @@ class AI_Act_Labels_Usage {
 				}
 			}
 		}
+		foreach ( self::in_acf( $post->ID ) as $id ) {
+			if ( ! isset( $found[ $id ] ) ) {
+				$add( $id, 'acf' );
+			}
+		}
 		$gallery = (string) get_post_meta( $post->ID, '_product_image_gallery', true );
 		foreach ( wp_parse_id_list( $gallery ) as $id ) {
 			$add( $id, 'shop' );
@@ -251,10 +268,47 @@ class AI_Act_Labels_Usage {
 		/**
 		 * Where a post uses media, for places this plugin does not know (fields of a theme, other builders).
 		 *
-		 * @param array   $found Attachment ID => list of contexts (featured, image, gallery, cover, media-text, video, audio, url, builder, shop).
+		 * @param array   $found Attachment ID => list of contexts (featured, image, gallery, cover, media-text, video, audio, url, acf, builder, shop).
 		 * @param WP_Post $post  The post.
 		 */
 		return (array) apply_filters( 'ai_act_labels_usage', $found, $post );
+	}
+
+	/**
+	 * Media in Advanced Custom Fields – image, file and gallery fields, also inside flexible content,
+	 * repeaters and groups. Read from the post's meta (ACF keeps the field key beside each value), so
+	 * no field is loaded through ACF itself.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return int[] Attachment IDs.
+	 */
+	private static function in_acf( $post_id ) {
+		if ( ! function_exists( 'acf_get_field' ) ) {
+			return array();
+		}
+		static $types = array();
+		$meta         = get_post_meta( $post_id );
+		$ids          = array();
+		foreach ( $meta as $key => $values ) {
+			$ref = $meta[ '_' . $key ][0] ?? '';
+			if ( '_' === $key[0] || ! is_string( $ref ) || ! str_starts_with( $ref, 'field_' ) ) {
+				continue;
+			}
+			if ( ! isset( $types[ $ref ] ) ) {
+				$field         = acf_get_field( $ref );
+				$types[ $ref ] = is_array( $field ) ? (string) $field['type'] : '';
+			}
+			if ( ! in_array( $types[ $ref ], array( 'image', 'file', 'gallery' ), true ) ) {
+				continue;
+			}
+			$value = maybe_unserialize( $values[0] ?? '' );
+			foreach ( (array) $value as $id ) {
+				if ( is_numeric( $id ) && (int) $id > 0 ) {
+					$ids[] = (int) $id;
+				}
+			}
+		}
+		return array_values( array_unique( $ids ) );
 	}
 
 	/**

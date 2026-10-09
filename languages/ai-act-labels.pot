@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T08:15:58+00:00\n"
+"POT-Creation-Date: 2026-10-09T09:06:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ai-act-labels\n"
@@ -44,7 +44,7 @@ msgstr ""
 #: includes/class-media.php:125
 #: includes/class-media.php:505
 #: src/admin/index.js:54
-#: src/admin/parts.js:113
+#: src/admin/parts.js:114
 msgid "KI-Kennzeichnung"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgid "KI-Kennzeichnung lädt …"
 msgstr ""
 
 #: includes/class-admin.php:128
-#: src/admin/parts.js:267
+#: src/admin/parts.js:268
 msgid "Öffnen"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgid "KI-Kennzeichnung (AI Act)"
 msgstr ""
 
 #: includes/class-media.php:136
-#: src/admin/parts.js:128
+#: src/admin/parts.js:129
 msgid "Vorschlag"
 msgstr ""
 
@@ -393,22 +393,22 @@ msgstr ""
 msgid "Dafür braucht WordPress einen KI-Anbieter (Einstellungen › Konnektoren)."
 msgstr ""
 
-#: includes/class-usage.php:402
-#: includes/class-usage.php:428
+#: includes/class-usage.php:456
+#: includes/class-usage.php:482
 msgid "Website"
 msgstr ""
 
-#: includes/class-usage.php:422
+#: includes/class-usage.php:476
 msgid "Logo der Website"
 msgstr ""
 
-#: includes/class-usage.php:424
-#: src/admin/parts.js:25
+#: includes/class-usage.php:478
+#: src/admin/parts.js:26
 msgid "Website-Icon"
 msgstr ""
 
-#: includes/class-usage.php:426
-#: src/admin/parts.js:26
+#: includes/class-usage.php:480
+#: src/admin/parts.js:27
 msgid "Kopfbild"
 msgstr ""
 
@@ -1023,52 +1023,56 @@ msgid "Page Builder"
 msgstr ""
 
 #: src/admin/parts.js:23
-msgid "Produktgalerie"
+msgid "ACF-Feld"
 msgstr ""
 
 #: src/admin/parts.js:24
+msgid "Produktgalerie"
+msgstr ""
+
+#: src/admin/parts.js:25
 msgid "Logo"
 msgstr ""
 
-#: src/admin/parts.js:174
+#: src/admin/parts.js:175
 msgid "Hinweis Pflicht"
 msgstr ""
 
-#: src/admin/parts.js:175
+#: src/admin/parts.js:176
 msgid "Hinweis freiwillig"
 msgstr ""
 
-#: src/admin/parts.js:176
+#: src/admin/parts.js:177
 msgid "kein Hinweis nötig"
 msgstr ""
 
-#: src/admin/parts.js:177
+#: src/admin/parts.js:178
 msgid "unklar"
 msgstr ""
 
-#: src/admin/parts.js:207
+#: src/admin/parts.js:208
 msgid "Auf keiner Seite gefunden"
 msgstr ""
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:225
+#: src/admin/parts.js:226
 #, js-format
 msgid "und %d weitere"
 msgstr ""
 
-#: src/admin/parts.js:247
+#: src/admin/parts.js:248
 msgid "Von engenty, den Machern dieses Plugins"
 msgstr ""
 
-#: src/admin/parts.js:253
+#: src/admin/parts.js:254
 msgid "engenty wizards: geführte Abläufe für deine Besucher"
 msgstr ""
 
-#: src/admin/parts.js:259
+#: src/admin/parts.js:260
 msgid "Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert."
 msgstr ""
 
-#: src/admin/parts.js:272
+#: src/admin/parts.js:273
 msgid "Plugin ansehen"
 msgstr ""
 
