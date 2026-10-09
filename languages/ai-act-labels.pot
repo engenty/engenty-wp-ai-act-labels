@@ -1,0 +1,1325 @@
+# Copyright (C) 2026 engenty
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AI Act Labels 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ai-act-labels\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-09T08:08:28+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ai-act-labels\n"
+
+#. Plugin Name of the plugin
+#: ai-act-labels.php
+msgid "AI Act Labels"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: ai-act-labels.php
+msgid "https://engenty.ai/ai-act-labels"
+msgstr ""
+
+#. Description of the plugin
+#: ai-act-labels.php
+msgid "Marks AI-generated and AI-modified media as the EU AI Act asks – right in the media library, with the EU's official icons on the site, and an assistant that finds what needs a label."
+msgstr ""
+
+#. Author of the plugin
+#: ai-act-labels.php
+msgid "engenty"
+msgstr ""
+
+#. Author URI of the plugin
+#: ai-act-labels.php
+msgid "https://engenty.ai"
+msgstr ""
+
+#: includes/class-admin.php:49
+#: includes/class-admin.php:50
+#: includes/class-media.php:92
+#: includes/class-media.php:154
+#: includes/class-media.php:168
+#: includes/class-media.php:543
+#: src/admin/index.js:54
+#: src/admin/parts.js:113
+msgid "KI-Kennzeichnung"
+msgstr ""
+
+#: includes/class-admin.php:67
+#: src/admin/index.js:101
+msgid "KI-Kennzeichnung lädt …"
+msgstr ""
+
+#: includes/class-admin.php:128
+#: src/admin/parts.js:267
+msgid "Öffnen"
+msgstr ""
+
+#: includes/class-assistant.php:134
+msgid "Der Assistent braucht WordPress 7.0 oder neuer."
+msgstr ""
+
+#: includes/class-assistant.php:168
+msgid "Die Antwort war kein JSON. Versuch es noch einmal."
+msgstr ""
+
+#: includes/class-assistant.php:278
+#: includes/class-rest.php:163
+msgid "Diese Datei gibt es nicht."
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:277
+#, php-format
+msgid "XMP nennt %s"
+msgstr ""
+
+#: includes/class-detect.php:295
+msgid "IPTC: mit KI erzeugt"
+msgstr ""
+
+#: includes/class-detect.php:297
+msgid "IPTC: Foto mit KI-Teilen"
+msgstr ""
+
+#: includes/class-detect.php:299
+msgid "IPTC: mit KI verbessert (geringfügig)"
+msgstr ""
+
+#. translators: %s: IPTC code like digitalCapture
+#: includes/class-detect.php:302
+#, php-format
+msgid "IPTC: ohne KI (%s)"
+msgstr ""
+
+#: includes/class-detect.php:326
+msgid "Content Credentials (C2PA): mit KI verändert"
+msgstr ""
+
+#: includes/class-detect.php:326
+msgid "Content Credentials (C2PA): mit KI erzeugt"
+msgstr ""
+
+#: includes/class-detect.php:349
+msgid "Content Credentials (C2PA): Kamera-Aufnahme"
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:351
+#, php-format
+msgid "Content Credentials (C2PA) von %s"
+msgstr ""
+
+#: includes/class-detect.php:352
+msgid "Content Credentials (C2PA) vorhanden"
+msgstr ""
+
+#: includes/class-detect.php:407
+#: includes/class-detect.php:458
+msgid "Generierungsdaten von Stable Diffusion"
+msgstr ""
+
+#: includes/class-detect.php:410
+msgid "Generierungsdaten von ComfyUI"
+msgstr ""
+
+#: includes/class-detect.php:413
+msgid "Generierungsdaten von InvokeAI"
+msgstr ""
+
+#: includes/class-detect.php:416
+msgid "Generierungsdaten von NovelAI"
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:428
+#, php-format
+msgid "PNG-Text nennt %s"
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:471
+#, php-format
+msgid "EXIF nennt %s"
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:494
+#, php-format
+msgid "Tags nennen %s"
+msgstr ""
+
+#. translators: %s: tool name
+#: includes/class-detect.php:518
+#, php-format
+msgid "Dateiname wie von %s"
+msgstr ""
+
+#: includes/class-detect.php:519
+msgid "Dateiname deutet auf KI"
+msgstr ""
+
+#: includes/class-labels.php:267
+#: includes/class-media.php:67
+#: includes/class-media.php:364
+#: includes/class-rest.php:66
+#: src/admin/Knowledge.js:286
+#: src/admin/Look.js:382
+#: src/admin/parts.js:7
+msgid "Mit KI verändert"
+msgstr ""
+
+#: includes/class-labels.php:269
+#: includes/class-media.php:66
+#: includes/class-media.php:363
+#: includes/class-rest.php:65
+#: src/admin/Knowledge.js:290
+#: src/admin/Look.js:96
+#: src/admin/Look.js:373
+#: src/admin/parts.js:6
+msgid "KI-generiert"
+msgstr ""
+
+#: includes/class-labels.php:287
+#: includes/class-rest.php:67
+#: src/admin/Look.js:135
+msgid "Dieses Bild wurde mit KI erzeugt."
+msgstr ""
+
+#: includes/class-labels.php:288
+msgid "Dieses Video wurde mit KI erzeugt."
+msgstr ""
+
+#: includes/class-labels.php:289
+msgid "Diese Aufnahme wurde mit KI erzeugt."
+msgstr ""
+
+#: includes/class-labels.php:290
+msgid "Dieser Inhalt wurde mit KI erzeugt."
+msgstr ""
+
+#: includes/class-labels.php:293
+#: includes/class-rest.php:68
+#: src/admin/Look.js:130
+msgid "Dieses Bild wurde mit KI verändert."
+msgstr ""
+
+#: includes/class-labels.php:294
+msgid "Dieses Video wurde mit KI verändert."
+msgstr ""
+
+#: includes/class-labels.php:295
+msgid "Diese Aufnahme wurde mit KI verändert."
+msgstr ""
+
+#: includes/class-labels.php:296
+msgid "Dieser Inhalt wurde mit KI verändert."
+msgstr ""
+
+#: includes/class-labels.php:315
+msgid "Dieses Bild wurde mit Hilfe von KI erstellt oder bearbeitet."
+msgstr ""
+
+#. translators: %s: the AI tool, e.g. Midjourney
+#: includes/class-labels.php:324
+#, php-format
+msgid "Werkzeug: %s."
+msgstr ""
+
+#: includes/class-media.php:65
+msgid "Noch nicht entschieden"
+msgstr ""
+
+#: includes/class-media.php:68
+#: includes/class-media.php:368
+#: src/admin/parts.js:8
+#: src/admin/Review.js:35
+msgid "Kein Hinweis nötig"
+msgstr ""
+
+#: includes/class-media.php:100
+#: includes/class-media.php:197
+#: src/admin/Review.js:374
+msgid "KI-Werkzeug"
+msgstr ""
+
+#: includes/class-media.php:102
+#: includes/class-media.php:199
+msgid "optional, z. B. Midjourney"
+msgstr ""
+
+#: includes/class-media.php:105
+#: includes/class-media.php:200
+#: src/admin/Review.js:391
+msgid "Eigener Hinweis"
+msgstr ""
+
+#: includes/class-media.php:126
+#: includes/class-media.php:185
+msgid "In der Datei:"
+msgstr ""
+
+#: includes/class-media.php:130
+#: includes/class-media.php:189
+msgid "Assistent:"
+msgstr ""
+
+#. translators: %s: KI-generiert or Mit KI verändert
+#: includes/class-media.php:134
+#, php-format
+msgid "Vorschlag: %s."
+msgstr ""
+
+#: includes/class-media.php:137
+#: includes/class-media.php:192
+msgid "Aus der ersten Version im Theme übernommen."
+msgstr ""
+
+#: includes/class-media.php:140
+msgid "Pflicht, wenn echte Personen, Orte oder Ereignisse echt wirken."
+msgstr ""
+
+#: includes/class-media.php:178
+#: src/admin/parts.js:128
+msgid "Vorschlag"
+msgstr ""
+
+#: includes/class-media.php:203
+msgid "Leer: der Standard. Das Werkzeug steht dann im Hinweis."
+msgstr ""
+
+#: includes/class-media.php:207
+msgid "Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen."
+msgstr ""
+
+#: includes/class-media.php:209
+msgid "Alle Medien prüfen →"
+msgstr ""
+
+#: includes/class-media.php:322
+#: includes/class-media.php:325
+msgid "KI"
+msgstr ""
+
+#. translators: %s: KI-generiert or Mit KI verändert
+#: includes/class-media.php:348
+#: src/media/index.js:35
+#, php-format,js-format
+msgid "Vorschlag: %s"
+msgstr ""
+
+#: includes/class-media.php:361
+msgid "KI: alle"
+msgstr ""
+
+#: includes/class-media.php:362
+#: src/admin/Review.js:34
+msgid "Gekennzeichnet"
+msgstr ""
+
+#: includes/class-media.php:365
+#: src/admin/Review.js:32
+#: src/admin/Review.js:134
+msgid "Vorschläge"
+msgstr ""
+
+#: includes/class-media.php:366
+#: src/admin/Review.js:33
+msgid "Verwendet, nicht entschieden"
+msgstr ""
+
+#: includes/class-media.php:367
+#: src/admin/parts.js:9
+msgid "Nicht entschieden"
+msgstr ""
+
+#: includes/class-media.php:383
+msgid "Nach KI-Kennzeichnung filtern"
+msgstr ""
+
+#: includes/class-media.php:422
+msgid "Als KI-generiert kennzeichnen"
+msgstr ""
+
+#: includes/class-media.php:423
+msgid "Als mit KI verändert kennzeichnen"
+msgstr ""
+
+#: includes/class-media.php:424
+msgid "KI: kein Hinweis nötig"
+msgstr ""
+
+#: includes/class-media.php:425
+msgid "KI-Kennzeichnung entfernen"
+msgstr ""
+
+#. translators: %d: number of files
+#: includes/class-media.php:468
+#, php-format
+msgid "Bei %d Datei die KI-Kennzeichnung entfernt."
+msgid_plural "Bei %d Dateien die KI-Kennzeichnung entfernt."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of files, 2: KI-generiert, Mit KI verändert or Kein Hinweis nötig
+#: includes/class-media.php:470
+#, php-format
+msgid "%1$d Datei: %2$s."
+msgid_plural "%1$d Dateien: %2$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-media.php:483
+msgid "KI-Kennzeichnung:"
+msgstr ""
+
+#. translators: %d: number of files
+#: includes/class-media.php:485
+#, php-format
+msgid "%d Datei trägt Spuren von KI und hat noch keine Entscheidung."
+msgid_plural "%d Dateien tragen Spuren von KI und haben noch keine Entscheidung."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-media.php:487
+msgid "Ansehen"
+msgstr ""
+
+#: includes/class-media.php:489
+msgid "Später"
+msgstr ""
+
+#: includes/class-rest.php:178
+msgid "Diese Kennzeichnung gibt es nicht."
+msgstr ""
+
+#: includes/class-rest.php:272
+msgid "Schreib eine Frage."
+msgstr ""
+
+#: includes/class-rest.php:275
+msgid "Dafür braucht WordPress einen KI-Anbieter (Einstellungen › Konnektoren)."
+msgstr ""
+
+#: includes/class-usage.php:402
+#: includes/class-usage.php:428
+msgid "Website"
+msgstr ""
+
+#: includes/class-usage.php:422
+msgid "Logo der Website"
+msgstr ""
+
+#: includes/class-usage.php:424
+#: src/admin/parts.js:25
+msgid "Website-Icon"
+msgstr ""
+
+#: includes/class-usage.php:426
+#: src/admin/parts.js:26
+msgid "Kopfbild"
+msgstr ""
+
+#: src/admin/api.js:28
+msgid "Das hat nicht geklappt."
+msgstr ""
+
+#: src/admin/Assistant.js:9
+msgid "eingerichtet"
+msgstr ""
+
+#: src/admin/Assistant.js:10
+msgid "API Key fehlt"
+msgstr ""
+
+#: src/admin/Assistant.js:11
+msgid "antwortet nicht"
+msgstr ""
+
+#: src/admin/Assistant.js:12
+msgid "Plugin fehlt"
+msgstr ""
+
+#: src/admin/Assistant.js:28
+msgid "Der Assistent braucht WordPress 7.0"
+msgstr ""
+
+#: src/admin/Assistant.js:34
+msgid "Ab 7.0 denkt der Assistent mit dem KI-Anbieter, den du unter Einstellungen › Konnektoren einrichtest. Kennzeichnen, prüfen und die Spuren in Dateien funktionieren schon jetzt."
+msgstr ""
+
+#: src/admin/Assistant.js:41
+msgid "WordPress aktualisieren"
+msgstr ""
+
+#: src/admin/Assistant.js:53
+msgid "Erst einen KI-Anbieter einrichten"
+msgstr ""
+
+#: src/admin/Assistant.js:57
+msgid "Der Assistent denkt mit dem Anbieter, den du in WordPress unter Einstellungen › Konnektoren einrichtest – dein API Key bleibt dort. Kennzeichnen, prüfen und die Spuren in Dateien funktionieren auch ohne."
+msgstr ""
+
+#: src/admin/Assistant.js:91
+msgid "Konnektoren öffnen"
+msgstr ""
+
+#: src/admin/Assistant.js:95
+msgid "Vercel AI Gateway installieren"
+msgstr ""
+
+#: src/admin/Assistant.js:104
+msgid "Ohne Vertrag bei einem Anbieter: Vercel AI Gateway gibt 5 $ im Monat gratis, keine Kreditkarte."
+msgstr ""
+
+#: src/admin/Assistant.js:146
+msgid "Wartet auf einen KI-Anbieter …"
+msgstr ""
+
+#: src/admin/Assistant.js:152
+msgid "Frage an den Assistenten"
+msgstr ""
+
+#: src/admin/Assistant.js:159
+msgid "Senden"
+msgstr ""
+
+#: src/admin/Assistant.js:191
+msgid "übernommen"
+msgstr ""
+
+#: src/admin/Assistant.js:195
+msgid "Übernehmen"
+msgstr ""
+
+#: src/admin/Assistant.js:269
+msgid "Welche Bilder muss ich kennzeichnen?"
+msgstr ""
+
+#: src/admin/Assistant.js:270
+msgid "Ist ein KI-Porträt im Team-Bereich ein Deepfake?"
+msgstr ""
+
+#: src/admin/Assistant.js:274
+msgid "Reicht ein Hinweis im Impressum?"
+msgstr ""
+
+#: src/admin/Assistant.js:284
+msgid "Assistent"
+msgstr ""
+
+#: src/admin/Assistant.js:286
+msgid "Was muss ich kennzeichnen?"
+msgstr ""
+
+#: src/admin/Assistant.js:288
+msgid "Der Assistent kennt den AI Act, die Spuren in deinen Dateien und wo sie verwendet werden. Er schlägt vor – du entscheidest."
+msgstr ""
+
+#: src/admin/Assistant.js:294
+msgid "z. B. „Welche Bilder auf der Startseite brauchen einen Hinweis?“"
+msgstr ""
+
+#. translators: %d: number of suggestions
+#: src/admin/Assistant.js:355
+#, js-format
+msgid "Alle %d übernehmen"
+msgstr ""
+
+#: src/admin/Assistant.js:370
+msgid "denkt …"
+msgstr ""
+
+#. translators: %s: provider and model
+#: src/admin/Assistant.js:380
+#, js-format
+msgid "Denkt mit %s"
+msgstr ""
+
+#: src/admin/index.js:12
+msgid "Prüfen"
+msgstr ""
+
+#: src/admin/index.js:13
+msgid "Darstellung"
+msgstr ""
+
+#: src/admin/index.js:14
+msgid "Wissen"
+msgstr ""
+
+#: src/admin/index.js:77
+msgid "Artikel 50 der KI-Verordnung (EU) 2024/1689"
+msgstr ""
+
+#: src/admin/index.js:84
+msgid "AI Act Art. 50 gilt seit 2. Aug. 2026"
+msgstr ""
+
+#: src/admin/index.js:90
+msgid "AI Act Art. 50"
+msgstr ""
+
+#: src/admin/index.js:94
+msgid "Mediathek"
+msgstr ""
+
+#: src/admin/Knowledge.js:9
+msgid "Fotorealistisches KI-„Teamfoto“, Kundenporträt, Testimonial"
+msgstr ""
+
+#: src/admin/Knowledge.js:17
+msgid "Echtes Foto, Hintergrund oder Person mit KI ersetzt oder ergänzt"
+msgstr ""
+
+#: src/admin/Knowledge.js:25
+msgid "KI-Produktfoto, das wie ein echtes Foto des Produkts wirkt"
+msgstr ""
+
+#: src/admin/Knowledge.js:33
+msgid "KI-Bild eines echten Gebäudes, Ortes oder Ereignisses"
+msgstr ""
+
+#: src/admin/Knowledge.js:41
+msgid "Erkennbare Illustration, Comic, 3D-Grafik, abstrakter Hintergrund"
+msgstr ""
+
+#: src/admin/Knowledge.js:49
+msgid "Echtes Foto, nur Farbe, Licht, Rauschen oder Ausschnitt mit KI-Werkzeug"
+msgstr ""
+
+#: src/admin/Knowledge.js:56
+msgid "Kamera- oder Stockfoto ohne KI"
+msgstr ""
+
+#: src/admin/Knowledge.js:60
+msgid "Pflicht"
+msgstr ""
+
+#: src/admin/Knowledge.js:61
+msgid "freiwillig"
+msgstr ""
+
+#: src/admin/Knowledge.js:62
+msgid "kein Hinweis"
+msgstr ""
+
+#: src/admin/Knowledge.js:67
+msgid "Fragen und Antworten zu Artikel 50 (EU-Kommission)"
+msgstr ""
+
+#: src/admin/Knowledge.js:74
+msgid "Verhaltenskodex zur Kennzeichnung KI-generierter Inhalte"
+msgstr ""
+
+#: src/admin/Knowledge.js:81
+msgid "Die EU-Icons zum Herunterladen"
+msgstr ""
+
+#: src/admin/Knowledge.js:85
+msgid "AI Act im Amtsblatt (Verordnung (EU) 2024/1689)"
+msgstr ""
+
+#: src/admin/Knowledge.js:92
+msgid "AI Act Service Desk"
+msgstr ""
+
+#: src/admin/Knowledge.js:109
+msgid "AI Act, Artikel 50"
+msgstr ""
+
+#: src/admin/Knowledge.js:112
+msgid "Seit 2. August 2026 muss sichtbar sein, was KI gemacht hat."
+msgstr ""
+
+#: src/admin/Knowledge.js:118
+msgid "Wer als Unternehmen Bilder, Videos oder Tonaufnahmen veröffentlicht, die echt wirken, aber mit KI erzeugt oder verändert sind, muss das kennzeichnen – sichtbar, spätestens beim ersten Blick darauf. Die Pflicht trifft dich als Betreiber der Website, nicht den Hersteller des KI-Werkzeugs."
+msgstr ""
+
+#: src/admin/Knowledge.js:136
+msgid "Kennzeichnen musst du"
+msgstr ""
+
+#: src/admin/Knowledge.js:139
+msgid "Deepfakes: Bilder, Videos, Audio mit KI, die echte oder plausible Personen, Dinge, Orte oder Ereignisse zeigen und echt wirken – auch eine erfundene, aber fotorealistische Person."
+msgstr ""
+
+#: src/admin/Knowledge.js:145
+msgid "KI-Texte, die die Öffentlichkeit über Themen von öffentlichem Interesse informieren – außer ein Mensch hat sie geprüft und verantwortet sie."
+msgstr ""
+
+#: src/admin/Knowledge.js:151
+msgid "Ob du täuschen wolltest, ist egal. Es zählt, was dein Publikum glaubt."
+msgstr ""
+
+#: src/admin/Knowledge.js:163
+msgid "Keinen Hinweis brauchen"
+msgstr ""
+
+#: src/admin/Knowledge.js:167
+msgid "Normale Bearbeitung: Ausschnitt, Licht, Farbe, Rauschen, Staub, Hochskalieren – auch mit KI-Werkzeugen."
+msgstr ""
+
+#: src/admin/Knowledge.js:173
+msgid "Offensichtlich künstliche Bilder (Illustration, Comic, Abstraktes): freiwillig, aber für das Vertrauen gut."
+msgstr ""
+
+#: src/admin/Knowledge.js:179
+msgid "Inhalte, die vor dem 2. August 2026 erzeugt wurden – rückwirkend gilt nichts."
+msgstr ""
+
+#: src/admin/Knowledge.js:185
+msgid "Kunst, Satire, Fiktion: ja, aber so, dass das Werk nicht leidet (z. B. in der Bildunterschrift)."
+msgstr ""
+
+#: src/admin/Knowledge.js:197
+msgid "So gehört der Hinweis hin"
+msgstr ""
+
+#: src/admin/Knowledge.js:201
+msgid "Auf oder direkt am Inhalt, ohne Klick erkennbar – nicht nur im Impressum."
+msgstr ""
+
+#: src/admin/Knowledge.js:207
+msgid "Klare Worte: „KI-generiert“, „Mit KI verändert“. Für Screenreader als Name des Icons, nie statt des Alt-Texts."
+msgstr ""
+
+#: src/admin/Knowledge.js:213
+msgid "Videos: die ganze Zeit in einer Ecke. Audio: beim Player und im Cover."
+msgstr ""
+
+#: src/admin/Knowledge.js:219
+msgid "Wasserzeichen oder Metadaten des KI-Werkzeugs zählen für dich nicht."
+msgstr ""
+
+#: src/admin/Knowledge.js:229
+msgid "Die Icons der EU"
+msgstr ""
+
+#: src/admin/Knowledge.js:230
+msgid "Seit Juni 2026 von der Kommission, frei verwendbar, ohne Namensnennung. Freiwillig – ein gleichwertiger Hinweis ist auch erlaubt."
+msgstr ""
+
+#: src/admin/Knowledge.js:238
+msgid "AI GENERATED"
+msgstr ""
+
+#: src/admin/Knowledge.js:240
+msgid "Ganz mit KI erzeugt, ohne menschlich gemachte Teile."
+msgstr ""
+
+#: src/admin/Knowledge.js:248
+msgid "AI MODIFIED"
+msgstr ""
+
+#: src/admin/Knowledge.js:250
+msgid "Echtes Foto, Video oder echte Aufnahme, teilweise mit KI verändert."
+msgstr ""
+
+#: src/admin/Knowledge.js:258
+msgid "AI"
+msgstr ""
+
+#: src/admin/Knowledge.js:260
+msgid "Das Basis-Icon: mit eigenem Text, mit zweiter Ebene oder wo wenig Platz ist."
+msgstr ""
+
+#: src/admin/Knowledge.js:269
+msgid "Typische Fälle"
+msgstr ""
+
+#: src/admin/Knowledge.js:273
+msgid "Datei"
+msgstr ""
+
+#: src/admin/Knowledge.js:274
+#: src/admin/Look.js:91
+msgid "Art"
+msgstr ""
+
+#: src/admin/Knowledge.js:275
+msgid "Hinweis"
+msgstr ""
+
+#: src/admin/Knowledge.js:310
+msgid "Woran das Plugin KI erkennt"
+msgstr ""
+
+#: src/admin/Knowledge.js:317
+msgid "Viele KI-Werkzeuge schreiben in die Datei, dass sie mit KI gemacht ist: Content Credentials (C2PA) von ChatGPT, Gemini, Firefly oder Photoshop, die IPTC-Angabe „trainedAlgorithmicMedia“, die Generierungsdaten von Stable Diffusion und ComfyUI. Das Plugin liest sie beim Hochladen und bei jeder Prüfung – auf deinem Server, nichts verlässt ihn."
+msgstr ""
+
+#: src/admin/Knowledge.js:323
+msgid "Fehlt eine Spur, heißt das nichts: Screenshots, Exporte und Bildoptimierer entfernen sie. Deshalb zeigt „Verwendet, nicht entschieden“ alles, was auf deiner Website zu sehen ist und noch keine Entscheidung hat. Nur du weißt sicher, wie ein Bild entstanden ist."
+msgstr ""
+
+#: src/admin/Knowledge.js:331
+msgid "Dieses Wissen als Skill"
+msgstr ""
+
+#: src/admin/Knowledge.js:335
+msgid "Der Assistent denkt mit einem Skill: eine Anleitung mit Quellen zum AI Act, im Plugin unter skills/eu-ai-act-labels. Dieselben Dateien kannst du jedem KI-Agenten geben, der Agent Skills liest – Claude, Cursor, Codex und andere."
+msgstr ""
+
+#: src/admin/Knowledge.js:347
+msgid "SKILL.md ansehen"
+msgstr ""
+
+#: src/admin/Knowledge.js:355
+msgid "Den Assistenten fragen"
+msgstr ""
+
+#: src/admin/Knowledge.js:366
+msgid "Quellen"
+msgstr ""
+
+#: src/admin/Knowledge.js:367
+msgid "Stand 9. Oktober 2026. Das ist eine Hilfe, keine Rechtsberatung."
+msgstr ""
+
+#: src/admin/Look.js:18
+msgid "EU-Icon je nach Art"
+msgstr ""
+
+#: src/admin/Look.js:19
+msgid "Rundes EU-Icon"
+msgstr ""
+
+#: src/admin/Look.js:20
+msgid "Rundes Icon mit Text"
+msgstr ""
+
+#: src/admin/Look.js:21
+msgid "Eigenes Icon"
+msgstr ""
+
+#: src/admin/Look.js:22
+msgid "Funkeln"
+msgstr ""
+
+#: src/admin/Look.js:26
+msgid "Schwarz"
+msgstr ""
+
+#: src/admin/Look.js:27
+msgid "Weiß"
+msgstr ""
+
+#: src/admin/Look.js:28
+msgid "Schwarz 50 %"
+msgstr ""
+
+#: src/admin/Look.js:29
+msgid "Weiß 50 %"
+msgstr ""
+
+#: src/admin/Look.js:30
+msgid "Nach Bild"
+msgstr ""
+
+#: src/admin/Look.js:34
+msgid "Oben links"
+msgstr ""
+
+#: src/admin/Look.js:35
+msgid "Oben rechts"
+msgstr ""
+
+#: src/admin/Look.js:36
+msgid "Unten links"
+msgstr ""
+
+#: src/admin/Look.js:37
+msgid "Unten rechts"
+msgstr ""
+
+#: src/admin/Look.js:87
+msgid "So sieht es auf der Website aus"
+msgstr ""
+
+#: src/admin/Look.js:100
+msgid "Verändert"
+msgstr ""
+
+#: src/admin/Look.js:125
+msgid "Unsere Werkstatt im Herbst"
+msgstr ""
+
+#: src/admin/Look.js:159
+msgid "Auf kleinen Bildern (unter 260 px) nimmt das Plugin das runde Icon statt des breiten."
+msgstr ""
+
+#: src/admin/Look.js:167
+msgid "Fahr mit der Maus übers Icon: die zweite Ebene zeigt den Hinweis. Screenreader lesen ihn als Namen des Icons – der Alt-Text des Bildes bleibt, wie er ist."
+msgstr ""
+
+#: src/admin/Look.js:207
+msgid "Eigenes Icon wählen"
+msgstr ""
+
+#: src/admin/Look.js:227
+msgid "Die Darstellung ändern Administratoren. Kennzeichnen kannst du trotzdem."
+msgstr ""
+
+#: src/admin/Look.js:235
+msgid "Icon"
+msgstr ""
+
+#: src/admin/Look.js:236
+msgid "Standard sind die Icons der EU-Kommission – frei verwendbar, ohne Namensnennung."
+msgstr ""
+
+#: src/admin/Look.js:288
+msgid "Anderes Icon wählen"
+msgstr ""
+
+#: src/admin/Look.js:293
+msgid "Ein eigenes Zeichen ist erlaubt, wenn es so deutlich ist wie das EU-Icon. Sicherer bleibt das EU-Icon."
+msgstr ""
+
+#: src/admin/Look.js:302
+#: src/admin/Look.js:305
+msgid "Farbe"
+msgstr ""
+
+#: src/admin/Look.js:313
+#: src/admin/Look.js:316
+msgid "Größe"
+msgstr ""
+
+#: src/admin/Look.js:326
+#: src/admin/Look.js:335
+msgid "Ecke"
+msgstr ""
+
+#: src/admin/Look.js:327
+msgid "Videos: immer oben, wo die Steuerung nicht ist."
+msgstr ""
+
+#: src/admin/Look.js:365
+msgid "Worte"
+msgstr ""
+
+#: src/admin/Look.js:366
+msgid "Leer lassen: der Standard in der Sprache der Website."
+msgstr ""
+
+#: src/admin/Look.js:391
+msgid "Hinweis bei KI-generiert"
+msgstr ""
+
+#: src/admin/Look.js:403
+msgid "Hinweis bei verändert"
+msgstr ""
+
+#: src/admin/Look.js:418
+msgid "Wo der Hinweis erscheint"
+msgstr ""
+
+#: src/admin/Look.js:424
+msgid "Bilder in Seiten und Beiträgen"
+msgstr ""
+
+#: src/admin/Look.js:428
+msgid "Blöcke, Galerien, Cover, klassischer Editor, HTML"
+msgstr ""
+
+#: src/admin/Look.js:435
+msgid "Beitragsbilder und Bilder des Themes"
+msgstr ""
+
+#: src/admin/Look.js:439
+msgid "alles, was über wp_get_attachment_image() kommt"
+msgstr ""
+
+#: src/admin/Look.js:446
+msgid "Videos"
+msgstr ""
+
+#: src/admin/Look.js:447
+msgid "Video-Block, Cover mit Video, [video]"
+msgstr ""
+
+#: src/admin/Look.js:454
+#: src/admin/parts.js:20
+msgid "Audio"
+msgstr ""
+
+#: src/admin/Look.js:455
+msgid "eine Zeile über dem Player"
+msgstr ""
+
+#: src/admin/Look.js:473
+#: src/admin/Look.js:484
+msgid "Hinweis an Bildunterschriften"
+msgstr ""
+
+#: src/admin/Look.js:477
+msgid "Nur wo schon eine steht – nie im Alt-Text."
+msgstr ""
+
+#: src/admin/Look.js:493
+#: src/admin/Look.js:504
+msgid "Zweite Ebene beim Überfahren"
+msgstr ""
+
+#: src/admin/Look.js:497
+msgid "Der ganze Hinweis, mit Werkzeug."
+msgstr ""
+
+#: src/admin/Look.js:515
+msgid "Beim Hochladen"
+msgstr ""
+
+#: src/admin/Look.js:518
+#: src/admin/Look.js:529
+msgid "Dateien auf Spuren von KI prüfen"
+msgstr ""
+
+#: src/admin/Look.js:522
+msgid "C2PA, IPTC, Generierungsdaten, Dateinamen – auf deinem Server."
+msgstr ""
+
+#: src/admin/Look.js:538
+#: src/admin/Look.js:549
+msgid "Eindeutige Spuren gleich übernehmen"
+msgstr ""
+
+#: src/admin/Look.js:542
+msgid "Sagt die Datei selbst, dass sie mit KI gemacht ist, wird sie gleich gekennzeichnet."
+msgstr ""
+
+#: src/admin/Look.js:558
+#: src/admin/Look.js:569
+msgid "Kennzeichnungen aus dem Theme übernehmen"
+msgstr ""
+
+#: src/admin/Look.js:562
+msgid "Die erste Version als Theme-Klasse (AiImageLabel) speicherte _ai_image_label."
+msgstr ""
+
+#: src/admin/parts.js:14
+msgid "Beitragsbild"
+msgstr ""
+
+#: src/admin/parts.js:15
+msgid "Bild"
+msgstr ""
+
+#: src/admin/parts.js:16
+msgid "Galerie"
+msgstr ""
+
+#: src/admin/parts.js:17
+msgid "Cover"
+msgstr ""
+
+#: src/admin/parts.js:18
+msgid "Medien und Text"
+msgstr ""
+
+#: src/admin/parts.js:19
+msgid "Video"
+msgstr ""
+
+#: src/admin/parts.js:21
+msgid "nur als Adresse"
+msgstr ""
+
+#: src/admin/parts.js:22
+msgid "Page Builder"
+msgstr ""
+
+#: src/admin/parts.js:23
+msgid "Produktgalerie"
+msgstr ""
+
+#: src/admin/parts.js:24
+msgid "Logo"
+msgstr ""
+
+#: src/admin/parts.js:174
+msgid "Hinweis Pflicht"
+msgstr ""
+
+#: src/admin/parts.js:175
+msgid "Hinweis freiwillig"
+msgstr ""
+
+#: src/admin/parts.js:176
+msgid "kein Hinweis nötig"
+msgstr ""
+
+#: src/admin/parts.js:177
+msgid "unklar"
+msgstr ""
+
+#: src/admin/parts.js:207
+msgid "Auf keiner Seite gefunden"
+msgstr ""
+
+#. translators: %d: number of further places
+#: src/admin/parts.js:225
+#, js-format
+msgid "und %d weitere"
+msgstr ""
+
+#: src/admin/parts.js:247
+msgid "Von engenty, den Machern dieses Plugins"
+msgstr ""
+
+#: src/admin/parts.js:253
+msgid "engenty wizards: geführte Abläufe für deine Besucher"
+msgstr ""
+
+#: src/admin/parts.js:259
+msgid "Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert."
+msgstr ""
+
+#: src/admin/parts.js:272
+msgid "Plugin ansehen"
+msgstr ""
+
+#: src/admin/Review.js:36
+msgid "Alle"
+msgstr ""
+
+#: src/admin/Review.js:41
+msgid "Keine Datei trägt Spuren von KI ohne Entscheidung. Spuren fehlen oft – geh auch „Verwendet, nicht entschieden“ durch."
+msgstr ""
+
+#: src/admin/Review.js:45
+msgid "Alles, was auf deiner Website verwendet wird, hat eine Entscheidung. Oder die Website wurde noch nicht geprüft."
+msgstr ""
+
+#: src/admin/Review.js:49
+msgid "Noch keine Datei gekennzeichnet."
+msgstr ""
+
+#: src/admin/Review.js:50
+msgid "Noch keine Datei ohne Hinweis entschieden."
+msgstr ""
+
+#: src/admin/Review.js:51
+msgid "Keine Bilder, Videos oder Aufnahmen."
+msgstr ""
+
+#: src/admin/Review.js:97
+msgid "Liest deine Seiten und Beiträge …"
+msgstr ""
+
+#: src/admin/Review.js:101
+msgid "Liest die Spuren in deinen Dateien …"
+msgstr ""
+
+#: src/admin/Review.js:105
+msgid "Fertig."
+msgstr ""
+
+#: src/admin/Review.js:117
+msgid "gekennzeichnet"
+msgstr ""
+
+#. translators: 1: generated count, 2: modified count
+#: src/admin/Review.js:121
+#, js-format
+msgid "%1$d KI-generiert · %2$d verändert"
+msgstr ""
+
+#: src/admin/Review.js:136
+msgid "Spuren von KI, keine Entscheidung"
+msgstr ""
+
+#: src/admin/Review.js:146
+msgid "verwendet, nicht entschieden"
+msgstr ""
+
+#: src/admin/Review.js:151
+msgid "auf deiner Website zu sehen"
+msgstr ""
+
+#. translators: 1: date, 2: pages, 3: files in use
+#: src/admin/Review.js:179
+#, js-format
+msgid "Zuletzt geprüft %1$s: %2$d Seiten und Beiträge, %3$d Dateien in Verwendung."
+msgstr ""
+
+#: src/admin/Review.js:187
+msgid "Noch nicht geprüft: wo deine Medien verwendet werden und welche Spuren von KI sie tragen."
+msgstr ""
+
+#: src/admin/Review.js:198
+msgid "Neu prüfen"
+msgstr ""
+
+#: src/admin/Review.js:199
+msgid "Website prüfen"
+msgstr ""
+
+#: src/admin/Review.js:263
+#: src/admin/Review.js:421
+msgid "Neu einschätzen"
+msgstr ""
+
+#: src/admin/Review.js:264
+#: src/admin/Review.js:422
+msgid "Einschätzen"
+msgstr ""
+
+#: src/admin/Review.js:274
+msgid "Hinweis sichtbar"
+msgstr ""
+
+#: src/admin/Review.js:275
+msgid "Bild ohne Hinweis"
+msgstr ""
+
+#: src/admin/Review.js:276
+msgid "nicht auf der Seite"
+msgstr ""
+
+#: src/admin/Review.js:277
+msgid "Seite nicht erreichbar"
+msgstr ""
+
+#: src/admin/Review.js:322
+msgid "In der Mediathek öffnen"
+msgstr ""
+
+#: src/admin/Review.js:351
+msgid "Entscheidung"
+msgstr ""
+
+#: src/admin/Review.js:359
+msgid "Auf der Website steht:"
+msgstr ""
+
+#: src/admin/Review.js:365
+msgid "Aus der ersten Version im Theme übernommen. Wähl eine Art, damit die Entscheidung hier gespeichert ist."
+msgstr ""
+
+#: src/admin/Review.js:375
+msgid "Optional, steht dann im Hinweis."
+msgstr ""
+
+#: src/admin/Review.js:385
+msgid "z. B. Midjourney"
+msgstr ""
+
+#: src/admin/Review.js:392
+msgid "Leer: der Standard der Art."
+msgstr ""
+
+#: src/admin/Review.js:411
+msgid "Einschätzung des Assistenten"
+msgstr ""
+
+#: src/admin/Review.js:438
+msgid "Deepfake"
+msgstr ""
+
+#: src/admin/Review.js:443
+msgid "mit Blick aufs Bild"
+msgstr ""
+
+#: src/admin/Review.js:447
+msgid "ohne Blick aufs Bild"
+msgstr ""
+
+#: src/admin/Review.js:459
+msgid "Der Assistent sieht sich das Bild, seine Spuren und die Seiten an, auf denen es steht, und sagt, ob ein Hinweis Pflicht ist."
+msgstr ""
+
+#: src/admin/Review.js:467
+msgid "Spuren in der Datei"
+msgstr ""
+
+#: src/admin/Review.js:472
+msgid "Keine Spuren gefunden. Das heißt nicht, dass keine KI im Spiel war – nach einem Screenshot oder Export fehlen sie meist."
+msgstr ""
+
+#: src/admin/Review.js:481
+msgid "Wo es verwendet wird"
+msgstr ""
+
+#: src/admin/Review.js:490
+msgid "Auf der Website prüfen"
+msgstr ""
+
+#: src/admin/Review.js:528
+msgid "Hinweis prüfen"
+msgstr ""
+
+#: src/admin/Review.js:540
+msgid "Auf keiner Seite gefunden. Prüf die Website, wenn du sie zuletzt geändert hast."
+msgstr ""
+
+#: src/admin/Review.js:548
+msgid "„Hinweis prüfen“: dort steht die Datei nur als Adresse oder in einem Page Builder. „Auf der Website prüfen“ zeigt, ob der Hinweis trotzdem erscheint; sonst gehört ai_act_labels_wrap() ins Theme."
+msgstr ""
+
+#: src/admin/Review.js:697
+msgid "Medien"
+msgstr ""
+
+#: src/admin/Review.js:698
+msgid "Entscheide pro Datei: KI-generiert, mit KI verändert oder kein Hinweis nötig. Pflicht ist der Hinweis, wenn etwas echt wirkt, das es so nicht gab."
+msgstr ""
+
+#: src/admin/Review.js:708
+msgid "Suchen"
+msgstr ""
+
+#: src/admin/Review.js:709
+msgid "Medien suchen"
+msgstr ""
+
+#. translators: 1: done, 2: total
+#: src/admin/Review.js:756
+#, js-format
+msgid "Schätzt ein … %1$d von %2$d"
+msgstr ""
+
+#. translators: %d: number of files
+#: src/admin/Review.js:765
+#, js-format
+msgid "%d Datei einschätzen lassen"
+msgid_plural "%d Dateien einschätzen lassen"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/admin/Review.js:778
+msgid "Lädt …"
+msgstr ""
+
+#. translators: 1: page, 2: pages
+#: src/admin/Review.js:812
+#, js-format
+msgid "Seite %1$d von %2$d"
+msgstr ""
+
+#: src/admin/Review.js:827
+msgid "Auch in der Mediathek: Filter „KI“, Spalte und Sammelaktionen in der Listenansicht."
+msgstr ""
+
+#: src/admin/Review.js:832
+msgid "Mediathek öffnen"
+msgstr ""
+
+#: src/admin/ui.js:324
+#: src/admin/ui.js:337
+msgid "Schließen"
+msgstr ""
+
+#: src/admin/ui.js:383
+msgid "wie empfohlen"
+msgstr ""
+
+#: src/admin/ui.js:386
+msgid "angepasst"
+msgstr ""

@@ -1,0 +1,47 @@
+/* The icon on labelled tiles: the round EU icon; changed files in the white variant. */
+.attachment .ai-act-tile { position: absolute; left: 6px; top: 6px; z-index: 3; width: 24px; height: 24px; pointer-events: none; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
+.attachment .ai-act-tile svg { display: block; width: 100%; height: 100%; }
+.attachment .ai-act-tile.is-modified svg path:first-child { fill: #fff; }
+.attachment .ai-act-tile.is-modified svg path:last-child { fill: #1d1d1b; }
+.attachment .ai-act-tile.is-suggest { border-radius: 50%; outline: 2px dashed #dba617; outline-offset: 1px; opacity: .8; filter: none; }
+.attachment .ai-act-tile.is-suggest svg path:first-child { fill: #dba617; }
+
+/* The list's column. */
+.fixed .column-ai_act { width: 120px; }
+.ai-act-cell { display: inline-flex; align-items: center; font-size: 12px; }
+.ai-act-cell svg { display: block; height: 20px; width: auto; }
+.ai-act-cell.is-none { color: #50575e; }
+.ai-act-cell.is-suggest { color: #8a5a00; }
+.ai-act-cell.is-open { color: #a7aaad; }
+
+/* The fields in the details. */
+.compat-field-ai_act_label select { width: 100%; max-width: 100%; }
+.compat-field-ai_act_label .help, .compat-field-ai_act_tool .help, .compat-field-ai_act_notice .help { line-height: 1.45; }
+
+/* The button beside „Datei hinzufügen“. */
+.ai-act-title-action { display: inline-flex !important; align-items: center; gap: 6px; }
+.ai-act-title-action svg { width: 16px; height: 16px; }
+.ai-act-notice__later { margin-left: 6px; }
+
+/* The box on the edit screen. */
+.ai-act-box fieldset { display: flex; flex-direction: column; gap: 2px; margin: 0 0 10px; }
+.ai-act-box__opt { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 4px; cursor: pointer; }
+.ai-act-box__opt:hover { background: #f6f7f7; }
+.ai-act-box__opt:has(input:checked) { background: #f0f6fc; box-shadow: inset 0 0 0 1px #c5d9ed; }
+.ai-act-box__opt input { margin: 0 !important; }
+.ai-act-box__opt svg { width: 18px; height: 18px; flex: none; }
+.ai-act-box__opt.is-modified svg path:first-child { fill: #fff; stroke: #1d1d1b; stroke-width: 24; }
+.ai-act-box__opt.is-modified svg path:last-child { fill: #1d1d1b; }
+.ai-act-box__opt span { flex: 1; }
+.ai-act-box__sug { font-style: normal; font-size: 11px; font-weight: 600; color: #8a5a00; background: #fcf0d4; border-radius: 999px; padding: 1px 7px; }
+.ai-act-box__note { margin: 0 0 8px; font-size: 12px; color: #50575e; }
+.ai-act-box__more { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; padding-top: 10px; border-top: 1px solid #f0f0f1; }
+.ai-act-box__more label { font-weight: 600; margin-top: 4px; }
+.ai-act-box__more .description { margin: 2px 0 0; }
+.ai-act-box:not(:has(input[value="generated"]:checked, input[value="modified"]:checked)) .ai-act-box__more { display: none; }
+.ai-act-box__rule { margin: 8px 0 !important; }
+.ai-act-box__link { margin: 0; }
+
+/* The fields in the modal: the select as wide as the inputs, the help in one quiet line. */
+.compat-field-ai_act_label .help { font-size: 12px; color: #646970; }
+.compat-field-ai_act_tool input, .compat-field-ai_act_notice input { width: 100%; }

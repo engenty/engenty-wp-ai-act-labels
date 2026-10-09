@@ -1,0 +1,68 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ["8.1", "8.2", "8.3", "8.4"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+      - run: find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -print0 | xargs -0 -n1 php -l
+      - if: matrix.php == '8.3'
+        run: composer install --no-progress && composer run lint
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint:js
+      - run: npm run build
+      - run: sh bin/zip.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ai-act-labels
+          path: ai-act-labels.zip
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      WP_PATH: /tmp/wp
+      WP_URL: http://127.0.0.1:8930
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: wp-cli, composer
+          extensions: gd, exif
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci && npm run build
+      - name: WordPress with SQLite and the demo site
+        run: sh bin/test-site.sh
+      - run: composer install --no-progress
+      - run: vendor/bin/phpunit
+      - name: The site, served
+        run: |
+          (PHP_CLI_SERVER_WORKERS=4 wp --path=$WP_PATH server --host=127.0.0.1 --port=8930 > /tmp/server.log 2>&1 &)
+          sleep 3
+          sh bin/smoke.sh

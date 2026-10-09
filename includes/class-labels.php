@@ -1,0 +1,557 @@
+<?php
+/**
+ * The label of a media file and the plugin's settings. A media file is `generated` (made by AI),
+ * `modified` (a real photo, video or recording changed with AI) or `none` (looked at: needs no label);
+ * without a decision it has none of these. The label lives in post meta of the attachment, so it
+ * travels with exports and stays when the theme changes.
+ *
+ * @package AI_Act_Labels
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Labels, notices, settings.
+ */
+class AI_Act_Labels {
+
+	const OPTION = 'ai_act_labels';
+
+	const META         = '_ai_act_label';
+	const META_TOOL    = '_ai_act_tool';
+	const META_NOTICE  = '_ai_act_notice';
+	const META_DECIDED = '_ai_act_decided';
+	const META_SIGNALS = '_ai_act_signals';
+	const META_HINT    = '_ai_act_hint';
+	const META_USAGE   = '_ai_act_usage';
+
+	/** Meta of the first version, a class in a theme (AiImageLabel): a checkbox and an own notice. */
+	const LEGACY        = '_ai_image_label';
+	const LEGACY_NOTICE = '_ai_image_notice';
+
+	const KINDS = array( 'generated', 'modified' );
+
+	/** What a decision can be. */
+	const STATES = array( 'generated', 'modified', 'none' );
+
+	const ICONS     = array( 'official', 'basic', 'basic-text', 'custom', 'sparkle' );
+	const COLORS    = array( 'black', 'white', 'black-soft', 'white-soft', 'auto' );
+	const SIZES     = array(
+		's' => 24,
+		'm' => 30,
+		'l' => 38,
+	);
+	const POSITIONS = array( 'bottom-right', 'bottom-left', 'top-right', 'top-left' );
+
+	/**
+	 * The settings as they start.
+	 *
+	 * @return array
+	 */
+	public static function defaults() {
+		return array(
+			'icon'     => 'official',
+			'color'    => 'black',
+			'size'     => 'm',
+			'position' => 'bottom-right',
+			'custom'   => 0,
+			'caption'  => true,
+			'layer'    => true,
+			'texts'    => array(
+				'generated'       => '',
+				'modified'        => '',
+				'noticeGenerated' => '',
+				'noticeModified'  => '',
+			),
+			'where'    => array(
+				'content'  => true,
+				'featured' => true,
+				'video'    => true,
+				'audio'    => true,
+			),
+			'detect'   => true,
+			'auto'     => false,
+			'legacy'   => true,
+		);
+	}
+
+	/**
+	 * The settings, with defaults for what was never saved.
+	 *
+	 * @return array
+	 */
+	public static function settings() {
+		$saved = get_option( self::OPTION, array() );
+		return self::sanitize_settings( is_array( $saved ) ? $saved : array() );
+	}
+
+	/**
+	 * Keeps what the settings allow.
+	 *
+	 * @param array $in Settings, complete or a part.
+	 * @param array $base What is not in `$in` comes from here.
+	 * @return array
+	 */
+	public static function sanitize_settings( array $in, ?array $base = null ) {
+		$d   = $base ?? self::defaults();
+		$out = array(
+			'icon'     => self::one_of( $in['icon'] ?? $d['icon'], self::ICONS, 'official' ),
+			'color'    => self::one_of( $in['color'] ?? $d['color'], self::COLORS, 'black' ),
+			'size'     => self::one_of( $in['size'] ?? $d['size'], array_keys( self::SIZES ), 'm' ),
+			'position' => self::one_of( $in['position'] ?? $d['position'], self::POSITIONS, 'bottom-right' ),
+			'custom'   => absint( $in['custom'] ?? $d['custom'] ),
+			'caption'  => (bool) ( $in['caption'] ?? $d['caption'] ),
+			'layer'    => (bool) ( $in['layer'] ?? $d['layer'] ),
+			'texts'    => array(),
+			'where'    => array(),
+			'detect'   => (bool) ( $in['detect'] ?? $d['detect'] ),
+			'auto'     => (bool) ( $in['auto'] ?? $d['auto'] ),
+			'legacy'   => (bool) ( $in['legacy'] ?? $d['legacy'] ),
+		);
+		foreach ( self::defaults()['texts'] as $key => $unused ) {
+			$out['texts'][ $key ] = sanitize_text_field( (string) ( $in['texts'][ $key ] ?? $d['texts'][ $key ] ?? '' ) );
+		}
+		foreach ( self::defaults()['where'] as $key => $unused ) {
+			$out['where'][ $key ] = (bool) ( $in['where'][ $key ] ?? $d['where'][ $key ] ?? true );
+		}
+		if ( 'custom' === $out['icon'] && ! $out['custom'] ) {
+			$out['icon'] = 'official';
+		}
+		return $out;
+	}
+
+	/**
+	 * Saves a part of the settings.
+	 *
+	 * @param array $patch What changes.
+	 * @return array The settings.
+	 */
+	public static function save_settings( array $patch ) {
+		$current = self::settings();
+		if ( isset( $patch['texts'] ) && is_array( $patch['texts'] ) ) {
+			$patch['texts'] = array_merge( $current['texts'], $patch['texts'] );
+		}
+		if ( isset( $patch['where'] ) && is_array( $patch['where'] ) ) {
+			$patch['where'] = array_merge( $current['where'], $patch['where'] );
+		}
+		$next = self::sanitize_settings( $patch, $current );
+		update_option( self::OPTION, $next );
+		return $next;
+	}
+
+	/**
+	 * One value of a list, or the fallback.
+	 *
+	 * @param mixed  $value    The value.
+	 * @param array  $allowed  Allowed values.
+	 * @param string $fallback Fallback.
+	 * @return string
+	 */
+	public static function one_of( $value, array $allowed, $fallback ) {
+		return in_array( $value, $allowed, true ) ? $value : $fallback;
+	}
+
+	/**
+	 * The decision on a media file: generated, modified, none – or '' when nobody decided yet.
+	 * Without an own one, a label of the theme class of the first version counts as `generated`.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string
+	 */
+	public static function get( $id ) {
+		$id = (int) $id;
+		if ( $id <= 0 ) {
+			return '';
+		}
+		$state = (string) get_post_meta( $id, self::META, true );
+		if ( in_array( $state, self::STATES, true ) ) {
+			return $state;
+		}
+		if ( self::settings()['legacy'] && get_post_meta( $id, self::LEGACY, true ) ) {
+			return 'generated';
+		}
+		return '';
+	}
+
+	/**
+	 * The label shown on the site: generated or modified, '' for none.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string
+	 */
+	public static function kind( $id ) {
+		$state = self::get( $id );
+		return in_array( $state, self::KINDS, true ) ? $state : '';
+	}
+
+	/**
+	 * Decides on a media file.
+	 *
+	 * @param int    $id    Attachment ID.
+	 * @param string $state generated, modified, none, or '' to undo the decision.
+	 * @param string $via   manual, bulk, metadata, assistant.
+	 * @param array  $extra `tool`, `notice` (both optional; given, they replace what is there).
+	 * @return bool
+	 */
+	public static function set( $id, $state, $via = 'manual', array $extra = array() ) {
+		$id = (int) $id;
+		if ( $id <= 0 || 'attachment' !== get_post_type( $id ) ) {
+			return false;
+		}
+		if ( '' === $state ) {
+			delete_post_meta( $id, self::META );
+			delete_post_meta( $id, self::META_DECIDED );
+			delete_post_meta( $id, self::LEGACY );
+		} elseif ( in_array( $state, self::STATES, true ) ) {
+			update_post_meta( $id, self::META, $state );
+			update_post_meta(
+				$id,
+				self::META_DECIDED,
+				array(
+					'by'  => get_current_user_id(),
+					'at'  => time(),
+					'via' => sanitize_key( $via ),
+				)
+			);
+			if ( 'none' === $state ) {
+				delete_post_meta( $id, self::LEGACY );
+			}
+		} else {
+			return false;
+		}
+		foreach ( array(
+			'tool'   => self::META_TOOL,
+			'notice' => self::META_NOTICE,
+		) as $key => $meta ) {
+			if ( array_key_exists( $key, $extra ) ) {
+				$value = sanitize_text_field( (string) $extra[ $key ] );
+				if ( '' === $value ) {
+					delete_post_meta( $id, $meta );
+				} else {
+					update_post_meta( $id, $meta, $value );
+				}
+			}
+		}
+		/**
+		 * After a media file's label changed.
+		 *
+		 * @param int    $id    Attachment ID.
+		 * @param string $state generated, modified, none or ''.
+		 * @param string $via   manual, bulk, metadata, assistant.
+		 */
+		do_action( 'ai_act_labels_changed', $id, $state, $via );
+		return true;
+	}
+
+	/**
+	 * The media type: image, video, audio or file.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string
+	 */
+	public static function media_type( $id ) {
+		$mime = (string) get_post_mime_type( $id );
+		$type = strtok( $mime, '/' );
+		return in_array( $type, array( 'image', 'video', 'audio' ), true ) ? $type : 'file';
+	}
+
+	/**
+	 * The short text beside or in the icon: „KI-generiert“, „Mit KI verändert“.
+	 *
+	 * @param string $kind generated or modified.
+	 * @return string
+	 */
+	public static function label_text( $kind ) {
+		$texts = self::settings()['texts'];
+		if ( 'modified' === $kind ) {
+			return '' !== $texts['modified'] ? $texts['modified'] : __( 'Mit KI verändert', 'ai-act-labels' );
+		}
+		return '' !== $texts['generated'] ? $texts['generated'] : __( 'KI-generiert', 'ai-act-labels' );
+	}
+
+	/**
+	 * The default notice for a kind and a media type.
+	 *
+	 * @param string $kind generated or modified.
+	 * @param string $type image, video, audio, file.
+	 * @return string
+	 */
+	public static function default_notice( $kind, $type = 'image' ) {
+		$texts = self::settings()['texts'];
+		$own   = 'modified' === $kind ? $texts['noticeModified'] : $texts['noticeGenerated'];
+		if ( '' !== $own ) {
+			return $own;
+		}
+		$notices = array(
+			'generated' => array(
+				'image' => __( 'Dieses Bild wurde mit KI erzeugt.', 'ai-act-labels' ),
+				'video' => __( 'Dieses Video wurde mit KI erzeugt.', 'ai-act-labels' ),
+				'audio' => __( 'Diese Aufnahme wurde mit KI erzeugt.', 'ai-act-labels' ),
+				'file'  => __( 'Dieser Inhalt wurde mit KI erzeugt.', 'ai-act-labels' ),
+			),
+			'modified'  => array(
+				'image' => __( 'Dieses Bild wurde mit KI verändert.', 'ai-act-labels' ),
+				'video' => __( 'Dieses Video wurde mit KI verändert.', 'ai-act-labels' ),
+				'audio' => __( 'Diese Aufnahme wurde mit KI verändert.', 'ai-act-labels' ),
+				'file'  => __( 'Dieser Inhalt wurde mit KI verändert.', 'ai-act-labels' ),
+			),
+		);
+		$kind    = 'modified' === $kind ? 'modified' : 'generated';
+		return $notices[ $kind ][ $type ] ?? $notices[ $kind ]['file'];
+	}
+
+	/**
+	 * The notice of a media file: its own, the one of the first version, or the default – with the tool.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string
+	 */
+	public static function notice( $id ) {
+		$kind   = self::kind( $id );
+		$notice = trim( (string) get_post_meta( $id, self::META_NOTICE, true ) );
+		if ( '' === $notice && self::settings()['legacy'] && ! get_post_meta( $id, self::META, true ) ) {
+			$notice = trim( (string) get_post_meta( $id, self::LEGACY_NOTICE, true ) );
+			if ( '' === $notice && get_post_meta( $id, self::LEGACY, true ) ) {
+				$notice = __( 'Dieses Bild wurde mit Hilfe von KI erstellt oder bearbeitet.', 'ai-act-labels' );
+			}
+		}
+		if ( '' === $notice ) {
+			$notice = self::default_notice( $kind ? $kind : 'generated', self::media_type( $id ) );
+		}
+		$tool = trim( (string) get_post_meta( $id, self::META_TOOL, true ) );
+		if ( '' !== $tool ) {
+			/* translators: %s: the AI tool, e.g. Midjourney */
+			$notice = rtrim( $notice ) . ' ' . sprintf( __( 'Werkzeug: %s.', 'ai-act-labels' ), $tool );
+		}
+		return $notice;
+	}
+
+	/**
+	 * Everything the admin shows about one media file.
+	 *
+	 * @param int  $id   Attachment ID.
+	 * @param bool $full With usage and the details of signals.
+	 * @return array
+	 */
+	public static function describe( $id, $full = true ) {
+		$id      = (int) $id;
+		$post    = get_post( $id );
+		$type    = self::media_type( $id );
+		$thumb   = 'image' === $type ? wp_get_attachment_image_url( $id, 'medium' ) : wp_mime_type_icon( $id );
+		$file    = (string) get_attached_file( $id );
+		$decided = get_post_meta( $id, self::META_DECIDED, true );
+		$signals = get_post_meta( $id, self::META_SIGNALS, true );
+		$hint    = get_post_meta( $id, self::META_HINT, true );
+		$state   = self::get( $id );
+		$out     = array(
+			'id'       => $id,
+			'title'    => $post ? get_the_title( $post ) : '',
+			'file'     => wp_basename( $file ),
+			'type'     => $type,
+			'mime'     => (string) get_post_mime_type( $id ),
+			'thumb'    => $thumb ? $thumb : '',
+			'full'     => 'image' === $type ? (string) wp_get_attachment_image_url( $id, 'large' ) : (string) wp_get_attachment_url( $id ),
+			'edit'     => (string) get_edit_post_link( $id, 'raw' ),
+			'date'     => $post ? get_post_time( 'U', true, $post ) : 0,
+			'alt'      => (string) get_post_meta( $id, '_wp_attachment_image_alt', true ),
+			'caption'  => $post ? (string) $post->post_excerpt : '',
+			'state'    => $state,
+			'legacy'   => '' !== $state && '' === (string) get_post_meta( $id, self::META, true ),
+			'tool'     => (string) get_post_meta( $id, self::META_TOOL, true ),
+			'notice'   => (string) get_post_meta( $id, self::META_NOTICE, true ),
+			'shown'    => self::kind( $id ) ? self::notice( $id ) : '',
+			'decided'  => is_array( $decided ) ? $decided : null,
+			'signals'  => is_array( $signals ) ? $signals : null,
+			'hint'     => is_array( $hint ) ? $hint : null,
+			'suggests' => self::suggestion( $id ),
+		);
+		if ( $full ) {
+			$out['usage'] = AI_Act_Labels_Usage::for_attachment( $id );
+		} else {
+			$usage        = get_post_meta( $id, self::META_USAGE, true );
+			$out['usage'] = is_array( $usage ) ? $usage : array();
+		}
+		return $out;
+	}
+
+	/**
+	 * What the plugin would suggest: from unambiguous metadata, else from the assistant's assessment.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string generated, modified, none or ''.
+	 */
+	public static function suggestion( $id ) {
+		$signals = get_post_meta( $id, self::META_SIGNALS, true );
+		if ( is_array( $signals ) && ! empty( $signals['kind'] ) ) {
+			return (string) $signals['kind'];
+		}
+		$hint = get_post_meta( $id, self::META_HINT, true );
+		if ( is_array( $hint ) && in_array( $hint['kind'] ?? '', self::STATES, true ) ) {
+			return (string) $hint['kind'];
+		}
+		return '';
+	}
+
+	/**
+	 * Numbers for the tool and the media library's notice.
+	 *
+	 * @return array `generated`, `modified`, `none`, `suggested`, `unchecked` (used on the site, no decision), `open` (both, once each), `media`.
+	 */
+	public static function counts() {
+		global $wpdb;
+		$rows   = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value AS v, COUNT(*) AS n FROM {$wpdb->postmeta} WHERE meta_key = %s GROUP BY meta_value", self::META ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$counts = array(
+			'generated' => 0,
+			'modified'  => 0,
+			'none'      => 0,
+		);
+		foreach ( (array) $rows as $row ) {
+			if ( isset( $counts[ $row['v'] ] ) ) {
+				$counts[ $row['v'] ] = (int) $row['n'];
+			}
+		}
+		if ( self::settings()['legacy'] ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$counts['generated'] += (int) $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT COUNT(*) FROM {$wpdb->postmeta} l LEFT JOIN {$wpdb->postmeta} o ON o.post_id = l.post_id AND o.meta_key = %s WHERE l.meta_key = %s AND l.meta_value <> '' AND l.meta_value <> '0' AND o.meta_id IS NULL",
+					self::META,
+					self::LEGACY
+				)
+			);
+		}
+		$suggested           = self::query_ids( 'suggested', 1000 );
+		$unchecked           = self::query_ids( 'unchecked', 1000 );
+		$counts['suggested'] = count( $suggested );
+		$counts['unchecked'] = count( $unchecked );
+		$counts['open']      = count( array_unique( array_merge( $suggested, $unchecked ) ) );
+		$counts['media']     = (int) array_sum( (array) wp_count_attachments() ) - (int) ( wp_count_attachments()->trash ?? 0 );
+		return $counts;
+	}
+
+	/**
+	 * Attachment IDs of a list in the tool.
+	 *
+	 * @param string $filter suggested, unchecked, undecided, labelled, generated, modified, none, all.
+	 * @param int    $limit  At most (-1: all).
+	 * @param string $search Words in title or file name.
+	 * @return int[]
+	 */
+	public static function query_ids( $filter, $limit = 200, $search = '' ) {
+		$args = array(
+			'post_type'      => 'attachment',
+			'post_status'    => 'inherit',
+			'posts_per_page' => $limit,
+			'fields'         => 'ids',
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			'no_found_rows'  => true,
+		);
+		if ( '' !== $search ) {
+			$args['s'] = $search;
+		}
+		$meta = self::meta_query( $filter );
+		if ( $meta ) {
+			$args['meta_query'] = $meta; // phpcs:ignore WordPress.DB.SlowDBQuery
+		}
+		if ( 'all' === $filter ) {
+			$args['post_mime_type'] = array( 'image', 'video', 'audio' );
+		}
+		return array_map( 'intval', get_posts( $args ) );
+	}
+
+	/**
+	 * The meta query of a list: also used by the media library's filters.
+	 *
+	 * @param string $filter suggested, unchecked, undecided, labelled, generated, modified, none.
+	 * @return array Empty for all.
+	 */
+	public static function meta_query( $filter ) {
+		$legacy    = self::settings()['legacy'];
+		$own_none  = array(
+			'key'     => self::META,
+			'compare' => 'NOT EXISTS',
+		);
+		$undecided = array(
+			'relation' => 'AND',
+			$own_none,
+		);
+		if ( $legacy ) {
+			$undecided[] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => self::LEGACY,
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'     => self::LEGACY,
+					'value'   => array( '', '0' ),
+					'compare' => 'IN',
+				),
+			);
+		}
+		$legacy_on = array(
+			'relation' => 'AND',
+			$own_none,
+			array(
+				'key'     => self::LEGACY,
+				'value'   => array( '', '0' ),
+				'compare' => 'NOT IN',
+			),
+		);
+		switch ( $filter ) {
+			case 'undecided':
+				return $undecided;
+			case 'suggested':
+				// Serialized arrays: a trace with a kind, or an assessment that says generated or modified.
+				$likes = array( 'relation' => 'OR' );
+				foreach ( array( self::META_SIGNALS, self::META_HINT ) as $key ) {
+					foreach ( array( '"kind";s:9:"generated"', '"kind";s:8:"modified"' ) as $value ) {
+						$likes[] = array(
+							'key'     => $key,
+							'value'   => $value,
+							'compare' => 'LIKE',
+						);
+					}
+				}
+				return array(
+					'relation' => 'AND',
+					$undecided,
+					$likes,
+				);
+			case 'unchecked':
+				return array(
+					'relation' => 'AND',
+					$undecided,
+					array(
+						'key'     => self::META_USAGE,
+						'compare' => 'EXISTS',
+					),
+				);
+			case 'generated':
+			case 'modified':
+			case 'none':
+				$own = array(
+					'key'   => self::META,
+					'value' => $filter,
+				);
+				return 'generated' === $filter && $legacy ? array(
+					'relation' => 'OR',
+					$own,
+					$legacy_on,
+				) : array( $own );
+			case 'labelled':
+				$own = array(
+					'key'     => self::META,
+					'value'   => self::KINDS,
+					'compare' => 'IN',
+				);
+				return $legacy ? array(
+					'relation' => 'OR',
+					$own,
+					$legacy_on,
+				) : array( $own );
+		}
+		return array();
+	}
+}
