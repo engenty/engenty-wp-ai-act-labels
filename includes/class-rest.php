@@ -74,7 +74,7 @@ class AI_Act_Labels_Rest {
 			'running'     => is_array( get_option( AI_Act_Labels_Usage::RUN ) ),
 			'assistant'   => AI_Act_Labels_Assistant::status(),
 			'canSettings' => current_user_can( 'manage_options' ),
-			'hidden'      => array_values( (array) get_user_meta( get_current_user_id(), 'ai_act_labels_hidden', true ) ),
+			'hidden'      => array_values( array_filter( (array) get_user_meta( get_current_user_id(), 'ai_act_labels_hidden', true ) ) ),
 			'custom'      => self::custom_icon(),
 			'sample'      => self::sample(),
 			'wizards'     => array(
