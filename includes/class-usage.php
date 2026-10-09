@@ -143,6 +143,7 @@ class AI_Act_Labels_Usage {
 				update_post_meta( (int) $attachment_id, AI_Act_Labels::META_USAGE, array_values( array_unique( $uses, SORT_REGULAR ) ) );
 			}
 		}
+		AI_Act_Labels::rebuild_open();
 		update_option(
 			self::LAST,
 			array(

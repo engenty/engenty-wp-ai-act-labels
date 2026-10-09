@@ -105,6 +105,7 @@ class AI_Act_Labels_Detect {
 			}
 		}
 		update_post_meta( $id, AI_Act_Labels::META_SIGNALS, $result );
+		AI_Act_Labels::refresh_open( $id );
 		return $result;
 	}
 

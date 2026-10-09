@@ -5,6 +5,7 @@ import { AssistantCard, Setup } from './Assistant';
 import {
 	CONTEXT_LABELS,
 	Decide,
+	STATE_LABELS,
 	EuIcon,
 	HintLine,
 	Promo,
@@ -245,6 +246,23 @@ function MediaRow( {
 				</span>
 			</button>
 			<span className="aal-mrow__right">
+				{ ! item.state &&
+				( item.suggests === 'generated' ||
+					item.suggests === 'modified' ) ? (
+					<Button
+						kind="primary"
+						size="sm"
+						icon="check"
+						busy={ busy }
+						onClick={ () => onLabel( [ item.id ], item.suggests ) }
+					>
+						{ sprintf(
+							/* translators: %s: KI-generiert or Mit KI verändert */
+							__( 'Übernehmen: %s', 'ai-act-labels' ),
+							STATE_LABELS[ item.suggests ]
+						) }
+					</Button>
+				) : null }
 				<Decide
 					value={ item.state }
 					suggests={ item.suggests }
@@ -581,6 +599,26 @@ export default function Review( { state, setState, initial } ) {
 	const [ open, setOpen ] = useState( null );
 	const [ reviewing, setReviewing ] = useState( {} );
 	const [ batch, setBatch ] = useState( null );
+	const [ accepted, setAccepted ] = useState( null );
+	const [ accepting, setAccepting ] = useState( false );
+
+	/** Every suggestion at once; the notice offers to take it back. */
+	const acceptAll = () => {
+		setAccepting( true );
+		post( '/accept' )
+			.then( ( r ) => {
+				setAccepted( r.done );
+				setState( ( s ) => ( { ...s, counts: r.counts } ) );
+				load();
+			} )
+			.catch( ( e ) => setError( problem( e ).message ) )
+			.finally( () => setAccepting( false ) );
+	};
+	const undoAccept = () => {
+		const ids = ( accepted || [] ).map( ( d ) => d.id );
+		setAccepted( null );
+		label( ids, '', 'bulk' ).then( load );
+	};
 
 	const load = useCallback( () => {
 		api( `/media${ query( { filter: list, search, page, per: 24 } ) }` )
@@ -690,6 +728,7 @@ export default function Review( { state, setState, initial } ) {
 			<Overview state={ state } onDone={ onScanned } />
 			<AssistantCard
 				state={ state }
+				setState={ setState }
 				onLabel={ label }
 				onOpen={ ( m ) => setOpen( m ) }
 			/>
@@ -743,6 +782,24 @@ export default function Review( { state, setState, initial } ) {
 							</button>
 						) ) }
 					</div>
+					{ list === 'suggested' && counts.suggested > 0 ? (
+						<Button
+							kind="primary"
+							size="sm"
+							icon="check"
+							busy={ accepting }
+							onClick={ acceptAll }
+						>
+							{ sprintf(
+								/* translators: %d: number of suggestions */
+								__(
+									'Alle %d Vorschläge übernehmen',
+									'ai-act-labels'
+								),
+								counts.suggested
+							) }
+						</Button>
+					) : null }
 					{ state.assistant.ready && unassessed > 1 ? (
 						<Button
 							size="sm"
@@ -774,6 +831,22 @@ export default function Review( { state, setState, initial } ) {
 					) : null }
 				</div>
 				{ error ? <Notice tone="error">{ error }</Notice> : null }
+				{ accepted ? (
+					<Notice tone="success">
+						{ sprintf(
+							/* translators: %d: number of files */
+							__( '%d Vorschläge übernommen.', 'ai-act-labels' ),
+							accepted.length
+						) }{ ' ' }
+						<button
+							type="button"
+							className="aal-link-btn"
+							onClick={ undoAccept }
+						>
+							{ __( 'Rückgängig', 'ai-act-labels' ) }
+						</button>
+					</Notice>
+				) : null }
 				{ ! data ? (
 					<Spinner label={ __( 'Lädt …', 'ai-act-labels' ) } />
 				) : data.items.length ? (

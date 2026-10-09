@@ -25,6 +25,14 @@ class AI_Act_Labels {
 	const META_HINT    = '_ai_act_hint';
 	const META_USAGE   = '_ai_act_usage';
 
+	/**
+	 * Markers kept beside the label, so lists and counts need one indexed lookup on big libraries:
+	 * a suggestion without a decision, and used on the site without a decision.
+	 */
+	const OPEN_SUGGESTED = '_ai_act_open_s';
+	const OPEN_USED      = '_ai_act_open_u';
+	const OPEN_VERSION   = 'ai_act_labels_open';
+
 	/** Meta of the first version, a class in a theme (AiImageLabel): a checkbox and an own notice. */
 	const LEGACY        = '_ai_image_label';
 	const LEGACY_NOTICE = '_ai_image_notice';
@@ -232,6 +240,7 @@ class AI_Act_Labels {
 				}
 			}
 		}
+		self::refresh_open( $id );
 		/**
 		 * After a media file's label changed.
 		 *
@@ -420,10 +429,12 @@ class AI_Act_Labels {
 				)
 			);
 		}
-		$counts['suggested'] = self::count_of( 'suggested' );
-		$counts['unchecked'] = self::count_of( 'unchecked' );
-		$counts['open']      = self::count_of( 'open' );
-		$counts['media']     = (int) array_sum( (array) wp_count_attachments() ) - (int) ( wp_count_attachments()->trash ?? 0 );
+		self::ensure_open();
+		$counts['suggested'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::OPEN_SUGGESTED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$counts['unchecked'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::OPEN_USED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$counts['open']      = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT post_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s)", self::OPEN_SUGGESTED, self::OPEN_USED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$attachments         = wp_count_attachments();
+		$counts['media']     = (int) array_sum( (array) $attachments ) - (int) ( $attachments->trash ?? 0 );
 		return $counts;
 	}
 
@@ -444,6 +455,70 @@ class AI_Act_Labels {
 			)
 		);
 		return (int) $query->found_posts;
+	}
+
+	/**
+	 * Sets or clears the two markers of one file from its label, its traces, the assessment and its usage.
+	 *
+	 * @param int $id Attachment ID.
+	 */
+	public static function refresh_open( $id ) {
+		$undecided = '' === self::get( $id );
+		$flags     = array(
+			self::OPEN_SUGGESTED => $undecided && in_array( self::suggestion( $id ), self::KINDS, true ),
+			self::OPEN_USED      => $undecided && ! empty( get_post_meta( $id, self::META_USAGE, true ) ),
+		);
+		foreach ( $flags as $key => $on ) {
+			if ( $on ) {
+				update_post_meta( $id, $key, '1' );
+			} else {
+				delete_post_meta( $id, $key );
+			}
+		}
+	}
+
+	/** Builds the markers once for files written before they existed (or after the legacy setting changed). */
+	public static function ensure_open() {
+		if ( get_option( self::OPEN_VERSION ) !== AI_ACT_LABELS_VERSION . ( self::settings()['legacy'] ? '+legacy' : '' ) ) {
+			self::rebuild_open();
+		}
+	}
+
+	/** Builds the markers of all files again: two statements, no loop over the library. */
+	public static function rebuild_open() {
+		global $wpdb;
+		$m = $wpdb->postmeta;
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQLPlaceholders, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- one-off rebuild of the plugin's own meta.
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$m} WHERE meta_key IN (%s, %s)", self::OPEN_SUGGESTED, self::OPEN_USED ) );
+		$undecided = $wpdb->prepare( "NOT EXISTS (SELECT 1 FROM {$m} d WHERE d.post_id = x.post_id AND d.meta_key = %s)", self::META );
+		if ( self::settings()['legacy'] ) {
+			$undecided .= $wpdb->prepare( " AND NOT EXISTS (SELECT 1 FROM {$m} l WHERE l.post_id = x.post_id AND l.meta_key = %s AND l.meta_value NOT IN ('', '0'))", self::LEGACY );
+		}
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT INTO {$m} (post_id, meta_key, meta_value) SELECT DISTINCT x.post_id, %s, '1' FROM {$m} x WHERE x.meta_key IN (%s, %s) AND (x.meta_value LIKE %s OR x.meta_value LIKE %s) AND {$undecided}",
+				self::OPEN_SUGGESTED,
+				self::META_SIGNALS,
+				self::META_HINT,
+				'%' . $wpdb->esc_like( '"kind";s:9:"generated"' ) . '%',
+				'%' . $wpdb->esc_like( '"kind";s:8:"modified"' ) . '%'
+			)
+		);
+		$wpdb->query(
+			$wpdb->prepare(
+				"INSERT INTO {$m} (post_id, meta_key, meta_value) SELECT DISTINCT x.post_id, %s, '1' FROM {$m} x WHERE x.meta_key = %s AND {$undecided}",
+				self::OPEN_USED,
+				self::META_USAGE
+			)
+		);
+		// phpcs:enable
+		if ( function_exists( 'wp_cache_supports' ) && wp_cache_supports( 'flush_group' ) ) {
+			wp_cache_flush_group( 'post_meta' );
+		} else {
+			wp_cache_flush();
+		}
+		wp_cache_set_last_changed( 'posts' );
+		update_option( self::OPEN_VERSION, AI_ACT_LABELS_VERSION . ( self::settings()['legacy'] ? '+legacy' : '' ), false );
 	}
 
 	/**
@@ -520,36 +595,28 @@ class AI_Act_Labels {
 			case 'undecided':
 				return $undecided;
 			case 'suggested':
-			case 'open':
-				// Serialized arrays: a trace with a kind, or an assessment that says generated or modified.
-				$likes = array( 'relation' => 'OR' );
-				foreach ( array( self::META_SIGNALS, self::META_HINT ) as $key ) {
-					foreach ( array( '"kind";s:9:"generated"', '"kind";s:8:"modified"' ) as $value ) {
-						$likes[] = array(
-							'key'     => $key,
-							'value'   => $value,
-							'compare' => 'LIKE',
-						);
-					}
-				}
-				// Open: a suggestion or used on the site, each once.
-				if ( 'open' === $filter ) {
-					$likes[] = array(
-						'key'     => self::META_USAGE,
-						'compare' => 'EXISTS',
-					);
-				}
 				return array(
-					'relation' => 'AND',
-					$undecided,
-					$likes,
+					array(
+						'key'     => self::OPEN_SUGGESTED,
+						'compare' => 'EXISTS',
+					),
 				);
 			case 'unchecked':
 				return array(
-					'relation' => 'AND',
-					$undecided,
 					array(
-						'key'     => self::META_USAGE,
+						'key'     => self::OPEN_USED,
+						'compare' => 'EXISTS',
+					),
+				);
+			case 'open':
+				return array(
+					'relation' => 'OR',
+					array(
+						'key'     => self::OPEN_SUGGESTED,
+						'compare' => 'EXISTS',
+					),
+					array(
+						'key'     => self::OPEN_USED,
 						'compare' => 'EXISTS',
 					),
 				);

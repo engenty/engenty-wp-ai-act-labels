@@ -418,3 +418,8 @@ a.aal-row__main:hover b { color: var(--aal-ember-strong); }
 .aal-tabs--top { flex-wrap: nowrap; }
 @media (max-width: 1180px) { .aal-pill-status.is-law .aal-law-long { display: none; } }
 @media (min-width: 1181px) { .aal-pill-status.is-law .aal-law-short { display: none; } }
+
+.aal-setup { position: relative; }
+.aal-setup__hide { position: absolute; top: 6px; right: 6px; }
+.aal-setup-hidden { display: block; margin-top: 8px; }
+.aal-mrow__right .aal-btn--primary { align-self: flex-end; }

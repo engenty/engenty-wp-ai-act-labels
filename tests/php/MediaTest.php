@@ -72,4 +72,13 @@ class MediaTest extends AI_Act_Labels_TestCase {
 		$this->assertStringContainsString( 'trainedAlgorithmicMedia', $skill );
 		$this->assertStringNotContainsString( 'name: eu-ai-act-labels', $skill );
 	}
+
+	public function test_all_suggestions_are_taken_over_at_once() {
+		$ai = $this->attachment( 'acc.jpg', AI_Act_Labels_Test_Files::jpeg_with_xmp( AI_Act_Labels_Test_Files::scene( 'team' ), 'compositeWithTrainedAlgorithmicMedia' ) );
+		$this->assertSame( '1', get_post_meta( $ai, AI_Act_Labels::OPEN_SUGGESTED, true ) );
+		$data = rest_do_request( new WP_REST_Request( 'POST', '/ai-act-labels/v1/accept' ) )->get_data();
+		$this->assertContains( array( 'id' => $ai, 'state' => 'modified' ), $data['done'] );
+		$this->assertSame( 'modified', AI_Act_Labels::get( $ai ) );
+		$this->assertSame( '', get_post_meta( $ai, AI_Act_Labels::OPEN_SUGGESTED, true ) );
+	}
 }

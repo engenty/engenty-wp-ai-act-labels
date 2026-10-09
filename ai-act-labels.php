@@ -32,6 +32,7 @@ require_once AI_ACT_LABELS_DIR . 'includes/class-media.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-assistant.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-rest.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-admin.php';
+require_once AI_ACT_LABELS_DIR . 'includes/class-admin-columns.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once AI_ACT_LABELS_DIR . 'includes/class-cli.php';
@@ -117,5 +118,6 @@ add_action(
 		AI_Act_Labels_Media::init();
 		AI_Act_Labels_Rest::init();
 		AI_Act_Labels_Admin::init();
+		AI_Act_Labels_Admin_Columns::init();
 	}
 );

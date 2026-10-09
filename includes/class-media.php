@@ -294,23 +294,35 @@ class AI_Act_Labels_Media {
 	 * @param int    $id     Attachment ID.
 	 */
 	public static function column( $column, $id ) {
-		if ( 'ai_act' !== $column || 'file' === AI_Act_Labels::media_type( $id ) ) {
-			return;
+		if ( 'ai_act' === $column ) {
+			echo self::cell( (int) $id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped while built.
+		}
+	}
+
+	/**
+	 * What a list shows for a file: the EU icon of its label, „Kein Hinweis nötig“, the suggestion, or a dash.
+	 *
+	 * @param int $id Attachment ID.
+	 * @return string
+	 */
+	public static function cell( $id ) {
+		if ( 'file' === AI_Act_Labels::media_type( $id ) ) {
+			return '';
 		}
 		$state   = AI_Act_Labels::get( $id );
 		$labels  = self::state_labels();
 		$suggest = AI_Act_Labels::suggestion( $id );
 		if ( in_array( $state, AI_Act_Labels::KINDS, true ) ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG.
-			echo '<span class="ai-act-cell is-' . esc_attr( $state ) . '" title="' . esc_attr( AI_Act_Labels::notice( $id ) ) . '">' . AI_Act_Labels_Icons::svg( $state ) . '</span>';
-		} elseif ( 'none' === $state ) {
-			echo '<span class="ai-act-cell is-none">' . esc_html( $labels['none'] ) . '</span>';
-		} elseif ( $suggest && 'none' !== $suggest ) {
-			/* translators: %s: KI-generiert or Mit KI verändert */
-			echo '<span class="ai-act-cell is-suggest">' . esc_html( sprintf( __( 'Vorschlag: %s', 'ai-act-labels' ), $labels[ $suggest ] ?? '' ) ) . '</span>';
-		} else {
-			echo '<span class="ai-act-cell is-open" aria-label="' . esc_attr( $labels[''] ) . '">–</span>';
+			return '<span class="ai-act-cell is-' . esc_attr( $state ) . '" title="' . esc_attr( AI_Act_Labels::notice( $id ) ) . '">' . AI_Act_Labels_Icons::svg( $state, 'black', $labels[ $state ] ) . '</span>';
 		}
+		if ( 'none' === $state ) {
+			return '<span class="ai-act-cell is-none">' . esc_html( $labels['none'] ) . '</span>';
+		}
+		if ( $suggest && 'none' !== $suggest ) {
+			/* translators: %s: KI-generiert or Mit KI verändert */
+			return '<span class="ai-act-cell is-suggest">' . esc_html( sprintf( __( 'Vorschlag: %s', 'ai-act-labels' ), $labels[ $suggest ] ?? '' ) ) . '</span>';
+		}
+		return '<span class="ai-act-cell is-open" aria-label="' . esc_attr( $labels[''] ) . '">–</span>';
 	}
 
 	/**

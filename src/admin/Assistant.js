@@ -19,8 +19,9 @@ const OFFER_STATES = {
  * @param root0
  * @param root0.assistant The assistant's status from the state.
  * @param root0.compact   One line less, for the drawer.
+ * @param root0.onHide
  */
-export function Setup( { assistant, compact = false } ) {
+export function Setup( { assistant, compact = false, onHide } ) {
 	if ( ! assistant.wp ) {
 		return (
 			<div className="aal-setup">
@@ -48,6 +49,17 @@ export function Setup( { assistant, compact = false } ) {
 	const hasVercel = offers.some( ( o ) => /vercel/i.test( o.id + o.name ) );
 	return (
 		<div className="aal-setup">
+			{ onHide ? (
+				<button
+					type="button"
+					className="aal-icon-btn aal-setup__hide"
+					onClick={ onHide }
+					aria-label={ __( 'Hinweis ausblenden', 'ai-act-labels' ) }
+					title={ __( 'Hinweis ausblenden', 'ai-act-labels' ) }
+				>
+					<Icon name="x" size={ 16 } />
+				</button>
+			) : null }
 			<b className="aal-setup__title">
 				<Icon name="lock" size={ 13 } />{ ' ' }
 				{ __( 'Erst einen KI-Anbieter einrichten', 'ai-act-labels' ) }
@@ -202,12 +214,25 @@ function SuggestionCard( { s, applied, onApply, onOpen } ) {
 /**
  * The assistant on Prüfen: a question, the answer below, the labels it suggests.
  * @param root0
- * @param root0.state   The tool's state.
- * @param root0.onLabel Applies a label: (ids, state, via) => Promise.
- * @param root0.onOpen  Opens a file's details.
+ * @param root0.state    The tool's state.
+ * @param root0.onLabel  Applies a label: (ids, state, via) => Promise.
+ * @param root0.onOpen   Opens a file's details.
+ * @param root0.setState
  */
-export function AssistantCard( { state, onLabel, onOpen } ) {
+export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 	const assistant = state.assistant;
+	const hidden = ( state.hidden || [] ).includes( 'setup' );
+	const toggleSetup = ( hide ) => {
+		setState( ( s ) => ( {
+			...s,
+			hidden: hide
+				? [ ...( s.hidden || [] ), 'setup' ]
+				: ( s.hidden || [] ).filter( ( k ) => k !== 'setup' ),
+		} ) );
+		post( '/hide', { key: 'setup', hidden: hide } ).catch(
+			() => undefined
+		);
+	};
 	const locked = ! assistant.ready;
 	const [ turns, setTurns ] = useState( [] );
 	const [ busy, setBusy ] = useState( false );
@@ -299,7 +324,27 @@ export function AssistantCard( { state, onLabel, onOpen } ) {
 				busy={ busy }
 				onSend={ send }
 			/>
-			{ locked ? <Setup assistant={ assistant } /> : null }
+			{ locked && ! hidden ? (
+				<Setup
+					assistant={ assistant }
+					onHide={ () => toggleSetup( true ) }
+				/>
+			) : null }
+			{ locked && hidden ? (
+				<span className="aal-fine aal-setup-hidden">
+					{ __(
+						'Der Assistent braucht einen KI-Anbieter.',
+						'ai-act-labels'
+					) }{ ' ' }
+					<button
+						type="button"
+						className="aal-link-btn"
+						onClick={ () => toggleSetup( false ) }
+					>
+						{ __( 'Wie?', 'ai-act-labels' ) }
+					</button>
+				</span>
+			) : null }
 			{ ! locked && ! turns.length ? (
 				<div className="aal-sugg">
 					{ suggestions.map( ( s ) => (

@@ -326,6 +326,7 @@ class AI_Act_Labels_Assistant {
 			'at'         => time(),
 		);
 		update_post_meta( $id, AI_Act_Labels::META_HINT, $hint );
+		AI_Act_Labels::refresh_open( $id );
 		return $hint;
 	}
 
