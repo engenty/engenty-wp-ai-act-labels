@@ -70,7 +70,7 @@ class AI_Act_Labels_Media {
 	}
 
 	/**
-	 * The fields in the details of an image, a video or a recording.
+	 * The details of an image, a video or a recording in the media modal: the same box as on the edit screen.
 	 *
 	 * @param array   $fields Fields.
 	 * @param WP_Post $post   The attachment.
@@ -80,66 +80,12 @@ class AI_Act_Labels_Media {
 		if ( ! $post instanceof WP_Post || 'file' === AI_Act_Labels::media_type( $post->ID ) || self::edit_screen() ) {
 			return $fields;
 		}
-		$id      = (int) $post->ID;
-		$state   = AI_Act_Labels::get( $id );
-		$suggest = AI_Act_Labels::suggestion( $id );
-		$name    = 'attachments[' . $id . ']';
-		$options = '';
-		foreach ( self::state_labels() as $value => $label ) {
-			$options .= sprintf( '<option value="%s"%s>%s</option>', esc_attr( $value ), selected( $state, $value, false ), esc_html( $label ) );
-		}
-		$fields['ai_act_label'] = array(
-			'label' => __( 'KI-Kennzeichnung', 'ai-act-labels' ),
+		$fields['ai_act'] = array(
+			'label' => __( 'KI-Kennzeichnung (AI Act)', 'ai-act-labels' ),
 			'input' => 'html',
-			'html'  => '<select name="' . esc_attr( $name . '[ai_act_label]' ) . '" id="attachments-' . $id . '-ai_act_label" class="ai-act-select">' . $options . '</select>',
-			'helps' => self::help( $id, $state, $suggest ),
+			'html'  => self::box( (int) $post->ID, 'attachments[' . (int) $post->ID . ']' ),
 		);
-		// Tool and notice only matter once there is a label; the fields come back when WordPress redraws them after saving.
-		if ( in_array( $state, AI_Act_Labels::KINDS, true ) ) {
-			$fields['ai_act_tool']   = array(
-				'label' => __( 'KI-Werkzeug', 'ai-act-labels' ),
-				'input' => 'html',
-				'html'  => '<input type="text" class="text" name="' . esc_attr( $name . '[ai_act_tool]' ) . '" id="attachments-' . $id . '-ai_act_tool" value="' . esc_attr( (string) get_post_meta( $id, AI_Act_Labels::META_TOOL, true ) ) . '" placeholder="' . esc_attr__( 'optional, z. B. Midjourney', 'ai-act-labels' ) . '">',
-			);
-			$fields['ai_act_notice'] = array(
-				'label' => __( 'Eigener Hinweis', 'ai-act-labels' ),
-				'input' => 'html',
-				'html'  => '<input type="text" class="text" name="' . esc_attr( $name . '[ai_act_notice]' ) . '" id="attachments-' . $id . '-ai_act_notice" value="' . esc_attr( (string) get_post_meta( $id, AI_Act_Labels::META_NOTICE, true ) ) . '" placeholder="' . esc_attr( AI_Act_Labels::default_notice( $state, AI_Act_Labels::media_type( $id ) ) ) . '">',
-			);
-		}
 		return $fields;
-	}
-
-	/**
-	 * The line under the select: traces in the file, the assistant's assessment, the way to the tool.
-	 *
-	 * @param int    $id      Attachment ID.
-	 * @param string $state   The decision.
-	 * @param string $suggest The suggestion.
-	 * @return string
-	 */
-	private static function help( $id, $state, $suggest ) {
-		$parts   = array();
-		$signals = get_post_meta( $id, AI_Act_Labels::META_SIGNALS, true );
-		if ( is_array( $signals ) && ! empty( $signals['items'] ) ) {
-			$labels  = array_filter( array_column( $signals['items'], 'label' ) );
-			$parts[] = __( 'In der Datei:', 'ai-act-labels' ) . ' ' . implode( ', ', array_slice( $labels, 0, 3 ) ) . '.';
-		}
-		$hint = get_post_meta( $id, AI_Act_Labels::META_HINT, true );
-		if ( is_array( $hint ) && ! empty( $hint['reason'] ) ) {
-			$parts[] = __( 'Assistent:', 'ai-act-labels' ) . ' ' . $hint['reason'];
-		}
-		if ( '' === $state && $suggest && 'none' !== $suggest ) {
-			/* translators: %s: KI-generiert or Mit KI verändert */
-			$parts[] = sprintf( __( 'Vorschlag: %s.', 'ai-act-labels' ), self::state_labels()[ $suggest ] ?? $suggest );
-		}
-		if ( '' !== $state && '' === (string) get_post_meta( $id, AI_Act_Labels::META, true ) ) {
-			$parts[] = __( 'Aus der ersten Version im Theme übernommen.', 'ai-act-labels' );
-		}
-		if ( '' === $state ) {
-			$parts[] = __( 'Pflicht, wenn echte Personen, Orte oder Ereignisse echt wirken.', 'ai-act-labels' );
-		}
-		return implode( ' ', $parts );
 	}
 
 	/**
@@ -151,63 +97,79 @@ class AI_Act_Labels_Media {
 		if ( 'file' === AI_Act_Labels::media_type( $post->ID ) ) {
 			return;
 		}
-		add_meta_box( 'ai-act-labels', __( 'KI-Kennzeichnung', 'ai-act-labels' ), array( __CLASS__, 'render_box' ), 'attachment', 'side', 'default' );
+		add_meta_box( 'ai-act-labels', __( 'KI-Kennzeichnung (AI Act)', 'ai-act-labels' ), array( __CLASS__, 'render_box' ), 'attachment', 'side', 'default' );
 	}
 
 	/**
-	 * The box: the decision as a choice, traces and assessment, tool and notice once there is a label.
+	 * The box with its nonce.
 	 *
 	 * @param WP_Post $post The attachment.
 	 */
 	public static function render_box( $post ) {
-		$id      = (int) $post->ID;
+		wp_nonce_field( 'ai_act_labels_box', 'ai_act_labels_box_nonce' );
+		echo self::box( (int) $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped while built.
+	}
+
+	/**
+	 * The decision as a choice, traces and assessment, tool and notice once there is a label, the rule
+	 * of the AI Act and the way to the tool – on the edit screen and in the media modal.
+	 *
+	 * @param int    $id   Attachment ID.
+	 * @param string $name Prefix of the field names: '' on the edit screen, attachments[ID] in the modal.
+	 * @return string
+	 */
+	public static function box( $id, $name = '' ) {
 		$state   = AI_Act_Labels::get( $id );
 		$suggest = AI_Act_Labels::suggestion( $id );
-		$type    = AI_Act_Labels::media_type( $id );
-		wp_nonce_field( 'ai_act_labels_box', 'ai_act_labels_box_nonce' );
-		echo '<div class="ai-act-box"><fieldset><legend class="screen-reader-text">' . esc_html__( 'KI-Kennzeichnung', 'ai-act-labels' ) . '</legend>';
+		$field   = static fn( $key ) => '' === $name ? $key : $name . '[' . $key . ']';
+		$html    = '<div class="ai-act-box"><fieldset><legend class="screen-reader-text">' . esc_html__( 'KI-Kennzeichnung', 'ai-act-labels' ) . '</legend>';
 		foreach ( self::state_labels() as $value => $label ) {
-			$icon = in_array( $value, AI_Act_Labels::KINDS, true ) ? AI_Act_Labels_Icons::svg( 'basic' ) : '';
-			printf(
-				'<label class="ai-act-box__opt is-%1$s"><input type="radio" name="ai_act_label" value="%2$s"%3$s> %4$s<span>%5$s</span>%6$s</label>',
+			$icon  = in_array( $value, AI_Act_Labels::KINDS, true ) ? AI_Act_Labels_Icons::svg( 'basic' ) : '';
+			$html .= sprintf(
+				'<label class="ai-act-box__opt is-%1$s"><input type="radio" name="%2$s" value="%3$s"%4$s> %5$s<span>%6$s</span>%7$s</label>',
 				esc_attr( '' === $value ? 'open' : $value ),
+				esc_attr( $field( 'ai_act_label' ) ),
 				esc_attr( $value ),
 				checked( $state, $value, false ),
-				$icon, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fixed SVG.
+				$icon,
 				esc_html( $label ),
 				'' === $state && $value === $suggest && '' !== $value ? '<em class="ai-act-box__sug">' . esc_html__( 'Vorschlag', 'ai-act-labels' ) . '</em>' : ''
 			);
 		}
-		echo '</fieldset>';
+		$html   .= '</fieldset>';
 		$signals = get_post_meta( $id, AI_Act_Labels::META_SIGNALS, true );
 		if ( is_array( $signals ) && ! empty( $signals['items'] ) ) {
 			$labels = array_slice( array_filter( array_column( $signals['items'], 'label' ) ), 0, 3 );
-			echo '<p class="ai-act-box__note"><b>' . esc_html__( 'In der Datei:', 'ai-act-labels' ) . '</b> ' . esc_html( implode( ', ', $labels ) ) . '</p>';
+			$html  .= '<p class="ai-act-box__note"><b>' . esc_html__( 'In der Datei:', 'ai-act-labels' ) . '</b> ' . esc_html( implode( ', ', $labels ) ) . '</p>';
 		}
 		$hint = get_post_meta( $id, AI_Act_Labels::META_HINT, true );
 		if ( is_array( $hint ) && ! empty( $hint['reason'] ) ) {
-			echo '<p class="ai-act-box__note"><b>' . esc_html__( 'Assistent:', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
+			$html .= '<p class="ai-act-box__note"><b>' . esc_html__( 'Assistent:', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
 		}
 		if ( '' !== $state && '' === (string) get_post_meta( $id, AI_Act_Labels::META, true ) ) {
-			echo '<p class="ai-act-box__note">' . esc_html__( 'Aus der ersten Version im Theme übernommen.', 'ai-act-labels' ) . '</p>';
+			$html .= '<p class="ai-act-box__note">' . esc_html__( 'Aus der ersten Version im Theme übernommen.', 'ai-act-labels' ) . '</p>';
 		}
-		$placeholder = AI_Act_Labels::default_notice( in_array( $state, AI_Act_Labels::KINDS, true ) ? $state : ( in_array( $suggest, AI_Act_Labels::KINDS, true ) ? $suggest : 'generated' ), $type );
-		printf(
-			'<div class="ai-act-box__more"><label for="ai-act-tool">%1$s</label><input type="text" class="widefat" id="ai-act-tool" name="ai_act_tool" value="%2$s" placeholder="%3$s"><label for="ai-act-notice">%4$s</label><input type="text" class="widefat" id="ai-act-notice" name="ai_act_notice" value="%5$s" placeholder="%6$s"><p class="description">%7$s</p></div>',
+		$placeholder = AI_Act_Labels::default_notice( in_array( $state, AI_Act_Labels::KINDS, true ) ? $state : ( in_array( $suggest, AI_Act_Labels::KINDS, true ) ? $suggest : 'generated' ), AI_Act_Labels::media_type( $id ) );
+		$html       .= sprintf(
+			'<div class="ai-act-box__more"><label for="ai-act-tool-%1$d">%2$s</label><input type="text" class="widefat" id="ai-act-tool-%1$d" name="%3$s" value="%4$s" placeholder="%5$s"><label for="ai-act-notice-%1$d">%6$s</label><input type="text" class="widefat" id="ai-act-notice-%1$d" name="%7$s" value="%8$s" placeholder="%9$s"><p class="description">%10$s</p></div>',
+			$id,
 			esc_html__( 'KI-Werkzeug', 'ai-act-labels' ),
+			esc_attr( $field( 'ai_act_tool' ) ),
 			esc_attr( (string) get_post_meta( $id, AI_Act_Labels::META_TOOL, true ) ),
 			esc_attr__( 'optional, z. B. Midjourney', 'ai-act-labels' ),
 			esc_html__( 'Eigener Hinweis', 'ai-act-labels' ),
+			esc_attr( $field( 'ai_act_notice' ) ),
 			esc_attr( (string) get_post_meta( $id, AI_Act_Labels::META_NOTICE, true ) ),
 			esc_attr( $placeholder ),
 			esc_html__( 'Leer: der Standard. Das Werkzeug steht dann im Hinweis.', 'ai-act-labels' )
 		);
-		printf(
+		$html       .= sprintf(
 			'<p class="description ai-act-box__rule">%1$s</p><p class="ai-act-box__link"><a href="%2$s">%3$s</a></p></div>',
-			esc_html__( 'Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen.', 'ai-act-labels' ),
+			esc_html__( 'AI Act, Artikel 50: Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen.', 'ai-act-labels' ),
 			esc_url( AI_Act_Labels_Admin::url() ),
 			esc_html__( 'Alle Medien prüfen →', 'ai-act-labels' )
 		);
+		return $html;
 	}
 
 	/**

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T08:08:28+00:00\n"
+"POT-Creation-Date: 2026-10-09T08:15:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ai-act-labels\n"
@@ -41,10 +41,8 @@ msgstr ""
 
 #: includes/class-admin.php:49
 #: includes/class-admin.php:50
-#: includes/class-media.php:92
-#: includes/class-media.php:154
-#: includes/class-media.php:168
-#: includes/class-media.php:543
+#: includes/class-media.php:125
+#: includes/class-media.php:505
 #: src/admin/index.js:54
 #: src/admin/parts.js:113
 msgid "KI-Kennzeichnung"
@@ -166,7 +164,7 @@ msgstr ""
 
 #: includes/class-labels.php:267
 #: includes/class-media.php:67
-#: includes/class-media.php:364
+#: includes/class-media.php:326
 #: includes/class-rest.php:66
 #: src/admin/Knowledge.js:286
 #: src/admin/Look.js:382
@@ -176,7 +174,7 @@ msgstr ""
 
 #: includes/class-labels.php:269
 #: includes/class-media.php:66
-#: includes/class-media.php:363
+#: includes/class-media.php:325
 #: includes/class-rest.php:65
 #: src/admin/Knowledge.js:290
 #: src/admin/Look.js:96
@@ -236,130 +234,119 @@ msgid "Noch nicht entschieden"
 msgstr ""
 
 #: includes/class-media.php:68
-#: includes/class-media.php:368
+#: includes/class-media.php:330
 #: src/admin/parts.js:8
 #: src/admin/Review.js:35
 msgid "Kein Hinweis nötig"
 msgstr ""
 
+#: includes/class-media.php:84
 #: includes/class-media.php:100
-#: includes/class-media.php:197
-#: src/admin/Review.js:374
-msgid "KI-Werkzeug"
+msgid "KI-Kennzeichnung (AI Act)"
 msgstr ""
 
-#: includes/class-media.php:102
-#: includes/class-media.php:199
-msgid "optional, z. B. Midjourney"
-msgstr ""
-
-#: includes/class-media.php:105
-#: includes/class-media.php:200
-#: src/admin/Review.js:391
-msgid "Eigener Hinweis"
-msgstr ""
-
-#: includes/class-media.php:126
-#: includes/class-media.php:185
-msgid "In der Datei:"
-msgstr ""
-
-#: includes/class-media.php:130
-#: includes/class-media.php:189
-msgid "Assistent:"
-msgstr ""
-
-#. translators: %s: KI-generiert or Mit KI verändert
-#: includes/class-media.php:134
-#, php-format
-msgid "Vorschlag: %s."
-msgstr ""
-
-#: includes/class-media.php:137
-#: includes/class-media.php:192
-msgid "Aus der ersten Version im Theme übernommen."
-msgstr ""
-
-#: includes/class-media.php:140
-msgid "Pflicht, wenn echte Personen, Orte oder Ereignisse echt wirken."
-msgstr ""
-
-#: includes/class-media.php:178
+#: includes/class-media.php:136
 #: src/admin/parts.js:128
 msgid "Vorschlag"
 msgstr ""
 
-#: includes/class-media.php:203
+#: includes/class-media.php:143
+msgid "In der Datei:"
+msgstr ""
+
+#: includes/class-media.php:147
+msgid "Assistent:"
+msgstr ""
+
+#: includes/class-media.php:150
+msgid "Aus der ersten Version im Theme übernommen."
+msgstr ""
+
+#: includes/class-media.php:156
+#: src/admin/Review.js:374
+msgid "KI-Werkzeug"
+msgstr ""
+
+#: includes/class-media.php:159
+msgid "optional, z. B. Midjourney"
+msgstr ""
+
+#: includes/class-media.php:160
+#: src/admin/Review.js:391
+msgid "Eigener Hinweis"
+msgstr ""
+
+#: includes/class-media.php:164
 msgid "Leer: der Standard. Das Werkzeug steht dann im Hinweis."
 msgstr ""
 
-#: includes/class-media.php:207
-msgid "Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen."
+#: includes/class-media.php:168
+msgid "AI Act, Artikel 50: Pflicht ist der Hinweis, wenn echte oder plausible Personen, Orte oder Ereignisse echt wirken. Normale Bildbearbeitung braucht keinen."
 msgstr ""
 
-#: includes/class-media.php:209
+#: includes/class-media.php:170
 msgid "Alle Medien prüfen →"
 msgstr ""
 
-#: includes/class-media.php:322
-#: includes/class-media.php:325
+#: includes/class-media.php:284
+#: includes/class-media.php:287
 msgid "KI"
 msgstr ""
 
 #. translators: %s: KI-generiert or Mit KI verändert
-#: includes/class-media.php:348
+#: includes/class-media.php:310
 #: src/media/index.js:35
 #, php-format,js-format
 msgid "Vorschlag: %s"
 msgstr ""
 
-#: includes/class-media.php:361
+#: includes/class-media.php:323
 msgid "KI: alle"
 msgstr ""
 
-#: includes/class-media.php:362
+#: includes/class-media.php:324
 #: src/admin/Review.js:34
 msgid "Gekennzeichnet"
 msgstr ""
 
-#: includes/class-media.php:365
+#: includes/class-media.php:327
 #: src/admin/Review.js:32
 #: src/admin/Review.js:134
 msgid "Vorschläge"
 msgstr ""
 
-#: includes/class-media.php:366
+#: includes/class-media.php:328
 #: src/admin/Review.js:33
 msgid "Verwendet, nicht entschieden"
 msgstr ""
 
-#: includes/class-media.php:367
+#: includes/class-media.php:329
 #: src/admin/parts.js:9
 msgid "Nicht entschieden"
 msgstr ""
 
-#: includes/class-media.php:383
+#: includes/class-media.php:345
 msgid "Nach KI-Kennzeichnung filtern"
 msgstr ""
 
-#: includes/class-media.php:422
+#: includes/class-media.php:384
 msgid "Als KI-generiert kennzeichnen"
 msgstr ""
 
-#: includes/class-media.php:423
+#: includes/class-media.php:385
 msgid "Als mit KI verändert kennzeichnen"
 msgstr ""
 
-#: includes/class-media.php:424
+#: includes/class-media.php:386
 msgid "KI: kein Hinweis nötig"
 msgstr ""
 
-#: includes/class-media.php:425
+#: includes/class-media.php:387
 msgid "KI-Kennzeichnung entfernen"
 msgstr ""
 
 #. translators: %d: number of files
-#: includes/class-media.php:468
+#: includes/class-media.php:430
 #, php-format
 msgid "Bei %d Datei die KI-Kennzeichnung entfernt."
 msgid_plural "Bei %d Dateien die KI-Kennzeichnung entfernt."
@@ -367,30 +354,30 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: number of files, 2: KI-generiert, Mit KI verändert or Kein Hinweis nötig
-#: includes/class-media.php:470
+#: includes/class-media.php:432
 #, php-format
 msgid "%1$d Datei: %2$s."
 msgid_plural "%1$d Dateien: %2$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-media.php:483
+#: includes/class-media.php:445
 msgid "KI-Kennzeichnung:"
 msgstr ""
 
 #. translators: %d: number of files
-#: includes/class-media.php:485
+#: includes/class-media.php:447
 #, php-format
 msgid "%d Datei trägt Spuren von KI und hat noch keine Entscheidung."
 msgid_plural "%d Dateien tragen Spuren von KI und haben noch keine Entscheidung."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-media.php:487
+#: includes/class-media.php:449
 msgid "Ansehen"
 msgstr ""
 
-#: includes/class-media.php:489
+#: includes/class-media.php:451
 msgid "Später"
 msgstr ""
 

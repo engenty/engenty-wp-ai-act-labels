@@ -15,9 +15,10 @@ class MediaTest extends AI_Act_Labels_TestCase {
 		$this->assertSame( 'modified', AI_Act_Labels::get( $id ) );
 		$this->assertSame( 'Firefly', get_post_meta( $id, AI_Act_Labels::META_TOOL, true ) );
 		$fields = AI_Act_Labels_Media::fields( array(), get_post( $id ) );
-		$this->assertArrayHasKey( 'ai_act_label', $fields );
-		$this->assertStringContainsString( 'value="modified" selected', $fields['ai_act_label']['html'] );
-		$this->assertArrayHasKey( 'ai_act_notice', $fields );
+		$this->assertArrayHasKey( 'ai_act', $fields );
+		$this->assertStringContainsString( 'name="attachments[' . $id . '][ai_act_label]" value="modified" checked', $fields['ai_act']['html'] );
+		$this->assertStringContainsString( 'name="attachments[' . $id . '][ai_act_tool]" value="Firefly"', $fields['ai_act']['html'] );
+		$this->assertStringContainsString( 'AI Act, Artikel 50', $fields['ai_act']['html'] );
 	}
 
 	public function test_bulk_actions_label_and_clear() {

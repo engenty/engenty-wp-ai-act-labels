@@ -45,3 +45,17 @@
 /* The fields in the modal: the select as wide as the inputs, the help in one quiet line. */
 .compat-field-ai_act_label .help { font-size: 12px; color: #646970; }
 .compat-field-ai_act_tool input, .compat-field-ai_act_notice input { width: 100%; }
+
+/* In the media modal the box takes the whole width under its heading, as on the edit screen. */
+.compat-item .compat-field-ai_act th, .compat-item .compat-field-ai_act td { display: block; float: none; width: auto; margin: 0; padding: 0; text-align: left; }
+.compat-item .compat-field-ai_act th label span { float: none; min-height: 0; padding: 0; text-align: left; font-weight: 600; color: #1d2327; }
+.compat-item .compat-field-ai_act th label { display: block; margin: 0 0 6px; }
+.compat-item .compat-field-ai_act .ai-act-box { padding: 2px 0 6px; }
+.compat-item .compat-field-ai_act .ai-act-box__more input.widefat { width: 100%; float: none; }
+.compat-item .compat-field-ai_act .ai-act-box__more label { float: none; display: block; text-align: left; }
+.compat-item .ai-act-box .ai-act-box__opt { display: flex; width: auto; margin: 0; padding: 6px 8px; }
+.compat-item .ai-act-box .ai-act-box__opt span { float: none; flex: 1; min-height: 0; padding: 0; text-align: left; line-height: 1.4; }
+.compat-item .ai-act-box .ai-act-box__opt input[type="radio"] { float: none; margin: 0 !important; }
+.compat-item .ai-act-box .ai-act-box__opt svg { float: none; }
+.compat-item .ai-act-box fieldset { float: none; width: auto; }
+.ai-act-box:has(input[value="generated"]:checked, input[value="modified"]:checked, input[value="none"]:checked) .ai-act-box__sug { display: none; }
