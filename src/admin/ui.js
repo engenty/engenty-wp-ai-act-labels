@@ -215,13 +215,9 @@ export function Switch( { checked, onChange, label, disabled = false } ) {
 	);
 }
 
-export function Seg( { value, options, onChange, label, grid = false } ) {
+export function Seg( { value, options, onChange, label } ) {
 	return (
-		<span
-			className={ `aal-seg${ grid ? ' aal-seg--grid' : '' }` }
-			role="radiogroup"
-			aria-label={ label }
-		>
+		<span className="aal-seg" role="radiogroup" aria-label={ label }>
 			{ options.map( ( o ) => (
 				<button
 					key={ o.value }
@@ -229,6 +225,7 @@ export function Seg( { value, options, onChange, label, grid = false } ) {
 					role="radio"
 					aria-checked={ o.value === value ? 'true' : 'false' }
 					className={ o.value === value ? 'is-on' : '' }
+					style={ o.style }
 					onClick={ () => onChange( o.value ) }
 				>
 					{ o.label }

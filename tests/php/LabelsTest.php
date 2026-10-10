@@ -55,7 +55,9 @@ class LabelsTest extends AI_Act_Labels_TestCase {
 	public function test_settings_keep_only_what_is_allowed() {
 		$s = AI_Act_Labels::save_settings( array( 'icon' => 'rainbow', 'color' => 'white-soft', 'size' => 'xxl', 'position' => 'top-left', 'where' => array( 'audio' => false ) ) );
 		$this->assertSame( 'official', $s['icon'] );
-		$this->assertSame( 'white-soft', $s['color'] );
+		// The old variant splits into colour and transparency.
+		$this->assertSame( 'light', $s['color'] );
+		$this->assertSame( 50, $s['alpha'] );
 		$this->assertSame( 'm', $s['size'] );
 		$this->assertSame( 'top-left', $s['position'] );
 		$this->assertFalse( $s['where']['audio'] );

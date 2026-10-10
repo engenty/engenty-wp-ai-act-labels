@@ -34,7 +34,7 @@ class FrontTest extends AI_Act_Labels_TestCase {
 		$this->assertSame( 1, substr_count( $html, 'data-ai-act-id="' . $id . '"' ) );
 		$this->assertStringContainsString( 'Unsere Küche<span class="ai-act-label__caption"> – Dieses Bild wurde mit KI verändert.</span></figcaption>', $html );
 		// The caption carries the notice: the icon is not read a second time.
-		$this->assertStringContainsString( 'ai-act-label__badge is-official is-black is-bottom-right" style="--ai-act-h:22px;--ai-act-r:4.619" aria-hidden="true"', $html );
+		$this->assertStringContainsString( 'ai-act-label__badge is-official is-dark is-bottom-right" style="--ai-act-h:22px;--ai-act-r:4.619" aria-hidden="true"', $html );
 		$this->assertStringContainsString( 'alt="Alt bleibt"', $html );
 	}
 
@@ -72,12 +72,17 @@ class FrontTest extends AI_Act_Labels_TestCase {
 		AI_Act_Labels::set( $id, 'generated' );
 		AI_Act_Labels::save_settings( array( 'icon' => 'basic-text', 'color' => 'white', 'position' => 'top-left', 'size' => 'l' ) );
 		$html = wp_get_attachment_image( $id, 'large' );
-		$this->assertStringContainsString( 'is-basic-text is-white is-top-left', $html );
+		$this->assertStringContainsString( 'is-basic-text is-light is-top-left', $html );
 		// The round icon on top of the EU icon of its kind, which opens on hover.
 		$this->assertMatchesRegularExpression( '/ai-act-icon--generated.*ai-act-icon--basic/s', $html );
 		$this->assertStringContainsString( '--ai-act-h:28px', $html );
 		AI_Act_Labels::save_settings( array( 'color' => 'auto' ) );
-		$this->assertMatchesRegularExpression( '/is-basic-text is-(black|white)-soft /', wp_get_attachment_image( $id, 'large' ) );
+		$this->assertMatchesRegularExpression( '/is-basic-text is-(dark|light) /', wp_get_attachment_image( $id, 'large' ) );
+		// A picked colour, three quarters transparent: light letters on a dark blue, the shape at 25 %.
+		AI_Act_Labels::save_settings( array( 'color' => 'custom', 'hex' => '#1d4ed8', 'alpha' => 75 ) );
+		$html = wp_get_attachment_image( $id, 'large' );
+		$this->assertStringContainsString( 'fill="#1d4ed8" fill-opacity="0.25"', $html );
+		$this->assertStringContainsString( 'fill="#fff"', $html );
 		AI_Act_Labels::save_settings( array( 'where' => array( 'featured' => false ) ) );
 		$this->assertStringNotContainsString( 'ai-act-label', wp_get_attachment_image( $id, 'large' ) );
 	}

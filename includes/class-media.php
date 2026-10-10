@@ -313,7 +313,7 @@ class AI_Act_Labels_Media {
 		$labels  = self::state_labels();
 		$suggest = AI_Act_Labels::suggestion( $id );
 		if ( in_array( $state, AI_Act_Labels::KINDS, true ) ) {
-			return '<span class="ai-act-cell is-' . esc_attr( $state ) . '" title="' . esc_attr( AI_Act_Labels::notice( $id ) ) . '">' . AI_Act_Labels_Icons::svg( $state, 'black', $labels[ $state ] ) . '</span>';
+			return '<span class="ai-act-cell is-' . esc_attr( $state ) . '" title="' . esc_attr( AI_Act_Labels::notice( $id ) ) . '">' . AI_Act_Labels_Icons::svg( $state, null, $labels[ $state ] ) . '</span>';
 		}
 		if ( 'none' === $state ) {
 			return '<span class="ai-act-cell is-none">' . esc_html( $labels['none'] ) . '</span>';

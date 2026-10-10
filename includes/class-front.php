@@ -411,25 +411,29 @@ class AI_Act_Labels_Front {
 		if ( $top ) {
 			$pos = str_replace( 'bottom', 'top', $pos );
 		}
-		// By image: the half-transparent variant, black or white by how light the corner is.
-		$color = 'auto' === $s['color'] ? self::tone( $id, $pos ) . '-soft' : $s['color'];
+		$color = $s['color'];
+		if ( 'auto' === $color ) {
+			// By image: dark or light by how light the corner is.
+			$color = 'white' === self::tone( $id, $pos ) ? 'light' : 'dark';
+		}
+		$paint = AI_Act_Labels_Icons::paint( 'custom' === $color ? $s['hex'] : $color, $s['alpha'] );
 		$icon  = $s['icon'];
 		if ( 'official' === $icon && $small ) {
 			$icon = 'basic';
 		}
 		switch ( $icon ) {
 			case 'basic':
-				$inner = AI_Act_Labels_Icons::svg( 'basic', $color );
+				$inner = AI_Act_Labels_Icons::svg( 'basic', $paint );
 				$ratio = 1;
 				break;
 			case 'basic-text':
 				// The round icon; on hover it opens to the EU icon of its kind.
-				$inner = AI_Act_Labels_Icons::svg( $kind, $color ) . AI_Act_Labels_Icons::svg( 'basic', $color );
+				$inner = AI_Act_Labels_Icons::svg( $kind, $paint ) . AI_Act_Labels_Icons::svg( 'basic', $paint );
 				$ratio = AI_Act_Labels_Icons::ratio( $kind );
 				break;
 			case 'custom':
 				$src   = $s['custom'] ? wp_get_attachment_image_url( $s['custom'], 'thumbnail' ) : '';
-				$inner = $src ? '<img src="' . esc_url( $src ) . '" alt="" class="ai-act-icon ai-act-icon--custom" decoding="async">' : AI_Act_Labels_Icons::svg( 'basic', $color );
+				$inner = $src ? '<img src="' . esc_url( $src ) . '" alt="" class="ai-act-icon ai-act-icon--custom" decoding="async">' : AI_Act_Labels_Icons::svg( 'basic', $paint );
 				$ratio = 0;
 				break;
 			case 'sparkle':
@@ -437,7 +441,7 @@ class AI_Act_Labels_Front {
 				$ratio = 1;
 				break;
 			default:
-				$inner = AI_Act_Labels_Icons::svg( $kind, $color );
+				$inner = AI_Act_Labels_Icons::svg( $kind, $paint );
 				$ratio = AI_Act_Labels_Icons::ratio( $kind );
 		}
 		$a11y = $decorative ? ' aria-hidden="true"' : ' role="img" aria-label="' . esc_attr( $label . ': ' . $notice ) . '"';
@@ -464,8 +468,9 @@ class AI_Act_Labels_Front {
 	 */
 	private static function line( $id ) {
 		$kind  = self::kind_of( $id );
-		$color = in_array( AI_Act_Labels::settings()['color'], array( 'white', 'white-soft' ), true ) ? 'white' : 'black';
-		return '<span class="ai-act-line" data-ai-act-id="' . (int) $id . '">' . AI_Act_Labels_Icons::svg( 'basic', $color ) . '<span><b>' . esc_html( AI_Act_Labels::label_text( $kind ) ) . '</b> ' . esc_html( AI_Act_Labels::notice( $id ) ) . '</span></span>';
+		$s     = AI_Act_Labels::settings();
+		$paint = AI_Act_Labels_Icons::paint( 'custom' === $s['color'] ? $s['hex'] : ( 'light' === $s['color'] ? 'light' : 'dark' ) );
+		return '<span class="ai-act-line" data-ai-act-id="' . (int) $id . '">' . AI_Act_Labels_Icons::svg( 'basic', $paint ) . '<span><b>' . esc_html( AI_Act_Labels::label_text( $kind ) ) . '</b> ' . esc_html( AI_Act_Labels::notice( $id ) ) . '</span></span>';
 	}
 
 	/**
@@ -543,11 +548,12 @@ class AI_Act_Labels_Front {
 			. ':where(.ai-act-label__badge) .ai-act-icon{display:block;width:100%;height:auto;max-height:100%;flex:none}'
 			. ':where(.ai-act-label__badge.is-custom) .ai-act-icon{width:var(--ai-act-h);height:var(--ai-act-h)}'
 			. ':where(.ai-act-label__badge.is-basic-text){width:var(--ai-act-h);overflow:hidden;border-radius:999px;transition:width .2s ease}'
-			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));max-width:none;height:var(--ai-act-h)}'
-			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{position:absolute;left:0;top:0;width:var(--ai-act-h);transition:opacity .2s ease}'
+			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));max-width:none;height:var(--ai-act-h);opacity:0;transition:opacity .2s ease}'
+			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{position:absolute;left:0;top:0;width:var(--ai-act-h);opacity:1}'
 			. ':where(.ai-act-label__badge.is-basic-text):hover{width:calc(var(--ai-act-h) * var(--ai-act-r, 1))}'
+			. ':where(.ai-act-label__badge.is-basic-text):hover .ai-act-icon{opacity:1}'
 			. ':where(.ai-act-label__badge.is-basic-text):hover .ai-act-icon--basic{opacity:0}'
-			. '@media (prefers-reduced-motion:reduce){:where(.ai-act-label__badge.is-basic-text),:where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{transition:none}}'
+			. '@media (prefers-reduced-motion:reduce){:where(.ai-act-label__badge.is-basic-text),:where(.ai-act-label__badge.is-basic-text) .ai-act-icon{transition:none}}'
 			. ':where(.ai-act-label__badge.is-sparkle) .ai-act-icon{width:60%;margin:auto}'
 			. ':where(.ai-act-label__layer){position:absolute;bottom:calc(100% + 6px);right:0;display:none;width:max-content;max-width:min(260px,80vw);padding:.55em .75em;border-radius:8px;background:#1d1d1b;color:#fff;font:400 13px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:normal;text-align:left}'
 			. ':where(.ai-act-label__badge.is-bottom-left,.ai-act-label__badge.is-top-left) .ai-act-label__layer{right:auto;left:0}'

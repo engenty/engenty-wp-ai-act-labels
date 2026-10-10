@@ -43,7 +43,8 @@ class AI_Act_Labels {
 	const STATES = array( 'generated', 'modified', 'none' );
 
 	const ICONS     = array( 'official', 'basic', 'basic-text', 'custom', 'sparkle' );
-	const COLORS    = array( 'black', 'white', 'black-soft', 'white-soft', 'auto' );
+	const COLORS    = array( 'dark', 'light', 'auto', 'custom' );
+	const ALPHAS    = array( 0, 25, 50, 75 );
 	const SIZES     = array(
 		's' => 18,
 		'm' => 22,
@@ -59,7 +60,9 @@ class AI_Act_Labels {
 	public static function defaults() {
 		return array(
 			'icon'     => 'official',
-			'color'    => 'black',
+			'color'    => 'dark',
+			'hex'      => '#1d4ed8',
+			'alpha'    => 0,
 			'size'     => 'm',
 			'position' => 'bottom-right',
 			'custom'   => 0,
@@ -101,10 +104,24 @@ class AI_Act_Labels {
 	 * @return array
 	 */
 	public static function sanitize_settings( array $in, ?array $base = null ) {
-		$d   = $base ?? self::defaults();
+		$d     = $base ?? self::defaults();
+		$color = $in['color'] ?? $d['color'];
+		$alpha = $d['alpha'] ?? 0;
+		// Settings from before the colour and the transparency were apart: black, white, black-soft, white-soft.
+		$old = array(
+			'black'      => array( 'dark', 0 ),
+			'white'      => array( 'light', 0 ),
+			'black-soft' => array( 'dark', 50 ),
+			'white-soft' => array( 'light', 50 ),
+		);
+		if ( isset( $old[ $color ] ) ) {
+			list( $color, $alpha ) = $old[ $color ];
+		}
 		$out = array(
 			'icon'     => self::one_of( $in['icon'] ?? $d['icon'], self::ICONS, 'official' ),
-			'color'    => self::one_of( $in['color'] ?? $d['color'], self::COLORS, 'black' ),
+			'color'    => self::one_of( $color, self::COLORS, 'dark' ),
+			'hex'      => sanitize_hex_color( (string) ( $in['hex'] ?? $d['hex'] ) ) ?? self::defaults()['hex'],
+			'alpha'    => self::one_of( (int) ( $in['alpha'] ?? $alpha ), self::ALPHAS, 0 ),
 			'size'     => self::one_of( $in['size'] ?? $d['size'], array_keys( self::SIZES ), 'm' ),
 			'position' => self::one_of( $in['position'] ?? $d['position'], self::POSITIONS, 'bottom-right' ),
 			'custom'   => absint( $in['custom'] ?? $d['custom'] ),

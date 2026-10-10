@@ -173,69 +173,69 @@ msgstr ""
 msgid "File name points to AI"
 msgstr ""
 
-#: includes/class-labels.php:276
+#: includes/class-labels.php:293
 #: includes/class-media.php:67
 #: includes/class-media.php:338
 #: includes/class-rest.php:68
 #: src/admin/Knowledge.js:289
-#: src/admin/Look.js:385
+#: src/admin/Look.js:462
 #: src/admin/parts.js:7
 msgid "Modified with AI"
 msgstr ""
 
-#: includes/class-labels.php:278
+#: includes/class-labels.php:295
 #: includes/class-media.php:66
 #: includes/class-media.php:337
 #: includes/class-rest.php:67
 #: src/admin/Knowledge.js:293
-#: src/admin/Look.js:98
-#: src/admin/Look.js:376
+#: src/admin/Look.js:112
+#: src/admin/Look.js:453
 #: src/admin/parts.js:6
 msgid "AI-generated"
 msgstr ""
 
-#: includes/class-labels.php:296
+#: includes/class-labels.php:313
 #: includes/class-rest.php:69
-#: src/admin/Look.js:137
+#: src/admin/Look.js:151
 msgid "This image was created with AI."
 msgstr ""
 
-#: includes/class-labels.php:297
+#: includes/class-labels.php:314
 msgid "This video was created with AI."
 msgstr ""
 
-#: includes/class-labels.php:298
+#: includes/class-labels.php:315
 msgid "This recording was created with AI."
 msgstr ""
 
-#: includes/class-labels.php:299
+#: includes/class-labels.php:316
 msgid "This content was created with AI."
 msgstr ""
 
-#: includes/class-labels.php:302
+#: includes/class-labels.php:319
 #: includes/class-rest.php:70
-#: src/admin/Look.js:132
+#: src/admin/Look.js:146
 msgid "This image was modified with AI."
 msgstr ""
 
-#: includes/class-labels.php:303
+#: includes/class-labels.php:320
 msgid "This video was modified with AI."
 msgstr ""
 
-#: includes/class-labels.php:304
+#: includes/class-labels.php:321
 msgid "This recording was modified with AI."
 msgstr ""
 
-#: includes/class-labels.php:305
+#: includes/class-labels.php:322
 msgid "This content was modified with AI."
 msgstr ""
 
-#: includes/class-labels.php:324
+#: includes/class-labels.php:341
 msgid "This image was created or edited with the help of AI."
 msgstr ""
 
 #. translators: %s: the AI tool, e.g. Midjourney
-#: includes/class-labels.php:333
+#: includes/class-labels.php:350
 #, php-format
 msgid "Tool: %s."
 msgstr ""
@@ -740,7 +740,7 @@ msgid "File"
 msgstr ""
 
 #: src/admin/Knowledge.js:277
-#: src/admin/Look.js:93
+#: src/admin/Look.js:107
 msgid "Kind"
 msgstr ""
 
@@ -800,204 +800,185 @@ msgstr ""
 msgid "Sparkle"
 msgstr ""
 
-#: src/admin/Look.js:30
-msgid "Black"
-msgstr ""
-
-#: src/admin/Look.js:31
-msgid "White"
-msgstr ""
-
-#: src/admin/Look.js:32
-msgid "Black 50%"
-msgstr ""
-
-#: src/admin/Look.js:33
-msgid "White 50%"
-msgstr ""
-
-#: src/admin/Look.js:34
-msgid "By image"
-msgstr ""
-
-#: src/admin/Look.js:38
+#: src/admin/Look.js:52
 msgid "Top left"
 msgstr ""
 
-#: src/admin/Look.js:39
+#: src/admin/Look.js:53
 msgid "Top right"
 msgstr ""
 
-#: src/admin/Look.js:40
+#: src/admin/Look.js:54
 msgid "Bottom left"
 msgstr ""
 
-#: src/admin/Look.js:41
+#: src/admin/Look.js:55
 msgid "Bottom right"
 msgstr ""
 
-#: src/admin/Look.js:90
+#: src/admin/Look.js:104
 msgid "How it looks on the site"
 msgstr ""
 
-#: src/admin/Look.js:102
+#: src/admin/Look.js:116
 msgid "Modified"
 msgstr ""
 
-#: src/admin/Look.js:127
+#: src/admin/Look.js:141
 msgid "Our workshop in autumn"
 msgstr ""
 
-#: src/admin/Look.js:161
+#: src/admin/Look.js:175
 msgid "On small images (under 260 px) the plugin uses the round icon instead of the wide one."
 msgstr ""
 
-#: src/admin/Look.js:169
+#: src/admin/Look.js:183
 msgid "Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is."
 msgstr ""
 
-#: src/admin/Look.js:209
+#: src/admin/Look.js:223
 msgid "Choose your own icon"
 msgstr ""
 
-#: src/admin/Look.js:229
+#: src/admin/Look.js:261
 msgid "Administrators change the appearance. You can still label."
 msgstr ""
 
-#: src/admin/Look.js:237
+#: src/admin/Look.js:269
 msgid "Icon"
 msgstr ""
 
-#: src/admin/Look.js:238
+#: src/admin/Look.js:270
 msgid "The default is the European Commission's icons – free to use, no attribution."
 msgstr ""
 
-#: src/admin/Look.js:290
+#: src/admin/Look.js:322
 msgid "Choose another icon"
 msgstr ""
 
-#: src/admin/Look.js:295
+#: src/admin/Look.js:327
 msgid "Your own mark is allowed if it is as clear as the EU icon. The EU icon is the safer choice."
 msgstr ""
 
-#: src/admin/Look.js:304
-#: src/admin/Look.js:307
+#: src/admin/Look.js:33
+#: src/admin/Look.js:336
+#: src/admin/Look.js:339
 msgid "Color"
 msgstr "Colour"
 
-#: src/admin/Look.js:316
-#: src/admin/Look.js:319
+#: src/admin/Look.js:393
+#: src/admin/Look.js:396
 msgid "Size"
 msgstr ""
 
-#: src/admin/Look.js:329
-#: src/admin/Look.js:338
+#: src/admin/Look.js:406
+#: src/admin/Look.js:415
 msgid "Corner"
 msgstr ""
 
-#: src/admin/Look.js:330
+#: src/admin/Look.js:407
 msgid "Videos: always at the top, away from the controls."
 msgstr ""
 
-#: src/admin/Look.js:368
+#: src/admin/Look.js:445
 msgid "Words"
 msgstr ""
 
-#: src/admin/Look.js:369
+#: src/admin/Look.js:446
 msgid "Leave empty: the default in the site's language."
 msgstr ""
 
-#: src/admin/Look.js:394
+#: src/admin/Look.js:471
 msgid "Notice for AI-generated"
 msgstr ""
 
-#: src/admin/Look.js:406
+#: src/admin/Look.js:483
 msgid "Notice for modified"
 msgstr ""
 
-#: src/admin/Look.js:421
+#: src/admin/Look.js:498
 msgid "Where the label appears"
 msgstr ""
 
-#: src/admin/Look.js:427
+#: src/admin/Look.js:504
 msgid "Images in pages and posts"
 msgstr ""
 
-#: src/admin/Look.js:431
+#: src/admin/Look.js:508
 msgid "Blocks, galleries, covers, classic editor, HTML"
 msgstr ""
 
-#: src/admin/Look.js:438
+#: src/admin/Look.js:515
 msgid "Featured images and the theme's images"
 msgstr ""
 
-#: src/admin/Look.js:442
+#: src/admin/Look.js:519
 msgid "everything that comes through wp_get_attachment_image()"
 msgstr ""
 
-#: src/admin/Look.js:449
+#: src/admin/Look.js:526
 msgid "Videos"
 msgstr ""
 
-#: src/admin/Look.js:450
+#: src/admin/Look.js:527
 msgid "Video block, cover with video, [video]"
 msgstr ""
 
-#: src/admin/Look.js:457
+#: src/admin/Look.js:534
 #: src/admin/parts.js:20
 msgid "Audio"
 msgstr ""
 
-#: src/admin/Look.js:458
+#: src/admin/Look.js:535
 msgid "a line above the player"
 msgstr ""
 
-#: src/admin/Look.js:476
-#: src/admin/Look.js:487
+#: src/admin/Look.js:553
+#: src/admin/Look.js:564
 msgid "Notice in captions"
 msgstr ""
 
-#: src/admin/Look.js:480
+#: src/admin/Look.js:557
 msgid "Only where there is one already – never in the alt text."
 msgstr ""
 
-#: src/admin/Look.js:496
-#: src/admin/Look.js:507
+#: src/admin/Look.js:573
+#: src/admin/Look.js:584
 msgid "Second layer on hover"
 msgstr ""
 
-#: src/admin/Look.js:500
+#: src/admin/Look.js:577
 msgid "The whole notice, with the tool."
 msgstr ""
 
-#: src/admin/Look.js:518
+#: src/admin/Look.js:595
 msgid "On upload"
 msgstr ""
 
-#: src/admin/Look.js:521
-#: src/admin/Look.js:532
+#: src/admin/Look.js:598
+#: src/admin/Look.js:609
 msgid "Check files for traces of AI"
 msgstr ""
 
-#: src/admin/Look.js:525
+#: src/admin/Look.js:602
 msgid "C2PA, IPTC, generation data, file names – on your server."
 msgstr ""
 
-#: src/admin/Look.js:541
-#: src/admin/Look.js:552
+#: src/admin/Look.js:618
+#: src/admin/Look.js:629
 msgid "Apply unambiguous traces right away"
 msgstr ""
 
-#: src/admin/Look.js:545
+#: src/admin/Look.js:622
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr "If the file itself says it was made with AI, it is labelled right away."
 
-#: src/admin/Look.js:561
-#: src/admin/Look.js:572
+#: src/admin/Look.js:638
+#: src/admin/Look.js:649
 msgid "Take over labels from the theme"
 msgstr ""
 
-#: src/admin/Look.js:565
+#: src/admin/Look.js:642
 msgid "The first version as a theme class (AiImageLabel) stored _ai_image_label."
 msgstr ""
 
@@ -1005,6 +986,7 @@ msgstr ""
 msgid "Featured image"
 msgstr ""
 
+#: src/admin/Look.js:32
 #: src/admin/parts.js:15
 msgid "Image"
 msgstr ""
@@ -1331,16 +1313,16 @@ msgstr ""
 msgid "Open Media Library"
 msgstr ""
 
-#: src/admin/ui.js:328
-#: src/admin/ui.js:341
+#: src/admin/ui.js:325
+#: src/admin/ui.js:338
 msgid "Close"
 msgstr ""
 
-#: src/admin/ui.js:387
+#: src/admin/ui.js:384
 msgid "as recommended"
 msgstr ""
 
-#: src/admin/ui.js:390
+#: src/admin/ui.js:387
 msgid "changed"
 msgstr ""
 
@@ -1351,4 +1333,31 @@ msgstr ""
 
 #: src/admin/Look.js:22
 msgid "Round icon, opens on hover"
+msgstr ""
+
+#: src/admin/Look.js:30
+msgid "Dark"
+msgstr ""
+
+#: src/admin/Look.js:31
+msgid "Light"
+msgstr ""
+
+#: src/admin/Look.js:367
+msgid "Pick a color"
+msgstr "Pick a colour"
+
+#: src/admin/Look.js:373
+#: src/admin/Look.js:381
+msgid "Transparency"
+msgstr ""
+
+#: src/admin/Look.js:374
+msgid "Of the shape; the letters stay solid."
+msgstr ""
+
+#. translators: %d: a percentage.
+#: src/admin/Look.js:387
+#, js-format
+msgid "%d%%"
 msgstr ""

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { post, problem } from './api';
 import { EuIcon } from './parts';
 import {
@@ -27,12 +27,26 @@ const ICONS = [
 ];
 
 const COLORS = [
-	[ 'black', __( 'Black', 'ai-act-labels' ) ],
-	[ 'white', __( 'White', 'ai-act-labels' ) ],
-	[ 'black-soft', __( 'Black 50%', 'ai-act-labels' ) ],
-	[ 'white-soft', __( 'White 50%', 'ai-act-labels' ) ],
-	[ 'auto', __( 'By image', 'ai-act-labels' ) ],
+	[ 'dark', __( 'Dark', 'ai-act-labels' ) ],
+	[ 'light', __( 'Light', 'ai-act-labels' ) ],
+	[ 'auto', __( 'Image', 'ai-act-labels' ) ],
+	[ 'custom', __( 'Color', 'ai-act-labels' ) ],
 ];
+
+const ALPHAS = [ 0, 25, 50, 75 ];
+
+/**
+ * Dark or light letters on a picked colour, as the icon has them.
+ * @param hex
+ */
+function ink( hex ) {
+	const [ r, g, b ] = [ 1, 3, 5 ].map( ( i ) =>
+		parseInt( ( hex || '#000000' ).slice( i, i + 2 ), 16 )
+	);
+	return ( 0.2126 * r + 0.7152 * g + 0.0722 * b ) / 255 > 0.6
+		? '#1d1d1b'
+		: '#fff';
+}
 
 const POSITIONS = [
 	[ 'top-left', __( 'Top left', 'ai-act-labels' ) ],
@@ -220,6 +234,24 @@ export default function Look( { state, setState } ) {
 		frame.open();
 	};
 
+	const [ hex, setHex ] = useDraft(
+		local.hex,
+		( v ) => save( { hex: v } ),
+		400
+	);
+	const picker = useRef();
+	const openPicker = () => {
+		const el = picker.current;
+		if ( ! el ) {
+			return;
+		}
+		try {
+			el.showPicker();
+		} catch {
+			el.click();
+		}
+	};
+
 	const d = state.defaults;
 	return (
 		<div className="aal-split">
@@ -305,11 +337,56 @@ export default function Look( { state, setState } ) {
 						<Seg
 							value={ local.color }
 							label={ __( 'Color', 'ai-act-labels' ) }
-							onChange={ ( v ) => save( { color: v } ) }
-							grid
+							onChange={ ( v ) => {
+								if ( v !== local.color ) {
+									save( { color: v } );
+								}
+								// "Color" opens the browser's colour picker, also when it is chosen already.
+								if ( v === 'custom' ) {
+									openPicker();
+								}
+							} }
 							options={ COLORS.map( ( [ value, label ] ) => ( {
 								value,
 								label,
+								style:
+									value === 'custom' &&
+									local.color === 'custom'
+										? {
+												background: hex,
+												color: ink( hex ),
+										  }
+										: undefined,
+							} ) ) }
+						/>
+						<input
+							ref={ picker }
+							type="color"
+							className="aal-picker"
+							tabIndex={ -1 }
+							aria-label={ __( 'Pick a color', 'ai-act-labels' ) }
+							value={ hex }
+							onChange={ ( e ) => setHex( e.target.value ) }
+						/>
+					</Line>
+					<Line
+						label={ __( 'Transparency', 'ai-act-labels' ) }
+						hint={ __(
+							'Of the shape; the letters stay solid.',
+							'ai-act-labels'
+						) }
+					>
+						<Seg
+							value={ String( local.alpha ) }
+							label={ __( 'Transparency', 'ai-act-labels' ) }
+							onChange={ ( v ) => save( { alpha: Number( v ) } ) }
+							options={ ALPHAS.map( ( a ) => ( {
+								value: String( a ),
+								label: sprintf(
+									/* translators: %d: a percentage. */
+									__( '%d%%', 'ai-act-labels' ),
+									a
+								),
 							} ) ) }
 						/>
 					</Line>

@@ -35,25 +35,39 @@ class AI_Act_Labels_Icons {
 		),
 	);
 
-	/** Colour variants as the Commission offers them: shape, letters, opacity of the shape. */
-	const COLORS = array(
-		'black'      => array( '#000', '#fff', 1 ),
-		'white'      => array( '#fff', '#1d1d1b', 1 ),
-		'black-soft' => array( '#000', '#fff', 0.5 ),
-		'white-soft' => array( '#fff', '#1d1d1b', 0.5 ),
-	);
+	/**
+	 * Shape colour, letter colour and shape opacity. The Commission's variants are dark and light,
+	 * solid or at 50 %; a picked colour gets dark or light letters, whichever reads better on it.
+	 *
+	 * @param string $color dark, light or a hex colour.
+	 * @param int    $alpha Transparency of the shape in percent: 0, 25, 50, 75.
+	 * @return array
+	 */
+	public static function paint( $color = 'dark', $alpha = 0 ) {
+		$opacity = round( 1 - max( 0, min( 75, (int) $alpha ) ) / 100, 2 );
+		if ( 'light' === $color ) {
+			return array( '#fff', '#1d1d1b', $opacity );
+		}
+		$hex = sanitize_hex_color( (string) $color );
+		if ( ! $hex ) {
+			return array( '#000', '#fff', $opacity );
+		}
+		$rgb = array_map( 'hexdec', str_split( strlen( $hex ) === 4 ? preg_replace( '/([0-9a-f])/i', '$1$1', substr( $hex, 1 ) ) : substr( $hex, 1 ), 2 ) );
+		$lum = ( 0.2126 * $rgb[0] + 0.7152 * $rgb[1] + 0.0722 * $rgb[2] ) / 255;
+		return array( $hex, $lum > 0.6 ? '#1d1d1b' : '#fff', $opacity );
+	}
 
 	/**
 	 * One icon as inline SVG.
 	 *
 	 * @param string $icon  basic, generated or modified.
-	 * @param string $color black, white, black-soft, white-soft.
+	 * @param array  $paint From paint(); dark and solid when left out.
 	 * @param string $title Accessible name; empty: the icon is decorative.
 	 * @return string
 	 */
-	public static function svg( $icon, $color = 'black', $title = '' ) {
+	public static function svg( $icon, $paint = null, $title = '' ) {
 		$p                 = self::PATHS[ $icon ] ?? self::PATHS['basic'];
-		$c                 = self::COLORS[ $color ] ?? self::COLORS['black'];
+		$c                 = is_array( $paint ) ? $paint : self::paint();
 		list( , , $w, $h ) = array_map( 'floatval', explode( ' ', $p['box'] ) );
 		$a11y              = '' === $title ? ' aria-hidden="true" focusable="false"' : ' role="img" aria-label="' . esc_attr( $title ) . '"';
 		return sprintf(
