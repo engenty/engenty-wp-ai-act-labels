@@ -245,23 +245,23 @@ function MediaRow( { item, busy, onLabel, onOpen, onReview, reviewing } ) {
 						) }
 					</Button>
 				) : null }
-				<Decide
-					value={ item.state }
-					suggests={ item.suggests }
-					busy={ busy }
-					onChange={ ( s ) => onLabel( [ item.id ], s ) }
-				/>
-				<Button
-					kind="ghost"
-					size="sm"
-					icon="sparkle"
-					busy={ reviewing }
-					onClick={ () => onReview( item ) }
-				>
-					{ item.hint
-						? __( 'Assess again', 'ai-act-labels' )
-						: __( 'Assess', 'ai-act-labels' ) }
-				</Button>
+				<span className="aal-mrow__acts">
+					<Button
+						kind="ghost"
+						size="sm"
+						icon="sparkle"
+						busy={ reviewing }
+						onClick={ () => onReview( item ) }
+					>
+						{ __( 'Analyze image (AI)', 'ai-act-labels' ) }
+					</Button>
+					<Decide
+						value={ item.state }
+						suggests={ item.suggests }
+						busy={ busy }
+						onChange={ ( s ) => onLabel( [ item.id ], s ) }
+					/>
+				</span>
 			</span>
 		</div>
 	);
@@ -399,7 +399,7 @@ function Details( { item, state, onClose, onItem, onLabel, onSetup } ) {
 			</Section>
 
 			<Section
-				title={ __( "The assistant's assessment", 'ai-act-labels' ) }
+				title={ __( 'Image analysis (AI)', 'ai-act-labels' ) }
 				aside={
 					<Button
 						size="sm"
@@ -411,9 +411,7 @@ function Details( { item, state, onClose, onItem, onLabel, onSetup } ) {
 								: onSetup()
 						}
 					>
-						{ item.hint
-							? __( 'Assess again', 'ai-act-labels' )
-							: __( 'Assess', 'ai-act-labels' ) }
+						{ __( 'Analyze image (AI)', 'ai-act-labels' ) }
 					</Button>
 				}
 			>
@@ -448,7 +446,7 @@ function Details( { item, state, onClose, onItem, onLabel, onSetup } ) {
 				) : (
 					<p className="aal-fine">
 						{ __(
-							'The assistant looks at the image, its traces and the pages it is on, and says whether a label is required.',
+							'The AI looks at the image, its traces and the pages it is on, and says whether a label is required.',
 							'ai-act-labels'
 						) }
 					</p>
@@ -779,7 +777,7 @@ export default function Review( { state, setState, initial } ) {
 								? sprintf(
 										/* translators: 1: done, 2: total */
 										__(
-											'Assessing … %1$d of %2$d',
+											'Analyzing … %1$d of %2$d',
 											'ai-act-labels'
 										),
 										batch.done,
@@ -788,8 +786,8 @@ export default function Review( { state, setState, initial } ) {
 								: sprintf(
 										/* translators: %d: number of files */
 										_n(
-											'Have %d file assessed',
-											'Have %d files assessed',
+											'Analyze %d image (AI)',
+											'Analyze %d images (AI)',
 											unassessed,
 											'ai-act-labels'
 										),

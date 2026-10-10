@@ -401,6 +401,7 @@ a.aal-row__main:hover b { color: var(--aal-ember-strong); }
 
 .aal-setup { position: relative; }
 .aal-mrow__right .aal-btn--primary { align-self: flex-end; }
+.aal-mrow__acts { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
 /* The setup, when an assessment is asked for without an AI provider. */
 .aal-modal { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(29, 29, 27, .4); }
 .aal-modal__box { position: relative; width: min(520px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 22px; border-radius: 14px; background: #fff; box-shadow: 0 12px 40px rgba(0, 0, 0, .2); }

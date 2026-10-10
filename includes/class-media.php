@@ -144,7 +144,7 @@ class AI_Act_Labels_Media {
 		}
 		$hint = get_post_meta( $id, AI_Act_Labels::META_HINT, true );
 		if ( is_array( $hint ) && ! empty( $hint['reason'] ) ) {
-			$html .= '<p class="ai-act-box__note"><b>' . esc_html__( 'Assistant:', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
+			$html .= '<p class="ai-act-box__note"><b>' . esc_html__( 'Image analysis (AI):', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
 		}
 		if ( '' !== $state && '' === (string) get_post_meta( $id, AI_Act_Labels::META, true ) ) {
 			$html .= '<p class="ai-act-box__note">' . esc_html__( 'Taken over from the first version in the theme.', 'ai-act-labels' ) . '</p>';

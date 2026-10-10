@@ -77,7 +77,7 @@ msgstr "Die Antwort war kein JSON. Versuch es noch einmal."
 msgid "This file does not exist."
 msgstr "Diese Datei gibt es nicht."
 
-#: src/admin/Review.js:481
+#: src/admin/Review.js:479
 msgid "Check on the site"
 msgstr "Auf der Website prüfen"
 
@@ -254,10 +254,6 @@ msgstr "Vorschlag"
 #: includes/class-media.php:143
 msgid "In the file:"
 msgstr "In der Datei:"
-
-#: includes/class-media.php:147
-msgid "Assistant:"
-msgstr "Assistent:"
 
 #: includes/class-media.php:150
 msgid "Taken over from the first version in the theme."
@@ -1029,16 +1025,6 @@ msgstr "Website prüfen"
 msgid "Apply: %s"
 msgstr "Übernehmen: %s"
 
-#: src/admin/Review.js:262
-#: src/admin/Review.js:415
-msgid "Assess again"
-msgstr "Neu einschätzen"
-
-#: src/admin/Review.js:263
-#: src/admin/Review.js:416
-msgid "Assess"
-msgstr "Einschätzen"
-
 #: src/admin/Review.js:272
 msgid "Label visible"
 msgstr "Hinweis sichtbar"
@@ -1079,111 +1065,89 @@ msgstr "z. B. Midjourney"
 msgid "Empty: the kind's default."
 msgstr "Leer: der Standard der Art."
 
-#: src/admin/Review.js:402
-msgid "The assistant's assessment"
-msgstr "Einschätzung des Assistenten"
-
-#: src/admin/Review.js:429
+#: src/admin/Review.js:427
 msgid "Deepfake"
 msgstr "Deepfake"
 
-#: src/admin/Review.js:434
+#: src/admin/Review.js:432
 msgid "looking at the image"
 msgstr "mit Blick aufs Bild"
 
-#: src/admin/Review.js:438
+#: src/admin/Review.js:436
 msgid "without seeing the image"
 msgstr "ohne Blick aufs Bild"
 
-#: src/admin/Review.js:450
-msgid "The assistant looks at the image, its traces and the pages it is on, and says whether a label is required."
-msgstr "Der Assistent sieht sich das Bild, seine Spuren und die Seiten an, auf denen es steht, und sagt, ob ein Hinweis Pflicht ist."
-
-#: src/admin/Review.js:458
+#: src/admin/Review.js:456
 msgid "Traces in the file"
 msgstr "Spuren in der Datei"
 
-#: src/admin/Review.js:463
+#: src/admin/Review.js:461
 msgid "No traces found. That does not mean no AI was involved – after a screenshot or export they are usually gone."
 msgstr "Keine Spuren gefunden. Das heißt nicht, dass keine KI im Spiel war – nach einem Screenshot oder Export fehlen sie meist."
 
-#: src/admin/Review.js:472
+#: src/admin/Review.js:470
 msgid "Where it is used"
 msgstr "Wo es verwendet wird"
 
-#: src/admin/Review.js:519
+#: src/admin/Review.js:517
 msgid "Check label"
 msgstr "Hinweis prüfen"
 
-#: src/admin/Review.js:531
+#: src/admin/Review.js:529
 msgid "Not found on any page. Check the site if you changed it recently."
 msgstr "Auf keiner Seite gefunden. Prüf die Website, wenn du sie zuletzt geändert hast."
 
-#: src/admin/Review.js:539
+#: src/admin/Review.js:537
 msgid "“Check label”: there the file is only a URL or in a page builder. “Check on the site” shows whether the label still appears; otherwise the theme needs ai_act_labels_wrap()."
 msgstr "„Hinweis prüfen“: dort steht die Datei nur als Adresse oder in einem Page Builder. „Auf der Website prüfen“ zeigt, ob der Hinweis trotzdem erscheint; sonst gehört ai_act_labels_wrap() ins Theme."
 
-#: src/admin/Review.js:705
+#: src/admin/Review.js:703
 msgid "Media"
 msgstr "Medien"
 
-#: src/admin/Review.js:706
+#: src/admin/Review.js:704
 msgid "Decide per file: AI-generated, modified with AI or no label needed. The label is required when something looks real that did not happen that way."
 msgstr "Entscheide pro Datei: KI-generiert, mit KI verändert oder kein Hinweis nötig. Pflicht ist der Hinweis, wenn etwas echt wirkt, das es so nicht gab."
 
-#: src/admin/Review.js:716
+#: src/admin/Review.js:714
 msgid "Search"
 msgstr "Suchen"
 
-#: src/admin/Review.js:717
+#: src/admin/Review.js:715
 msgid "Search media"
 msgstr "Medien suchen"
 
 #. translators: %d: number of suggestions
-#: src/admin/Review.js:761
+#: src/admin/Review.js:759
 #, js-format
 msgid "Apply all %d suggestions"
 msgstr "Alle %d Vorschläge übernehmen"
 
-#. translators: 1: done, 2: total
-#: src/admin/Review.js:781
-#, js-format
-msgid "Assessing … %1$d of %2$d"
-msgstr "Schätzt ein … %1$d von %2$d"
-
 #. translators: %d: number of files
-#: src/admin/Review.js:790
-#, js-format
-msgid "Have %d file assessed"
-msgid_plural "Have %d files assessed"
-msgstr[0] "%d Datei einschätzen lassen"
-msgstr[1] "%d Dateien einschätzen lassen"
-
-#. translators: %d: number of files
-#: src/admin/Review.js:806
+#: src/admin/Review.js:804
 #, js-format
 msgid "%d suggestions applied."
 msgstr "%d Vorschläge übernommen."
 
-#: src/admin/Review.js:814
+#: src/admin/Review.js:812
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: src/admin/Review.js:819
+#: src/admin/Review.js:817
 msgid "Loading …"
 msgstr "Lädt …"
 
 #. translators: 1: page, 2: pages
-#: src/admin/Review.js:854
+#: src/admin/Review.js:852
 #, js-format
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
-#: src/admin/Review.js:869
+#: src/admin/Review.js:867
 msgid "Also in the Media Library: the “AI” filter, a column and bulk actions in the list view."
 msgstr "Auch in der Mediathek: Filter „KI“, Spalte und Sammelaktionen in der Listenansicht."
 
-#: src/admin/Review.js:874
+#: src/admin/Review.js:872
 msgid "Open Media Library"
 msgstr "Mediathek öffnen"
 
@@ -1256,3 +1220,34 @@ msgstr "Die Einschätzung denkt mit dem Anbieter, den du in WordPress unter Eins
 #: src/admin/Knowledge.js:337
 msgid "The assessment thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others."
 msgstr "Die Einschätzung denkt mit einem Skill: eine Anleitung mit Quellen zum AI Act, im Plugin unter skills/eu-ai-act-labels. Dieselben Dateien kannst du jedem KI-Agenten geben, der Agent Skills liest – Claude, Cursor, Codex und andere."
+
+#: includes/class-media.php:147
+msgid "Image analysis (AI):"
+msgstr "Bildanalyse (KI):"
+
+#: src/admin/Review.js:256
+#: src/admin/Review.js:414
+msgid "Analyze image (AI)"
+msgstr "Bild analysieren (KI)"
+
+#: src/admin/Review.js:402
+msgid "Image analysis (AI)"
+msgstr "Bildanalyse (KI)"
+
+#: src/admin/Review.js:448
+msgid "The AI looks at the image, its traces and the pages it is on, and says whether a label is required."
+msgstr "Die KI sieht sich das Bild an, seine Spuren und die Seiten, auf denen es steht, und sagt, ob ein Hinweis Pflicht ist."
+
+#. translators: 1: done, 2: total
+#: src/admin/Review.js:779
+#, js-format
+msgid "Analyzing … %1$d of %2$d"
+msgstr "Analysiere … %1$d von %2$d"
+
+#. translators: %d: number of files
+#: src/admin/Review.js:788
+#, js-format
+msgid "Analyze %d image (AI)"
+msgid_plural "Analyze %d images (AI)"
+msgstr[0] "%d Bild analysieren (KI)"
+msgstr[1] "%d Bilder analysieren (KI)"
