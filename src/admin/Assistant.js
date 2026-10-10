@@ -21,11 +21,14 @@ function Setup( { assistant } ) {
 		return (
 			<div className="aal-setup">
 				<b className="aal-setup__title">
-					{ __( 'Assessing needs WordPress 7.0', 'ai-act-labels' ) }
+					{ __(
+						'Image analysis (AI) needs WordPress 7.0',
+						'ai-act-labels'
+					) }
 				</b>
 				<p>
 					{ __(
-						'From 7.0, the assessment thinks with the AI provider you set up under Settings › Connectors. Labeling, the check and the traces in files already work.',
+						'From 7.0, the image analysis uses the AI provider you set up under Settings › Connectors. Labeling, the check and the traces in files already work.',
 						'ai-act-labels'
 					) }
 				</p>
@@ -47,7 +50,7 @@ function Setup( { assistant } ) {
 			</b>
 			<p>
 				{ __(
-					'The assessment thinks with the provider you set up in WordPress under Settings › Connectors – your API key stays there. Labeling, the check and the traces in files work without it.',
+					'The image analysis uses the provider you set up in WordPress under Settings › Connectors – your API key stays there. Labeling, the check and the traces in files work without it.',
 					'ai-act-labels'
 				) }
 			</p>

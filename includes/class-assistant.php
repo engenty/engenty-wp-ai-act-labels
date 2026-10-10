@@ -130,7 +130,7 @@ class AI_Act_Labels_Assistant {
 	 */
 	public static function generate( $system, $prompt, array $schema, $file = '', $mime = '' ) {
 		if ( ! function_exists( 'wp_ai_client_prompt' ) ) {
-			return new WP_Error( 'ai_act_labels_no_ai', __( 'The assistant needs WordPress 7.0 or newer.', 'ai-act-labels' ) );
+			return new WP_Error( 'ai_act_labels_no_ai', __( 'Image analysis (AI) needs WordPress 7.0 or newer.', 'ai-act-labels' ) );
 		}
 		try {
 			$builder = wp_ai_client_prompt( $prompt );

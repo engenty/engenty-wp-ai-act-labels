@@ -5,7 +5,6 @@ import { SetupDialog } from './Assistant';
 import {
 	CONTEXT_LABELS,
 	Decide,
-	STATE_LABELS,
 	EuIcon,
 	HintLine,
 	Promo,
@@ -228,23 +227,6 @@ function MediaRow( { item, busy, onLabel, onOpen, onReview, reviewing } ) {
 				</span>
 			</button>
 			<span className="aal-mrow__right">
-				{ ! item.state &&
-				( item.suggests === 'generated' ||
-					item.suggests === 'modified' ) ? (
-					<Button
-						kind="primary"
-						size="sm"
-						icon="check"
-						busy={ busy }
-						onClick={ () => onLabel( [ item.id ], item.suggests ) }
-					>
-						{ sprintf(
-							/* translators: %s: KI-generiert or Mit KI verändert */
-							__( 'Apply: %s', 'ai-act-labels' ),
-							STATE_LABELS[ item.suggests ]
-						) }
-					</Button>
-				) : null }
 				<span className="aal-mrow__acts">
 					<Button
 						kind="ghost"

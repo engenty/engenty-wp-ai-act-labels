@@ -400,7 +400,6 @@ a.aal-row__main:hover b { color: var(--aal-ember-strong); }
 @media (min-width: 1181px) { .aal-pill-status.is-law .aal-law-short { display: none; } }
 
 .aal-setup { position: relative; }
-.aal-mrow__right .aal-btn--primary { align-self: flex-end; }
 .aal-mrow__acts { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
 /* The setup, when an assessment is asked for without an AI provider. */
 .aal-modal { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(29, 29, 27, .4); }

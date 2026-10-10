@@ -335,7 +335,7 @@ export default function Knowledge( { state } ) {
 					<Card className="aal-prose">
 						<p>
 							{ __(
-								'The assessment thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others.',
+								'The image analysis thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others.',
 								'ai-act-labels'
 							) }
 						</p>
