@@ -50,7 +50,7 @@ msgstr "KI-Kennzeichnung (AI Act)"
 #: includes/class-media.php:125
 #: includes/class-media.php:517
 #: src/admin/index.js:54
-#: src/admin/parts.js:114
+#: src/admin/parts.js:125
 msgid "AI labels"
 msgstr "KI-Kennzeichnung"
 
@@ -60,7 +60,7 @@ msgid "AI labels are loading …"
 msgstr "KI-Kennzeichnung lädt …"
 
 #: includes/class-admin.php:128
-#: src/admin/parts.js:268
+#: src/admin/parts.js:283
 msgid "Open"
 msgstr "Öffnen"
 
@@ -247,7 +247,7 @@ msgid "No label needed"
 msgstr "Kein Hinweis nötig"
 
 #: includes/class-media.php:136
-#: src/admin/parts.js:129
+#: src/admin/parts.js:141
 msgid "Suggestion"
 msgstr "Vorschlag"
 
@@ -392,12 +392,12 @@ msgid "Site logo"
 msgstr "Logo der Website"
 
 #: includes/class-usage.php:479
-#: src/admin/parts.js:26
+#: src/admin/parts.js:37
 msgid "Site icon"
 msgstr "Website-Icon"
 
 #: includes/class-usage.php:481
-#: src/admin/parts.js:27
+#: src/admin/parts.js:38
 msgid "Header image"
 msgstr "Kopfbild"
 
@@ -808,7 +808,7 @@ msgid "Video block, cover with video, [video]"
 msgstr "Video-Block, Cover mit Video, [video]"
 
 #: src/admin/Look.js:534
-#: src/admin/parts.js:20
+#: src/admin/parts.js:31
 msgid "Audio"
 msgstr "Audio"
 
@@ -856,90 +856,90 @@ msgstr "Eindeutige Spuren gleich übernehmen"
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr "Sagt die Datei selbst, dass sie mit KI gemacht ist, wird sie gleich gekennzeichnet."
 
-#: src/admin/parts.js:14
+#: src/admin/parts.js:25
 msgid "Featured image"
 msgstr "Beitragsbild"
 
 #: src/admin/Look.js:32
-#: src/admin/parts.js:15
+#: src/admin/parts.js:26
 msgid "Image"
 msgstr "Bild"
 
-#: src/admin/parts.js:16
+#: src/admin/parts.js:27
 msgid "Gallery"
 msgstr "Galerie"
 
-#: src/admin/parts.js:17
+#: src/admin/parts.js:28
 msgid "Cover"
 msgstr "Cover"
 
-#: src/admin/parts.js:18
+#: src/admin/parts.js:29
 msgid "Media & Text"
 msgstr "Medien und Text"
 
-#: src/admin/parts.js:19
+#: src/admin/parts.js:30
 msgid "Video"
 msgstr "Video"
 
-#: src/admin/parts.js:21
+#: src/admin/parts.js:32
 msgid "only as a URL"
 msgstr "nur als Adresse"
 
-#: src/admin/parts.js:22
+#: src/admin/parts.js:33
 msgid "Page builder"
 msgstr "Page Builder"
 
-#: src/admin/parts.js:23
+#: src/admin/parts.js:34
 msgid "ACF field"
 msgstr "ACF-Feld"
 
-#: src/admin/parts.js:24
+#: src/admin/parts.js:35
 msgid "Product gallery"
 msgstr "Produktgalerie"
 
-#: src/admin/parts.js:25
+#: src/admin/parts.js:36
 msgid "Logo"
 msgstr "Logo"
 
-#: src/admin/parts.js:175
+#: src/admin/parts.js:190
 msgid "Label required"
 msgstr "Hinweis Pflicht"
 
-#: src/admin/parts.js:176
+#: src/admin/parts.js:191
 msgid "Label voluntary"
 msgstr "Hinweis freiwillig"
 
-#: src/admin/parts.js:177
+#: src/admin/parts.js:192
 msgid "no label needed"
 msgstr "kein Hinweis nötig"
 
-#: src/admin/parts.js:178
+#: src/admin/parts.js:193
 msgid "unclear"
 msgstr "unklar"
 
-#: src/admin/parts.js:208
+#: src/admin/parts.js:223
 msgid "Not found on any page"
 msgstr "Auf keiner Seite gefunden"
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:226
+#: src/admin/parts.js:241
 #, js-format
 msgid "and %d more"
 msgstr "und %d weitere"
 
-#: src/admin/parts.js:248
+#: src/admin/parts.js:263
 msgid "From engenty, the makers of this plugin"
 msgstr "Von engenty, den Machern dieses Plugins"
 
-#: src/admin/parts.js:254
+#: src/admin/parts.js:269
 msgid "engenty wizards: guided flows for your visitors"
 msgstr "engenty wizards: geführte Abläufe für deine Besucher"
 
-#: src/admin/parts.js:260
+#: src/admin/parts.js:275
 msgid "Enquiries, quotes, appointments – step by step on your site, built with AI instead of code."
 msgstr "Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert."
 
-#: src/admin/parts.js:273
+#: src/admin/parts.js:288
 msgid "View plugin"
 msgstr "Plugin ansehen"
 
@@ -1245,3 +1245,18 @@ msgid "Analyze %d image (AI)"
 msgid_plural "Analyze %d images (AI)"
 msgstr[0] "%d Bild analysieren (KI)"
 msgstr[1] "%d Bilder analysieren (KI)"
+
+#: src/admin/parts.js:14
+msgctxt "decision beside the AI icon"
+msgid "generated"
+msgstr "generiert"
+
+#: src/admin/parts.js:19
+msgctxt "decision beside the AI icon"
+msgid "modified"
+msgstr "verändert"
+
+#: src/admin/parts.js:20
+msgctxt "decision"
+msgid "No label"
+msgstr "Kein Hinweis"

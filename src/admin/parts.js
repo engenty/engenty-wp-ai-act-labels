@@ -1,4 +1,4 @@
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { boot } from './api';
 import { Button, Chip, Engenty, Icon } from './ui';
 
@@ -7,6 +7,17 @@ export const STATE_LABELS = {
 	modified: __( 'Modified with AI', 'ai-act-labels' ),
 	none: __( 'No label needed', 'ai-act-labels' ),
 	'': __( 'Not decided', 'ai-act-labels' ),
+};
+
+/** The same, short: beside the AI icon in the decision. */
+const SHORT_LABELS = {
+	generated: _x(
+		'generated',
+		'decision beside the AI icon',
+		'ai-act-labels'
+	),
+	modified: _x( 'modified', 'decision beside the AI icon', 'ai-act-labels' ),
+	none: _x( 'No label', 'decision', 'ai-act-labels' ),
 };
 
 /** Where a file is used, in words; `auto`: the label comes there by itself. */
@@ -124,14 +135,18 @@ export function Decide( { value, suggests, onChange, busy = false } ) {
 					}` }
 					disabled={ busy }
 					onClick={ () => onChange( value === s ? '' : s ) }
+					aria-label={ STATE_LABELS[ s ] }
 					title={
 						! value && suggests === s
-							? __( 'Suggestion', 'ai-act-labels' )
-							: undefined
+							? `${ STATE_LABELS[ s ] } – ${ __(
+									'Suggestion',
+									'ai-act-labels'
+							  ) }`
+							: STATE_LABELS[ s ]
 					}
 				>
 					{ s !== 'none' ? <EuIcon name="basic" /> : null }
-					{ STATE_LABELS[ s ] }
+					{ SHORT_LABELS[ s ] }
 				</button>
 			) ) }
 		</span>
