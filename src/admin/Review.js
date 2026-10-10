@@ -30,26 +30,26 @@ import {
 
 /** The lists, in the order of their tabs. */
 const LISTS = [
-	[ 'suggested', __( 'Vorschläge', 'ai-act-labels' ) ],
-	[ 'unchecked', __( 'Verwendet, nicht entschieden', 'ai-act-labels' ) ],
-	[ 'labelled', __( 'Gekennzeichnet', 'ai-act-labels' ) ],
-	[ 'none', __( 'Kein Hinweis nötig', 'ai-act-labels' ) ],
-	[ 'all', __( 'Alle', 'ai-act-labels' ) ],
+	[ 'suggested', __( 'Suggestions', 'ai-act-labels' ) ],
+	[ 'unchecked', __( 'Used, not decided', 'ai-act-labels' ) ],
+	[ 'labelled', __( 'Labeled', 'ai-act-labels' ) ],
+	[ 'none', __( 'No label needed', 'ai-act-labels' ) ],
+	[ 'all', __( 'All', 'ai-act-labels' ) ],
 ];
 
 /** What each list says when it is empty. */
 const EMPTY = {
 	suggested: __(
-		'Keine Datei trägt Spuren von KI ohne Entscheidung. Spuren fehlen oft – geh auch „Verwendet, nicht entschieden“ durch.',
+		'No file carries traces of AI without a decision. Traces are often missing – go through “Used, not decided” too.',
 		'ai-act-labels'
 	),
 	unchecked: __(
-		'Alles, was auf deiner Website verwendet wird, hat eine Entscheidung. Oder die Website wurde noch nicht geprüft.',
+		'Everything used on your site has a decision. Or the site has not been checked yet.',
 		'ai-act-labels'
 	),
-	labelled: __( 'Noch keine Datei gekennzeichnet.', 'ai-act-labels' ),
-	none: __( 'Noch keine Datei ohne Hinweis entschieden.', 'ai-act-labels' ),
-	all: __( 'Keine Bilder, Videos oder Aufnahmen.', 'ai-act-labels' ),
+	labelled: __( 'No file labeled yet.', 'ai-act-labels' ),
+	none: __( 'No file decided as needing no label yet.', 'ai-act-labels' ),
+	all: __( 'No images, videos or recordings.', 'ai-act-labels' ),
 };
 
 /**
@@ -95,15 +95,12 @@ function Overview( { state, onDone } ) {
 
 	const phase = run
 		? {
-				posts: __(
-					'Liest deine Seiten und Beiträge …',
-					'ai-act-labels'
-				),
+				posts: __( 'Reading your pages and posts …', 'ai-act-labels' ),
 				files: __(
-					'Liest die Spuren in deinen Dateien …',
+					'Reading the traces in your files …',
 					'ai-act-labels'
 				),
-				done: __( 'Fertig.', 'ai-act-labels' ),
+				done: __( 'Done.', 'ai-act-labels' ),
 		  }[ run.phase ]
 		: '';
 	const pct =
@@ -115,12 +112,12 @@ function Overview( { state, onDone } ) {
 				<div className="aal-num">
 					<span>{ labelled }</span>
 					<p>
-						{ __( 'gekennzeichnet', 'ai-act-labels' ) }
+						{ __( 'labeled', 'ai-act-labels' ) }
 						<em>
 							{ sprintf(
 								/* translators: 1: generated count, 2: modified count */
 								__(
-									'%1$d KI-generiert · %2$d verändert',
+									'%1$d AI-generated · %2$d modified',
 									'ai-act-labels'
 								),
 								c.generated,
@@ -132,10 +129,10 @@ function Overview( { state, onDone } ) {
 				<div className={ `aal-num${ c.suggested ? ' is-open' : '' }` }>
 					<span>{ c.suggested }</span>
 					<p>
-						{ __( 'Vorschläge', 'ai-act-labels' ) }
+						{ __( 'Suggestions', 'ai-act-labels' ) }
 						<em>
 							{ __(
-								'Spuren von KI, keine Entscheidung',
+								'traces of AI, no decision',
 								'ai-act-labels'
 							) }
 						</em>
@@ -144,15 +141,9 @@ function Overview( { state, onDone } ) {
 				<div className={ `aal-num${ c.unchecked ? ' is-open' : '' }` }>
 					<span>{ c.unchecked }</span>
 					<p>
-						{ __(
-							'verwendet, nicht entschieden',
-							'ai-act-labels'
-						) }
+						{ __( 'used, not decided', 'ai-act-labels' ) }
 						<em>
-							{ __(
-								'auf deiner Website zu sehen',
-								'ai-act-labels'
-							) }
+							{ __( 'visible on your site', 'ai-act-labels' ) }
 						</em>
 					</p>
 				</div>
@@ -178,7 +169,7 @@ function Overview( { state, onDone } ) {
 								? sprintf(
 										/* translators: 1: date, 2: pages, 3: files in use */
 										__(
-											'Zuletzt geprüft %1$s: %2$d Seiten und Beiträge, %3$d Dateien in Verwendung.',
+											'Last checked %1$s: %2$d pages and posts, %3$d files in use.',
 											'ai-act-labels'
 										),
 										when( state.last.at ),
@@ -186,7 +177,7 @@ function Overview( { state, onDone } ) {
 										state.last.used
 								  )
 								: __(
-										'Noch nicht geprüft: wo deine Medien verwendet werden und welche Spuren von KI sie tragen.',
+										'Not checked yet: where your media is used and which traces of AI it carries.',
 										'ai-act-labels'
 								  ) }
 						</span>
@@ -196,8 +187,8 @@ function Overview( { state, onDone } ) {
 							onClick={ () => step( true ) }
 						>
 							{ state.last
-								? __( 'Neu prüfen', 'ai-act-labels' )
-								: __( 'Website prüfen', 'ai-act-labels' ) }
+								? __( 'Check again', 'ai-act-labels' )
+								: __( 'Check site', 'ai-act-labels' ) }
 						</Button>
 					</>
 				) }
@@ -258,7 +249,7 @@ function MediaRow( {
 					>
 						{ sprintf(
 							/* translators: %s: KI-generiert or Mit KI verändert */
-							__( 'Übernehmen: %s', 'ai-act-labels' ),
+							__( 'Apply: %s', 'ai-act-labels' ),
 							STATE_LABELS[ item.suggests ]
 						) }
 					</Button>
@@ -278,8 +269,8 @@ function MediaRow( {
 						onClick={ () => onReview( item ) }
 					>
 						{ item.hint
-							? __( 'Neu einschätzen', 'ai-act-labels' )
-							: __( 'Einschätzen', 'ai-act-labels' ) }
+							? __( 'Assess again', 'ai-act-labels' )
+							: __( 'Assess', 'ai-act-labels' ) }
 					</Button>
 				) : null }
 			</span>
@@ -289,10 +280,10 @@ function MediaRow( {
 
 /** What a check of a page found. */
 const CHECKS = {
-	shown: [ 'moss', __( 'Hinweis sichtbar', 'ai-act-labels' ) ],
-	missing: [ 'rose', __( 'Bild ohne Hinweis', 'ai-act-labels' ) ],
-	absent: [ '', __( 'nicht auf der Seite', 'ai-act-labels' ) ],
-	error: [ 'amber', __( 'Seite nicht erreichbar', 'ai-act-labels' ) ],
+	shown: [ 'moss', __( 'Label visible', 'ai-act-labels' ) ],
+	missing: [ 'rose', __( 'Image without label', 'ai-act-labels' ) ],
+	absent: [ '', __( 'not on the page', 'ai-act-labels' ) ],
+	error: [ 'amber', __( 'page not reachable', 'ai-act-labels' ) ],
 };
 
 /**
@@ -337,7 +328,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			footer={
 				<>
 					<Button kind="ghost" size="sm" href={ item.edit }>
-						{ __( 'In der Mediathek öffnen', 'ai-act-labels' ) }
+						{ __( 'Open in Media Library', 'ai-act-labels' ) }
 					</Button>
 					<span className="aal-fine">{ item.file }</span>
 				</>
@@ -366,7 +357,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				) : null }
 			</div>
 
-			<Section title={ __( 'Entscheidung', 'ai-act-labels' ) }>
+			<Section title={ __( 'Decision', 'ai-act-labels' ) }>
 				<Decide
 					value={ item.state }
 					suggests={ item.suggests }
@@ -374,14 +365,14 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				/>
 				{ labelled ? (
 					<p className="aal-small">
-						{ __( 'Auf der Website steht:', 'ai-act-labels' ) }{ ' ' }
-						<b>„{ item.shown }“</b>
+						{ __( 'The site says:', 'ai-act-labels' ) }{ ' ' }
+						<b>“{ item.shown }”</b>
 					</p>
 				) : null }
 				{ item.legacy ? (
 					<span className="aal-fine">
 						{ __(
-							'Aus der ersten Version im Theme übernommen. Wähl eine Art, damit die Entscheidung hier gespeichert ist.',
+							'Taken over from the first version in the theme. Choose a kind so the decision is stored here.',
 							'ai-act-labels'
 						) }
 					</span>
@@ -389,9 +380,9 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				{ labelled ? (
 					<div className="aal-grid2">
 						<Field
-							label={ __( 'KI-Werkzeug', 'ai-act-labels' ) }
+							label={ __( 'AI tool', 'ai-act-labels' ) }
 							hint={ __(
-								'Optional, steht dann im Hinweis.',
+								'Optional, then appears in the notice.',
 								'ai-act-labels'
 							) }
 						>
@@ -400,15 +391,15 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 								value={ tool }
 								placeholder={
 									item.signals?.tool ||
-									__( 'z. B. Midjourney', 'ai-act-labels' )
+									__( 'e.g. Midjourney', 'ai-act-labels' )
 								}
 								onChange={ ( e ) => setTool( e.target.value ) }
 							/>
 						</Field>
 						<Field
-							label={ __( 'Eigener Hinweis', 'ai-act-labels' ) }
+							label={ __( 'Own notice', 'ai-act-labels' ) }
 							hint={ __(
-								'Leer: der Standard der Art.',
+								"Empty: the kind's default.",
 								'ai-act-labels'
 							) }
 						>
@@ -426,7 +417,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			</Section>
 
 			<Section
-				title={ __( 'Einschätzung des Assistenten', 'ai-act-labels' ) }
+				title={ __( "The assistant's assessment", 'ai-act-labels' ) }
 				aside={
 					assistant.ready ? (
 						<Button
@@ -436,8 +427,8 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							onClick={ () => run( 'review', '/review' ) }
 						>
 							{ item.hint
-								? __( 'Neu einschätzen', 'ai-act-labels' )
-								: __( 'Einschätzen', 'ai-act-labels' ) }
+								? __( 'Assess again', 'ai-act-labels' )
+								: __( 'Assess', 'ai-act-labels' ) }
 						</Button>
 					) : null
 				}
@@ -459,11 +450,11 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							<span className="aal-fine">
 								{ item.hint.seen
 									? __(
-											'mit Blick aufs Bild',
+											'looking at the image',
 											'ai-act-labels'
 									  )
 									: __(
-											'ohne Blick aufs Bild',
+											'without seeing the image',
 											'ai-act-labels'
 									  ) }
 								{ item.hint.model
@@ -475,20 +466,20 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				) : (
 					<p className="aal-fine">
 						{ __(
-							'Der Assistent sieht sich das Bild, seine Spuren und die Seiten an, auf denen es steht, und sagt, ob ein Hinweis Pflicht ist.',
+							'The assistant looks at the image, its traces and the pages it is on, and says whether a label is required.',
 							'ai-act-labels'
 						) }
 					</p>
 				) }
 			</Section>
 
-			<Section title={ __( 'Spuren in der Datei', 'ai-act-labels' ) }>
+			<Section title={ __( 'Traces in the file', 'ai-act-labels' ) }>
 				{ item.signals?.items?.length ? (
 					<Traces signals={ item.signals } max={ 10 } />
 				) : (
 					<p className="aal-fine">
 						{ __(
-							'Keine Spuren gefunden. Das heißt nicht, dass keine KI im Spiel war – nach einem Screenshot oder Export fehlen sie meist.',
+							'No traces found. That does not mean no AI was involved – after a screenshot or export they are usually gone.',
 							'ai-act-labels'
 						) }
 					</p>
@@ -496,7 +487,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			</Section>
 
 			<Section
-				title={ __( 'Wo es verwendet wird', 'ai-act-labels' ) }
+				title={ __( 'Where it is used', 'ai-act-labels' ) }
 				aside={
 					labelled && item.usage?.length ? (
 						<Button
@@ -505,7 +496,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							busy={ busy === 'verify' }
 							onClick={ () => run( 'verify', '/verify' ) }
 						>
-							{ __( 'Auf der Website prüfen', 'ai-act-labels' ) }
+							{ __( 'Check on the site', 'ai-act-labels' ) }
 						</Button>
 					) : null
 				}
@@ -544,7 +535,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 									) : ! u.auto ? (
 										<Chip tone="amber">
 											{ __(
-												'Hinweis prüfen',
+												'Check label',
 												'ai-act-labels'
 											) }
 										</Chip>
@@ -556,7 +547,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				) : (
 					<p className="aal-fine">
 						{ __(
-							'Auf keiner Seite gefunden. Prüf die Website, wenn du sie zuletzt geändert hast.',
+							'Not found on any page. Check the site if you changed it recently.',
 							'ai-act-labels'
 						) }
 					</p>
@@ -564,7 +555,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				{ manual ? (
 					<span className="aal-fine">
 						{ __(
-							'„Hinweis prüfen“: dort steht die Datei nur als Adresse oder in einem Page Builder. „Auf der Website prüfen“ zeigt, ob der Hinweis trotzdem erscheint; sonst gehört ai_act_labels_wrap() ins Theme.',
+							'“Check label”: there the file is only a URL or in a page builder. “Check on the site” shows whether the label still appears; otherwise the theme needs ai_act_labels_wrap().',
 							'ai-act-labels'
 						) }
 					</span>
@@ -733,9 +724,9 @@ export default function Review( { state, setState, initial } ) {
 				onOpen={ ( m ) => setOpen( m ) }
 			/>
 			<Section
-				title={ __( 'Medien', 'ai-act-labels' ) }
+				title={ __( 'Media', 'ai-act-labels' ) }
 				hint={ __(
-					'Entscheide pro Datei: KI-generiert, mit KI verändert oder kein Hinweis nötig. Pflicht ist der Hinweis, wenn etwas echt wirkt, das es so nicht gab.',
+					'Decide per file: AI-generated, modified with AI or no label needed. The label is required when something looks real that did not happen that way.',
 					'ai-act-labels'
 				) }
 				aside={
@@ -744,11 +735,8 @@ export default function Review( { state, setState, initial } ) {
 						<input
 							type="search"
 							value={ search }
-							placeholder={ __( 'Suchen', 'ai-act-labels' ) }
-							aria-label={ __(
-								'Medien suchen',
-								'ai-act-labels'
-							) }
+							placeholder={ __( 'Search', 'ai-act-labels' ) }
+							aria-label={ __( 'Search media', 'ai-act-labels' ) }
 							onChange={ ( e ) => {
 								setSearch( e.target.value );
 								setPage( 1 );
@@ -793,7 +781,7 @@ export default function Review( { state, setState, initial } ) {
 							{ sprintf(
 								/* translators: %d: number of suggestions */
 								__(
-									'Alle %d Vorschläge übernehmen',
+									'Apply all %d suggestions',
 									'ai-act-labels'
 								),
 								counts.suggested
@@ -811,7 +799,7 @@ export default function Review( { state, setState, initial } ) {
 								? sprintf(
 										/* translators: 1: done, 2: total */
 										__(
-											'Schätzt ein … %1$d von %2$d',
+											'Assessing … %1$d of %2$d',
 											'ai-act-labels'
 										),
 										batch.done,
@@ -820,8 +808,8 @@ export default function Review( { state, setState, initial } ) {
 								: sprintf(
 										/* translators: %d: number of files */
 										_n(
-											'%d Datei einschätzen lassen',
-											'%d Dateien einschätzen lassen',
+											'Have %d file assessed',
+											'Have %d files assessed',
 											unassessed,
 											'ai-act-labels'
 										),
@@ -835,7 +823,7 @@ export default function Review( { state, setState, initial } ) {
 					<Notice tone="success">
 						{ sprintf(
 							/* translators: %d: number of files */
-							__( '%d Vorschläge übernommen.', 'ai-act-labels' ),
+							__( '%d suggestions applied.', 'ai-act-labels' ),
 							accepted.length
 						) }{ ' ' }
 						<button
@@ -843,12 +831,12 @@ export default function Review( { state, setState, initial } ) {
 							className="aal-link-btn"
 							onClick={ undoAccept }
 						>
-							{ __( 'Rückgängig', 'ai-act-labels' ) }
+							{ __( 'Undo', 'ai-act-labels' ) }
 						</button>
 					</Notice>
 				) : null }
 				{ ! data ? (
-					<Spinner label={ __( 'Lädt …', 'ai-act-labels' ) } />
+					<Spinner label={ __( 'Loading …', 'ai-act-labels' ) } />
 				) : data.items.length ? (
 					<Card pad0>
 						{ data.items.map( ( item ) => (
@@ -882,7 +870,7 @@ export default function Review( { state, setState, initial } ) {
 						<span className="aal-fine">
 							{ sprintf(
 								/* translators: 1: page, 2: pages */
-								__( 'Seite %1$d von %2$d', 'ai-act-labels' ),
+								__( 'Page %1$d of %2$d', 'ai-act-labels' ),
 								page,
 								data.pages
 							) }
@@ -898,11 +886,11 @@ export default function Review( { state, setState, initial } ) {
 				) : null }
 				<span className="aal-fine">
 					{ __(
-						'Auch in der Mediathek: Filter „KI“, Spalte und Sammelaktionen in der Listenansicht.',
+						'Also in the Media Library: the “AI” filter, a column and bulk actions in the list view.',
 						'ai-act-labels'
 					) }{ ' ' }
 					<a href={ boot.upload }>
-						{ __( 'Mediathek öffnen', 'ai-act-labels' ) }
+						{ __( 'Open Media Library', 'ai-act-labels' ) }
 					</a>
 				</span>
 			</Section>

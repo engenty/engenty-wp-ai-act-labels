@@ -474,11 +474,11 @@ class AI_Act_Labels_Usage {
 	private static function site_label( $context ) {
 		switch ( $context ) {
 			case 'logo':
-				return __( 'Logo der Website', 'ai-act-labels' );
+				return __( 'Site logo', 'ai-act-labels' );
 			case 'icon':
-				return __( 'Website-Icon', 'ai-act-labels' );
+				return __( 'Site icon', 'ai-act-labels' );
 			case 'header':
-				return __( 'Kopfbild', 'ai-act-labels' );
+				return __( 'Header image', 'ai-act-labels' );
 		}
 		return __( 'Website', 'ai-act-labels' );
 	}

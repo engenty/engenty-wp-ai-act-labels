@@ -131,7 +131,7 @@ class AI_Act_Labels_Assistant {
 	 */
 	public static function generate( $system, $prompt, array $schema, $file = '', $mime = '' ) {
 		if ( ! function_exists( 'wp_ai_client_prompt' ) ) {
-			return new WP_Error( 'ai_act_labels_no_ai', __( 'Der Assistent braucht WordPress 7.0 oder neuer.', 'ai-act-labels' ) );
+			return new WP_Error( 'ai_act_labels_no_ai', __( 'The assistant needs WordPress 7.0 or newer.', 'ai-act-labels' ) );
 		}
 		try {
 			$builder = wp_ai_client_prompt( $prompt );
@@ -165,7 +165,7 @@ class AI_Act_Labels_Assistant {
 			return new WP_Error( 'ai_act_labels_ai', $e->getMessage() );
 		}
 		$data = self::decode( $text );
-		return null === $data ? new WP_Error( 'ai_act_labels_ai_json', __( 'Die Antwort war kein JSON. Versuch es noch einmal.', 'ai-act-labels' ) ) : $data;
+		return null === $data ? new WP_Error( 'ai_act_labels_ai_json', __( 'The answer was not JSON. Try again.', 'ai-act-labels' ) ) : $data;
 	}
 
 	/**
@@ -275,7 +275,7 @@ class AI_Act_Labels_Assistant {
 	public static function review( $id ) {
 		$id = (int) $id;
 		if ( 'attachment' !== get_post_type( $id ) ) {
-			return new WP_Error( 'ai_act_labels_missing', __( 'Diese Datei gibt es nicht.', 'ai-act-labels' ) );
+			return new WP_Error( 'ai_act_labels_missing', __( 'This file does not exist.', 'ai-act-labels' ) );
 		}
 		$langs  = self::languages();
 		$system = implode(
@@ -343,7 +343,7 @@ class AI_Act_Labels_Assistant {
 		$system = implode(
 			"\n",
 			array(
-				'You are the assistant inside the WordPress plugin "AI Act Labels". It labels AI-generated and AI-modified media as the EU AI Act asks: in the media library each image, video or recording gets the decision "generated", "modified" or "none" (needs no label); labelled media show the EU icon in a corner on the site, with the notice behind captions; the plugin reads traces of AI in files (C2PA, IPTC, generation data, file names) and knows where each file is used. Featured images, blocks, galleries, covers and [caption] get the label by themselves; files used as a bare URL or by a page builder may need the theme to call ai_act_labels_wrap() – the check "Auf der Website prüfen" opens the pages and shows where the label is missing.',
+				'You are the assistant inside the WordPress plugin "AI Act Labels". It labels AI-generated and AI-modified media as the EU AI Act asks: in the media library each image, video or recording gets the decision "generated", "modified" or "none" (needs no label); labelled media show the EU icon in a corner on the site, with the notice behind captions; the plugin reads traces of AI in files (C2PA, IPTC, generation data, file names) and knows where each file is used. Featured images, blocks, galleries, covers and [caption] get the label by themselves; files used as a bare URL or by a page builder may need the theme to call ai_act_labels_wrap() – the check "' . __( 'Check on the site', 'ai-act-labels' ) . '" opens the pages and shows where the label is missing.',
 				'Your knowledge of the law:',
 				self::skill(),
 				'',

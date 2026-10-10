@@ -273,9 +273,9 @@ class AI_Act_Labels {
 	public static function label_text( $kind ) {
 		$texts = self::settings()['texts'];
 		if ( 'modified' === $kind ) {
-			return '' !== $texts['modified'] ? $texts['modified'] : __( 'Mit KI verändert', 'ai-act-labels' );
+			return '' !== $texts['modified'] ? $texts['modified'] : __( 'Modified with AI', 'ai-act-labels' );
 		}
-		return '' !== $texts['generated'] ? $texts['generated'] : __( 'KI-generiert', 'ai-act-labels' );
+		return '' !== $texts['generated'] ? $texts['generated'] : __( 'AI-generated', 'ai-act-labels' );
 	}
 
 	/**
@@ -293,16 +293,16 @@ class AI_Act_Labels {
 		}
 		$notices = array(
 			'generated' => array(
-				'image' => __( 'Dieses Bild wurde mit KI erzeugt.', 'ai-act-labels' ),
-				'video' => __( 'Dieses Video wurde mit KI erzeugt.', 'ai-act-labels' ),
-				'audio' => __( 'Diese Aufnahme wurde mit KI erzeugt.', 'ai-act-labels' ),
-				'file'  => __( 'Dieser Inhalt wurde mit KI erzeugt.', 'ai-act-labels' ),
+				'image' => __( 'This image was created with AI.', 'ai-act-labels' ),
+				'video' => __( 'This video was created with AI.', 'ai-act-labels' ),
+				'audio' => __( 'This recording was created with AI.', 'ai-act-labels' ),
+				'file'  => __( 'This content was created with AI.', 'ai-act-labels' ),
 			),
 			'modified'  => array(
-				'image' => __( 'Dieses Bild wurde mit KI verändert.', 'ai-act-labels' ),
-				'video' => __( 'Dieses Video wurde mit KI verändert.', 'ai-act-labels' ),
-				'audio' => __( 'Diese Aufnahme wurde mit KI verändert.', 'ai-act-labels' ),
-				'file'  => __( 'Dieser Inhalt wurde mit KI verändert.', 'ai-act-labels' ),
+				'image' => __( 'This image was modified with AI.', 'ai-act-labels' ),
+				'video' => __( 'This video was modified with AI.', 'ai-act-labels' ),
+				'audio' => __( 'This recording was modified with AI.', 'ai-act-labels' ),
+				'file'  => __( 'This content was modified with AI.', 'ai-act-labels' ),
 			),
 		);
 		$kind    = 'modified' === $kind ? 'modified' : 'generated';
@@ -321,7 +321,7 @@ class AI_Act_Labels {
 		if ( '' === $notice && self::settings()['legacy'] && ! get_post_meta( $id, self::META, true ) ) {
 			$notice = trim( (string) get_post_meta( $id, self::LEGACY_NOTICE, true ) );
 			if ( '' === $notice && get_post_meta( $id, self::LEGACY, true ) ) {
-				$notice = __( 'Dieses Bild wurde mit Hilfe von KI erstellt oder bearbeitet.', 'ai-act-labels' );
+				$notice = __( 'This image was created or edited with the help of AI.', 'ai-act-labels' );
 			}
 		}
 		if ( '' === $notice ) {
@@ -330,7 +330,7 @@ class AI_Act_Labels {
 		$tool = trim( (string) get_post_meta( $id, self::META_TOOL, true ) );
 		if ( '' !== $tool ) {
 			/* translators: %s: the AI tool, e.g. Midjourney */
-			$notice = rtrim( $notice ) . ' ' . sprintf( __( 'Werkzeug: %s.', 'ai-act-labels' ), $tool );
+			$notice = rtrim( $notice ) . ' ' . sprintf( __( 'Tool: %s.', 'ai-act-labels' ), $tool );
 		}
 		return $notice;
 	}

@@ -3,28 +3,28 @@ import { boot } from './api';
 import { Button, Chip, Engenty, Icon } from './ui';
 
 export const STATE_LABELS = {
-	generated: __( 'KI-generiert', 'ai-act-labels' ),
-	modified: __( 'Mit KI verändert', 'ai-act-labels' ),
-	none: __( 'Kein Hinweis nötig', 'ai-act-labels' ),
-	'': __( 'Nicht entschieden', 'ai-act-labels' ),
+	generated: __( 'AI-generated', 'ai-act-labels' ),
+	modified: __( 'Modified with AI', 'ai-act-labels' ),
+	none: __( 'No label needed', 'ai-act-labels' ),
+	'': __( 'Not decided', 'ai-act-labels' ),
 };
 
 /** Where a file is used, in words; `auto`: the label comes there by itself. */
 export const CONTEXT_LABELS = {
-	featured: __( 'Beitragsbild', 'ai-act-labels' ),
-	image: __( 'Bild', 'ai-act-labels' ),
-	gallery: __( 'Galerie', 'ai-act-labels' ),
+	featured: __( 'Featured image', 'ai-act-labels' ),
+	image: __( 'Image', 'ai-act-labels' ),
+	gallery: __( 'Gallery', 'ai-act-labels' ),
 	cover: __( 'Cover', 'ai-act-labels' ),
-	'media-text': __( 'Medien und Text', 'ai-act-labels' ),
+	'media-text': __( 'Media & Text', 'ai-act-labels' ),
 	video: __( 'Video', 'ai-act-labels' ),
 	audio: __( 'Audio', 'ai-act-labels' ),
-	url: __( 'nur als Adresse', 'ai-act-labels' ),
-	builder: __( 'Page Builder', 'ai-act-labels' ),
-	acf: __( 'ACF-Feld', 'ai-act-labels' ),
-	shop: __( 'Produktgalerie', 'ai-act-labels' ),
+	url: __( 'only as a URL', 'ai-act-labels' ),
+	builder: __( 'Page builder', 'ai-act-labels' ),
+	acf: __( 'ACF field', 'ai-act-labels' ),
+	shop: __( 'Product gallery', 'ai-act-labels' ),
 	logo: __( 'Logo', 'ai-act-labels' ),
-	icon: __( 'Website-Icon', 'ai-act-labels' ),
-	header: __( 'Kopfbild', 'ai-act-labels' ),
+	icon: __( 'Site icon', 'ai-act-labels' ),
+	header: __( 'Header image', 'ai-act-labels' ),
 };
 
 /**
@@ -111,7 +111,7 @@ export function Decide( { value, suggests, onChange, busy = false } ) {
 		<span
 			className="aal-decide"
 			role="radiogroup"
-			aria-label={ __( 'KI-Kennzeichnung', 'ai-act-labels' ) }
+			aria-label={ __( 'AI labels', 'ai-act-labels' ) }
 		>
 			{ [ 'generated', 'modified', 'none' ].map( ( s ) => (
 				<button
@@ -126,7 +126,7 @@ export function Decide( { value, suggests, onChange, busy = false } ) {
 					onClick={ () => onChange( value === s ? '' : s ) }
 					title={
 						! value && suggests === s
-							? __( 'Vorschlag', 'ai-act-labels' )
+							? __( 'Suggestion', 'ai-act-labels' )
 							: undefined
 					}
 				>
@@ -172,10 +172,10 @@ export function Traces( { signals, max = 3 } ) {
 
 /** The assistant's assessment in words. */
 const DUTY = {
-	required: __( 'Hinweis Pflicht', 'ai-act-labels' ),
-	voluntary: __( 'Hinweis freiwillig', 'ai-act-labels' ),
-	none: __( 'kein Hinweis nötig', 'ai-act-labels' ),
-	unsure: __( 'unklar', 'ai-act-labels' ),
+	required: __( 'Label required', 'ai-act-labels' ),
+	voluntary: __( 'Label voluntary', 'ai-act-labels' ),
+	none: __( 'no label needed', 'ai-act-labels' ),
+	unsure: __( 'unclear', 'ai-act-labels' ),
 };
 
 export function HintLine( { hint } ) {
@@ -205,7 +205,7 @@ export function UsageLine( { usage } ) {
 	if ( ! usage?.length ) {
 		return (
 			<span className="aal-fine">
-				{ __( 'Auf keiner Seite gefunden', 'ai-act-labels' ) }
+				{ __( 'Not found on any page', 'ai-act-labels' ) }
 			</span>
 		);
 	}
@@ -223,7 +223,7 @@ export function UsageLine( { usage } ) {
 			{ usage.length > 3
 				? sprintf(
 						/* translators: %d: number of further places */
-						__( 'und %d weitere', 'ai-act-labels' ),
+						__( 'and %d more', 'ai-act-labels' ),
 						usage.length - 3
 				  )
 				: '' }
@@ -246,31 +246,31 @@ export function Promo( { wizards } ) {
 			<div className="aal-promo__t">
 				<span className="aal-kick">
 					{ __(
-						'Von engenty, den Machern dieses Plugins',
+						'From engenty, the makers of this plugin',
 						'ai-act-labels'
 					) }
 				</span>
 				<b>
 					{ __(
-						'engenty wizards: geführte Abläufe für deine Besucher',
+						'engenty wizards: guided flows for your visitors',
 						'ai-act-labels'
 					) }
 				</b>
 				<p>
 					{ __(
-						'Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert.',
+						'Enquiries, quotes, appointments – step by step on your site, built with AI instead of code.',
 						'ai-act-labels'
 					) }
 				</p>
 			</div>
 			{ wizards.active ? (
 				<Button size="sm" href={ wizards.open }>
-					{ __( 'Öffnen', 'ai-act-labels' ) }
+					{ __( 'Open', 'ai-act-labels' ) }
 				</Button>
 			) : (
 				<span className="aal-row-inline">
 					<Button size="sm" href={ wizards.install }>
-						{ __( 'Plugin ansehen', 'ai-act-labels' ) }
+						{ __( 'View plugin', 'ai-act-labels' ) }
 					</Button>
 					<Button
 						kind="ghost"

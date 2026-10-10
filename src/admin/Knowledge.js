@@ -1,4 +1,4 @@
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { boot } from './api';
 import { EuIcon, Promo } from './parts';
 import { Button, Card, Icon, Section } from './ui';
@@ -7,7 +7,7 @@ import { Button, Card, Icon, Section } from './ui';
 const CASES = [
 	[
 		__(
-			'Fotorealistisches KI-„Teamfoto“, Kundenporträt, Testimonial',
+			'Photorealistic AI “team photo”, customer portrait, testimonial',
 			'ai-act-labels'
 		),
 		'generated',
@@ -15,7 +15,7 @@ const CASES = [
 	],
 	[
 		__(
-			'Echtes Foto, Hintergrund oder Person mit KI ersetzt oder ergänzt',
+			'Real photo, background or person replaced or added with AI',
 			'ai-act-labels'
 		),
 		'modified',
@@ -23,23 +23,20 @@ const CASES = [
 	],
 	[
 		__(
-			'KI-Produktfoto, das wie ein echtes Foto des Produkts wirkt',
+			'AI product shot that looks like a real photo of the product',
 			'ai-act-labels'
 		),
 		'generated',
 		'required',
 	],
 	[
-		__(
-			'KI-Bild eines echten Gebäudes, Ortes oder Ereignisses',
-			'ai-act-labels'
-		),
+		__( 'AI image of a real building, place or event', 'ai-act-labels' ),
 		'generated',
 		'required',
 	],
 	[
 		__(
-			'Erkennbare Illustration, Comic, 3D-Grafik, abstrakter Hintergrund',
+			'Recognizable illustration, comic, 3D graphic, abstract background',
 			'ai-act-labels'
 		),
 		'generated',
@@ -47,43 +44,47 @@ const CASES = [
 	],
 	[
 		__(
-			'Echtes Foto, nur Farbe, Licht, Rauschen oder Ausschnitt mit KI-Werkzeug',
+			'Real photo, only color, light, noise or crop with an AI tool',
 			'ai-act-labels'
 		),
 		'none',
 		'none',
 	],
-	[ __( 'Kamera- oder Stockfoto ohne KI', 'ai-act-labels' ), 'none', 'none' ],
+	[
+		__( 'Camera or stock photo without AI', 'ai-act-labels' ),
+		'none',
+		'none',
+	],
 ];
 
 const DUTY = {
-	required: [ 'rose', __( 'Pflicht', 'ai-act-labels' ) ],
-	voluntary: [ 'amber', __( 'freiwillig', 'ai-act-labels' ) ],
-	none: [ 'moss', __( 'kein Hinweis', 'ai-act-labels' ) ],
+	required: [ 'rose', __( 'required', 'ai-act-labels' ) ],
+	voluntary: [ 'amber', __( 'voluntary', 'ai-act-labels' ) ],
+	none: [ 'moss', __( 'no label', 'ai-act-labels' ) ],
 };
 
 const SOURCES = [
 	[
 		__(
-			'Fragen und Antworten zu Artikel 50 (EU-Kommission)',
+			'Questions and answers on Article 50 (European Commission)',
 			'ai-act-labels'
 		),
 		'https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act',
 	],
 	[
 		__(
-			'Verhaltenskodex zur Kennzeichnung KI-generierter Inhalte',
+			'Code of Practice on labeling AI-generated content',
 			'ai-act-labels'
 		),
 		'https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content',
 	],
 	[
-		__( 'Die EU-Icons zum Herunterladen', 'ai-act-labels' ),
+		__( 'The EU icons to download', 'ai-act-labels' ),
 		'https://digital-strategy.ec.europa.eu/en/policies/eu-icons-labelling-ai-generated-content',
 	],
 	[
 		__(
-			'AI Act im Amtsblatt (Verordnung (EU) 2024/1689)',
+			'AI Act in the Official Journal (Regulation (EU) 2024/1689)',
 			'ai-act-labels'
 		),
 		'https://eur-lex.europa.eu/eli/reg/2024/1689/oj',
@@ -106,17 +107,17 @@ export default function Knowledge( { state, onAsk } ) {
 			<div className="aal-khero">
 				<div>
 					<span className="aal-kick">
-						{ __( 'AI Act, Artikel 50', 'ai-act-labels' ) }
+						{ __( 'AI Act, Article 50', 'ai-act-labels' ) }
 					</span>
 					<h1>
 						{ __(
-							'Seit 2. August 2026 muss sichtbar sein, was KI gemacht hat.',
+							'Since 2 August 2026, what AI made has to be visible.',
 							'ai-act-labels'
 						) }
 					</h1>
 					<p>
 						{ __(
-							'Wer als Unternehmen Bilder, Videos oder Tonaufnahmen veröffentlicht, die echt wirken, aber mit KI erzeugt oder verändert sind, muss das kennzeichnen – sichtbar, spätestens beim ersten Blick darauf. Die Pflicht trifft dich als Betreiber der Website, nicht den Hersteller des KI-Werkzeugs.',
+							"A business that publishes images, videos or recordings that look real but were created or modified with AI has to label them – visibly, at the latest at first sight. The duty is yours as the site owner, not the AI tool maker's.",
 							'ai-act-labels'
 						) }
 					</p>
@@ -133,23 +134,23 @@ export default function Knowledge( { state, onAsk } ) {
 					<span className="aal-kcard__ic is-rose">
 						<Icon name="warn" size={ 16 } />
 					</span>
-					<h2>{ __( 'Kennzeichnen musst du', 'ai-act-labels' ) }</h2>
+					<h2>{ __( 'You have to label', 'ai-act-labels' ) }</h2>
 					<ul>
 						<li>
 							{ __(
-								'Deepfakes: Bilder, Videos, Audio mit KI, die echte oder plausible Personen, Dinge, Orte oder Ereignisse zeigen und echt wirken – auch eine erfundene, aber fotorealistische Person.',
+								'Deepfakes: AI images, videos, audio that show real or plausible people, things, places or events and look real – also an invented but photorealistic person.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'KI-Texte, die die Öffentlichkeit über Themen von öffentlichem Interesse informieren – außer ein Mensch hat sie geprüft und verantwortet sie.',
+								'AI texts that inform the public on matters of public interest – unless a person reviewed them and takes responsibility.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Ob du täuschen wolltest, ist egal. Es zählt, was dein Publikum glaubt.',
+								'Whether you meant to deceive does not matter. What your audience believes counts.',
 								'ai-act-labels'
 							) }
 						</li>
@@ -159,31 +160,29 @@ export default function Knowledge( { state, onAsk } ) {
 					<span className="aal-kcard__ic is-moss">
 						<Icon name="check" size={ 16 } />
 					</span>
-					<h2>
-						{ __( 'Keinen Hinweis brauchen', 'ai-act-labels' ) }
-					</h2>
+					<h2>{ __( 'No label needed for', 'ai-act-labels' ) }</h2>
 					<ul>
 						<li>
 							{ __(
-								'Normale Bearbeitung: Ausschnitt, Licht, Farbe, Rauschen, Staub, Hochskalieren – auch mit KI-Werkzeugen.',
+								'Ordinary editing: crop, light, color, noise, dust, upscaling – also with AI tools.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Offensichtlich künstliche Bilder (Illustration, Comic, Abstraktes): freiwillig, aber für das Vertrauen gut.',
+								'Obviously artificial images (illustration, comic, abstract): voluntary, but good for trust.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Inhalte, die vor dem 2. August 2026 erzeugt wurden – rückwirkend gilt nichts.',
+								'Content created before 2 August 2026 – nothing applies retroactively.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Kunst, Satire, Fiktion: ja, aber so, dass das Werk nicht leidet (z. B. in der Bildunterschrift).',
+								'Art, satire, fiction: yes, but so that the work does not suffer (e.g. in the caption).',
 								'ai-act-labels'
 							) }
 						</li>
@@ -193,31 +192,29 @@ export default function Knowledge( { state, onAsk } ) {
 					<span className="aal-kcard__ic">
 						<Icon name="eye" size={ 16 } />
 					</span>
-					<h2>
-						{ __( 'So gehört der Hinweis hin', 'ai-act-labels' ) }
-					</h2>
+					<h2>{ __( 'Where the label goes', 'ai-act-labels' ) }</h2>
 					<ul>
 						<li>
 							{ __(
-								'Auf oder direkt am Inhalt, ohne Klick erkennbar – nicht nur im Impressum.',
+								'On or right at the content, visible without a click – not only in the imprint.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Klare Worte: „KI-generiert“, „Mit KI verändert“. Für Screenreader als Name des Icons, nie statt des Alt-Texts.',
+								"Plain words: “AI-generated”, “Modified with AI”. For screen readers as the icon's name, never instead of the alt text.",
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Videos: die ganze Zeit in einer Ecke. Audio: beim Player und im Cover.',
+								'Videos: in a corner the whole time. Audio: at the player and in the artwork.',
 								'ai-act-labels'
 							) }
 						</li>
 						<li>
 							{ __(
-								'Wasserzeichen oder Metadaten des KI-Werkzeugs zählen für dich nicht.',
+								"The AI tool's watermark or metadata does not count for you.",
 								'ai-act-labels'
 							) }
 						</li>
@@ -226,9 +223,9 @@ export default function Knowledge( { state, onAsk } ) {
 			</div>
 
 			<Section
-				title={ __( 'Die Icons der EU', 'ai-act-labels' ) }
+				title={ __( "The EU's icons", 'ai-act-labels' ) }
 				hint={ __(
-					'Seit Juni 2026 von der Kommission, frei verwendbar, ohne Namensnennung. Freiwillig – ein gleichwertiger Hinweis ist auch erlaubt.',
+					'From the Commission since June 2026, free to use, no attribution. Optional – an equivalent label is allowed too.',
 					'ai-act-labels'
 				) }
 			>
@@ -238,7 +235,7 @@ export default function Knowledge( { state, onAsk } ) {
 						<b>{ __( 'AI GENERATED', 'ai-act-labels' ) }</b>
 						<p>
 							{ __(
-								'Ganz mit KI erzeugt, ohne menschlich gemachte Teile.',
+								'Fully created with AI, no human-made parts.',
 								'ai-act-labels'
 							) }
 						</p>
@@ -248,17 +245,23 @@ export default function Knowledge( { state, onAsk } ) {
 						<b>{ __( 'AI MODIFIED', 'ai-act-labels' ) }</b>
 						<p>
 							{ __(
-								'Echtes Foto, Video oder echte Aufnahme, teilweise mit KI verändert.',
+								'Real photo, video or recording, partly modified with AI.',
 								'ai-act-labels'
 							) }
 						</p>
 					</div>
 					<div>
 						<EuIcon name="basic" />
-						<b>{ __( 'AI', 'ai-act-labels' ) }</b>
+						<b>
+							{ _x(
+								'AI',
+								'name of the EU basic icon',
+								'ai-act-labels'
+							) }
+						</b>
 						<p>
 							{ __(
-								'Das Basis-Icon: mit eigenem Text, mit zweiter Ebene oder wo wenig Platz ist.',
+								'The basic icon: with your own text, with a second layer or where space is short.',
 								'ai-act-labels'
 							) }
 						</p>
@@ -266,13 +269,13 @@ export default function Knowledge( { state, onAsk } ) {
 				</Card>
 			</Section>
 
-			<Section title={ __( 'Typische Fälle', 'ai-act-labels' ) }>
+			<Section title={ __( 'Typical cases', 'ai-act-labels' ) }>
 				<table className="aal-table">
 					<thead>
 						<tr>
-							<th>{ __( 'Datei', 'ai-act-labels' ) }</th>
-							<th>{ __( 'Art', 'ai-act-labels' ) }</th>
-							<th>{ __( 'Hinweis', 'ai-act-labels' ) }</th>
+							<th>{ __( 'File', 'ai-act-labels' ) }</th>
+							<th>{ __( 'Kind', 'ai-act-labels' ) }</th>
+							<th>{ __( 'Label', 'ai-act-labels' ) }</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -284,11 +287,11 @@ export default function Knowledge( { state, onAsk } ) {
 										? '–'
 										: kind === 'modified'
 										? __(
-												'Mit KI verändert',
+												'Modified with AI',
 												'ai-act-labels'
 										  )
 										: __(
-												'KI-generiert',
+												'AI-generated',
 												'ai-act-labels'
 										  ) }
 								</td>
@@ -308,32 +311,32 @@ export default function Knowledge( { state, onAsk } ) {
 			<div className="aal-kgrid aal-kgrid--2">
 				<Section
 					title={ __(
-						'Woran das Plugin KI erkennt',
+						'How the plugin recognizes AI',
 						'ai-act-labels'
 					) }
 				>
 					<Card className="aal-prose">
 						<p>
 							{ __(
-								'Viele KI-Werkzeuge schreiben in die Datei, dass sie mit KI gemacht ist: Content Credentials (C2PA) von ChatGPT, Gemini, Firefly oder Photoshop, die IPTC-Angabe „trainedAlgorithmicMedia“, die Generierungsdaten von Stable Diffusion und ComfyUI. Das Plugin liest sie beim Hochladen und bei jeder Prüfung – auf deinem Server, nichts verlässt ihn.',
+								'Many AI tools write into the file that it was made with AI: Content Credentials (C2PA) from ChatGPT, Gemini, Firefly or Photoshop, the IPTC value “trainedAlgorithmicMedia”, the generation data of Stable Diffusion and ComfyUI. The plugin reads them on upload and with every check – on your server, nothing leaves it.',
 								'ai-act-labels'
 							) }
 						</p>
 						<p>
 							{ __(
-								'Fehlt eine Spur, heißt das nichts: Screenshots, Exporte und Bildoptimierer entfernen sie. Deshalb zeigt „Verwendet, nicht entschieden“ alles, was auf deiner Website zu sehen ist und noch keine Entscheidung hat. Nur du weißt sicher, wie ein Bild entstanden ist.',
+								'A missing trace means nothing: screenshots, exports and image optimizers remove them. That is why “Used, not decided” shows everything visible on your site that has no decision yet. Only you know for sure how an image was made.',
 								'ai-act-labels'
 							) }
 						</p>
 					</Card>
 				</Section>
 				<Section
-					title={ __( 'Dieses Wissen als Skill', 'ai-act-labels' ) }
+					title={ __( 'This knowledge as a skill', 'ai-act-labels' ) }
 				>
 					<Card className="aal-prose">
 						<p>
 							{ __(
-								'Der Assistent denkt mit einem Skill: eine Anleitung mit Quellen zum AI Act, im Plugin unter skills/eu-ai-act-labels. Dieselben Dateien kannst du jedem KI-Agenten geben, der Agent Skills liest – Claude, Cursor, Codex und andere.',
+								'The assistant thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others.',
 								'ai-act-labels'
 							) }
 						</p>
@@ -344,7 +347,7 @@ export default function Knowledge( { state, onAsk } ) {
 								external
 								icon="book"
 							>
-								{ __( 'SKILL.md ansehen', 'ai-act-labels' ) }
+								{ __( 'View SKILL.md', 'ai-act-labels' ) }
 							</Button>
 							<Button
 								size="sm"
@@ -352,10 +355,7 @@ export default function Knowledge( { state, onAsk } ) {
 								icon="sparkle"
 								onClick={ onAsk }
 							>
-								{ __(
-									'Den Assistenten fragen',
-									'ai-act-labels'
-								) }
+								{ __( 'Ask the assistant', 'ai-act-labels' ) }
 							</Button>
 						</span>
 					</Card>
@@ -363,9 +363,9 @@ export default function Knowledge( { state, onAsk } ) {
 			</div>
 
 			<Section
-				title={ __( 'Quellen', 'ai-act-labels' ) }
+				title={ __( 'Sources', 'ai-act-labels' ) }
 				hint={ __(
-					'Stand 9. Oktober 2026. Das ist eine Hilfe, keine Rechtsberatung.',
+					'As of 9 October 2026. This is help, not legal advice.',
 					'ai-act-labels'
 				) }
 			>

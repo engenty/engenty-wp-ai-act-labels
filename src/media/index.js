@@ -32,7 +32,7 @@ function decorate( view ) {
 		tile.className = 'ai-act-tile is-suggest';
 		tile.title = sprintf(
 			/* translators: %s: KI-generiert or Mit KI verändert */
-			__( 'Vorschlag: %s', 'ai-act-labels' ),
+			__( 'Suggestion: %s', 'ai-act-labels' ),
 			data.states?.[ ai.suggests ] || ''
 		);
 	} else {
@@ -83,7 +83,7 @@ if ( media && media.view && media.view.Attachment ) {
 		this.toolbar.set(
 			'aiActFilterLabel',
 			new media.view.Label( {
-				value: data.label || 'KI',
+				value: data.label || 'AI',
 				attributes: { for: 'media-attachment-ai-act-filter' },
 				priority: -72,
 			} ).render()

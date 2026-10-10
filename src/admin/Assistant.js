@@ -6,10 +6,10 @@ import { STATE_LABELS, StateChip, Thumb } from './parts';
 
 /** How far a provider in Konnektoren is. */
 const OFFER_STATES = {
-	ready: __( 'eingerichtet', 'ai-act-labels' ),
-	key: __( 'API Key fehlt', 'ai-act-labels' ),
-	offline: __( 'antwortet nicht', 'ai-act-labels' ),
-	plugin: __( 'Plugin fehlt', 'ai-act-labels' ),
+	ready: __( 'set up', 'ai-act-labels' ),
+	key: __( 'API key missing', 'ai-act-labels' ),
+	offline: __( 'not responding', 'ai-act-labels' ),
+	plugin: __( 'plugin missing', 'ai-act-labels' ),
 };
 
 /**
@@ -27,19 +27,19 @@ export function Setup( { assistant, compact = false, onHide } ) {
 			<div className="aal-setup">
 				<b className="aal-setup__title">
 					{ __(
-						'Der Assistent braucht WordPress 7.0',
+						'The assistant needs WordPress 7.0',
 						'ai-act-labels'
 					) }
 				</b>
 				<p>
 					{ __(
-						'Ab 7.0 denkt der Assistent mit dem KI-Anbieter, den du unter Einstellungen › Konnektoren einrichtest. Kennzeichnen, prüfen und die Spuren in Dateien funktionieren schon jetzt.',
+						'From 7.0, the assistant thinks with the AI provider you set up under Settings › Connectors. Labeling, the check and the traces in files already work.',
 						'ai-act-labels'
 					) }
 				</p>
 				<div className="aal-setup__actions">
 					<Button kind="primary" size="sm" href={ assistant.update }>
-						{ __( 'WordPress aktualisieren', 'ai-act-labels' ) }
+						{ __( 'Update WordPress', 'ai-act-labels' ) }
 					</Button>
 				</div>
 			</div>
@@ -54,20 +54,20 @@ export function Setup( { assistant, compact = false, onHide } ) {
 					type="button"
 					className="aal-icon-btn aal-setup__hide"
 					onClick={ onHide }
-					aria-label={ __( 'Hinweis ausblenden', 'ai-act-labels' ) }
-					title={ __( 'Hinweis ausblenden', 'ai-act-labels' ) }
+					aria-label={ __( 'Hide notice', 'ai-act-labels' ) }
+					title={ __( 'Hide notice', 'ai-act-labels' ) }
 				>
 					<Icon name="x" size={ 16 } />
 				</button>
 			) : null }
 			<b className="aal-setup__title">
 				<Icon name="lock" size={ 13 } />{ ' ' }
-				{ __( 'Erst einen KI-Anbieter einrichten', 'ai-act-labels' ) }
+				{ __( 'Set up an AI provider first', 'ai-act-labels' ) }
 			</b>
 			{ compact ? null : (
 				<p>
 					{ __(
-						'Der Assistent denkt mit dem Anbieter, den du in WordPress unter Einstellungen › Konnektoren einrichtest – dein API Key bleibt dort. Kennzeichnen, prüfen und die Spuren in Dateien funktionieren auch ohne.',
+						'The assistant thinks with the provider you set up in WordPress under Settings › Connectors – your API key stays there. Labeling, the check and the traces in files work without it.',
 						'ai-act-labels'
 					) }
 				</p>
@@ -100,21 +100,18 @@ export function Setup( { assistant, compact = false, onHide } ) {
 			) : null }
 			<div className="aal-setup__actions">
 				<Button kind="primary" size="sm" href={ assistant.connectors }>
-					{ __( 'Konnektoren öffnen', 'ai-act-labels' ) }
+					{ __( 'Open Connectors', 'ai-act-labels' ) }
 				</Button>
 				{ hasVercel ? null : (
 					<Button kind="ghost" size="sm" href={ assistant.vercel }>
-						{ __(
-							'Vercel AI Gateway installieren',
-							'ai-act-labels'
-						) }
+						{ __( 'Install Vercel AI Gateway', 'ai-act-labels' ) }
 					</Button>
 				) }
 			</div>
 			{ hasVercel || compact ? null : (
 				<span className="aal-fine">
 					{ __(
-						'Ohne Vertrag bei einem Anbieter: Vercel AI Gateway gibt 5 $ im Monat gratis, keine Kreditkarte.',
+						'No contract with a provider? Vercel AI Gateway gives $5 a month free, no credit card.',
 						'ai-act-labels'
 					) }
 				</span>
@@ -155,20 +152,20 @@ function ChatInput( { placeholder, locked, busy, onSend } ) {
 				onChange={ ( e ) => setText( e.target.value ) }
 				placeholder={
 					locked
-						? __(
-								'Wartet auf einen KI-Anbieter …',
-								'ai-act-labels'
-						  )
+						? __( 'Waiting for an AI provider …', 'ai-act-labels' )
 						: placeholder
 				}
-				aria-label={ __( 'Frage an den Assistenten', 'ai-act-labels' ) }
+				aria-label={ __(
+					'Question for the assistant',
+					'ai-act-labels'
+				) }
 				disabled={ locked || busy }
 			/>
 			<button
 				type="submit"
 				className="aal-go"
 				disabled={ locked || busy || ! text.trim() }
-				aria-label={ __( 'Senden', 'ai-act-labels' ) }
+				aria-label={ __( 'Send', 'ai-act-labels' ) }
 			>
 				<Icon name={ locked ? 'lock' : 'send' } size={ 16 } />
 			</button>
@@ -200,11 +197,11 @@ function SuggestionCard( { s, applied, onApply, onOpen } ) {
 			{ applied ? (
 				<span className="aal-chip aal-chip--moss">
 					<Icon name="check" size={ 11 } />{ ' ' }
-					{ __( 'übernommen', 'ai-act-labels' ) }
+					{ __( 'applied', 'ai-act-labels' ) }
 				</span>
 			) : (
 				<Button size="sm" onClick={ onApply }>
-					{ __( 'Übernehmen', 'ai-act-labels' ) }
+					{ __( 'Apply', 'ai-act-labels' ) }
 				</Button>
 			) }
 		</div>
@@ -291,12 +288,9 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 	};
 
 	const suggestions = [
-		__( 'Welche Bilder muss ich kennzeichnen?', 'ai-act-labels' ),
-		__(
-			'Ist ein KI-Porträt im Team-Bereich ein Deepfake?',
-			'ai-act-labels'
-		),
-		__( 'Reicht ein Hinweis im Impressum?', 'ai-act-labels' ),
+		__( 'Which images do I have to label?', 'ai-act-labels' ),
+		__( 'Is an AI portrait on the team page a deepfake?', 'ai-act-labels' ),
+		__( 'Is a note in the imprint enough?', 'ai-act-labels' ),
 	];
 
 	return (
@@ -306,18 +300,18 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 			</span>
 			<span className={ `aal-kick${ locked ? ' is-off' : '' }` }>
 				<Icon name="sparkle" size={ 12 } />{ ' ' }
-				{ __( 'Assistent', 'ai-act-labels' ) }
+				{ __( 'Assistant', 'ai-act-labels' ) }
 			</span>
-			<h2>{ __( 'Was muss ich kennzeichnen?', 'ai-act-labels' ) }</h2>
+			<h2>{ __( 'What do I have to label?', 'ai-act-labels' ) }</h2>
 			<p>
 				{ __(
-					'Der Assistent kennt den AI Act, die Spuren in deinen Dateien und wo sie verwendet werden. Er schlägt vor – du entscheidest.',
+					'The assistant knows the AI Act, the traces in your files and where they are used. It suggests – you decide.',
 					'ai-act-labels'
 				) }
 			</p>
 			<ChatInput
 				placeholder={ __(
-					'z. B. „Welche Bilder auf der Startseite brauchen einen Hinweis?“',
+					'e.g. “Which images on the home page need a label?”',
 					'ai-act-labels'
 				) }
 				locked={ locked }
@@ -333,7 +327,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 			{ locked && hidden ? (
 				<span className="aal-fine aal-setup-hidden">
 					{ __(
-						'Der Assistent braucht einen KI-Anbieter.',
+						'The assistant needs an AI provider.',
 						'ai-act-labels'
 					) }{ ' ' }
 					<button
@@ -341,7 +335,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 						className="aal-link-btn"
 						onClick={ () => toggleSetup( false ) }
 					>
-						{ __( 'Wie?', 'ai-act-labels' ) }
+						{ __( 'How?', 'ai-act-labels' ) }
 					</button>
 				</span>
 			) : null }
@@ -354,7 +348,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 							onClick={ () => send( s ) }
 							disabled={ busy }
 						>
-							„{ s }“
+							“{ s }”
 						</button>
 					) ) }
 				</div>
@@ -398,7 +392,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 													{ sprintf(
 														/* translators: %d: number of suggestions */
 														__(
-															'Alle %d übernehmen',
+															'Apply all %d',
 															'ai-act-labels'
 														),
 														t.suggestions.length
@@ -412,7 +406,9 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 						</div>
 					) ) }
 					{ busy ? (
-						<Spinner label={ __( 'denkt …', 'ai-act-labels' ) } />
+						<Spinner
+							label={ __( 'thinking …', 'ai-act-labels' ) }
+						/>
 					) : null }
 					{ error ? <Notice tone="error">{ error }</Notice> : null }
 					<span ref={ end } />
@@ -422,7 +418,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 				<span className="aal-fine aal-acard__who">
 					{ sprintf(
 						/* translators: %s: provider and model */
-						__( 'Denkt mit %s', 'ai-act-labels' ),
+						__( 'Thinks with %s', 'ai-act-labels' ),
 						assistant.last
 					) }
 				</span>

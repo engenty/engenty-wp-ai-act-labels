@@ -64,10 +64,10 @@ class AI_Act_Labels_Rest {
 		return array(
 			'settings'    => AI_Act_Labels::settings(),
 			'defaults'    => array(
-				'generated'       => __( 'KI-generiert', 'ai-act-labels' ),
-				'modified'        => __( 'Mit KI verändert', 'ai-act-labels' ),
-				'noticeGenerated' => __( 'Dieses Bild wurde mit KI erzeugt.', 'ai-act-labels' ),
-				'noticeModified'  => __( 'Dieses Bild wurde mit KI verändert.', 'ai-act-labels' ),
+				'generated'       => __( 'AI-generated', 'ai-act-labels' ),
+				'modified'        => __( 'Modified with AI', 'ai-act-labels' ),
+				'noticeGenerated' => __( 'This image was created with AI.', 'ai-act-labels' ),
+				'noticeModified'  => __( 'This image was modified with AI.', 'ai-act-labels' ),
 			),
 			'counts'      => AI_Act_Labels::counts(),
 			'last'        => get_option( AI_Act_Labels_Usage::LAST, null ),
@@ -163,7 +163,7 @@ class AI_Act_Labels_Rest {
 	public static function one( WP_REST_Request $request ) {
 		$id = (int) $request['id'];
 		if ( 'attachment' !== get_post_type( $id ) ) {
-			return new WP_Error( 'ai_act_labels_missing', __( 'Diese Datei gibt es nicht.', 'ai-act-labels' ), array( 'status' => 404 ) );
+			return new WP_Error( 'ai_act_labels_missing', __( 'This file does not exist.', 'ai-act-labels' ), array( 'status' => 404 ) );
 		}
 		return AI_Act_Labels::describe( $id );
 	}
@@ -178,7 +178,7 @@ class AI_Act_Labels_Rest {
 		$ids   = array_map( 'intval', (array) ( $request['ids'] ?? array() ) );
 		$state = (string) ( $request['state'] ?? '' );
 		if ( ! in_array( $state, array_merge( AI_Act_Labels::STATES, array( '' ) ), true ) ) {
-			return new WP_Error( 'ai_act_labels_state', __( 'Diese Kennzeichnung gibt es nicht.', 'ai-act-labels' ), array( 'status' => 400 ) );
+			return new WP_Error( 'ai_act_labels_state', __( 'This label does not exist.', 'ai-act-labels' ), array( 'status' => 400 ) );
 		}
 		$extra = array();
 		foreach ( array( 'tool', 'notice' ) as $key ) {
@@ -272,10 +272,10 @@ class AI_Act_Labels_Rest {
 	public static function assist( WP_REST_Request $request ) {
 		$message = sanitize_textarea_field( (string) ( $request['message'] ?? '' ) );
 		if ( '' === trim( $message ) ) {
-			return new WP_Error( 'ai_act_labels_empty', __( 'Schreib eine Frage.', 'ai-act-labels' ), array( 'status' => 400 ) );
+			return new WP_Error( 'ai_act_labels_empty', __( 'Write a question.', 'ai-act-labels' ), array( 'status' => 400 ) );
 		}
 		if ( ! AI_Act_Labels_Assistant::status()['ready'] ) {
-			return new WP_Error( 'ai_act_labels_no_provider', __( 'Dafür braucht WordPress einen KI-Anbieter (Einstellungen › Konnektoren).', 'ai-act-labels' ), array( 'status' => 409 ) );
+			return new WP_Error( 'ai_act_labels_no_provider', __( 'For this, WordPress needs an AI provider (Settings › Connectors).', 'ai-act-labels' ), array( 'status' => 409 ) );
 		}
 		return AI_Act_Labels_Assistant::ask( $message, (array) ( $request['history'] ?? array() ), array_map( 'intval', (array) ( $request['focus'] ?? array() ) ) );
 	}

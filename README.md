@@ -22,8 +22,9 @@ applies since 2 August 2026) – right in the media library, with the EU's offic
 - **Configurable:** icon (EU icon by kind, round icon, round icon with text, own icon, sparkle), colour
   (the four EU variants or picked per image), size, corner, words, where the label appears.
 
-The tool lives under **Werkzeuge › KI-Kennzeichnung** (tabs *Prüfen*, *Darstellung*, *Wissen*). German
-admin; English (US, UK) for every other language.
+The tool lives under **Tools › AI labels** (German: *Werkzeuge › KI-Kennzeichnung*), tabs *Review*,
+*Appearance*, *Knowledge*. The source strings are English; German (de_DE, also read by de_AT and de_CH)
+and British English ship in `languages/`.
 
 ## The skill
 

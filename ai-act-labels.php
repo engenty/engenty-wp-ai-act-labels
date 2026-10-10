@@ -97,10 +97,10 @@ register_activation_hook(
 add_filter(
 	'load_script_translation_file',
 	static function ( $file, $handle, $domain ) {
-		if ( 'ai-act-labels' !== $domain || ( $file && is_readable( $file ) ) || str_starts_with( determine_locale(), 'de' ) ) {
+		if ( 'ai-act-labels' !== $domain || ( $file && is_readable( $file ) ) || ! str_starts_with( determine_locale(), 'de' ) ) {
 			return $file;
 		}
-		$fallback = $file ? preg_replace( '/-[a-z]{2,3}(_[A-Z]{2})?(_[a-z]+)?-([0-9a-f]{32})\.json$/', '-en_US-$3.json', $file ) : '';
+		$fallback = $file ? preg_replace( '/-de(_[A-Z]{2})?(_[a-z]+)?-([0-9a-f]{32})\.json$/', '-de_DE-$3.json', $file ) : '';
 		return $fallback && is_readable( $fallback ) ? $fallback : $file;
 	},
 	10,
@@ -110,9 +110,9 @@ add_filter(
 add_action(
 	'plugins_loaded',
 	static function () {
-		// The plugin speaks German; every other language without its own translation gets English.
-		if ( ! load_plugin_textdomain( 'ai-act-labels', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ) && ! str_starts_with( determine_locale(), 'de' ) ) {
-			load_textdomain( 'ai-act-labels', AI_ACT_LABELS_DIR . 'languages/ai-act-labels-en_US.mo' );
+		// The plugin speaks English and ships German; a German locale without its own translation (de_AT, de_CH) reads de_DE.
+		if ( ! load_plugin_textdomain( 'ai-act-labels', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ) && str_starts_with( determine_locale(), 'de' ) ) {
+			load_textdomain( 'ai-act-labels', AI_ACT_LABELS_DIR . 'languages/ai-act-labels-de_DE.mo' );
 		}
 		AI_Act_Labels_Front::init();
 		AI_Act_Labels_Media::init();

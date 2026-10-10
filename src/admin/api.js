@@ -24,8 +24,7 @@ export function problem( error ) {
 			/^ai_act_labels_/,
 			''
 		),
-		message:
-			error?.message || __( 'Das hat nicht geklappt.', 'ai-act-labels' ),
+		message: error?.message || __( 'That did not work.', 'ai-act-labels' ),
 	};
 }
 

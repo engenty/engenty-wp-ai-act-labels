@@ -46,8 +46,8 @@ class AI_Act_Labels_Admin {
 	/** The page under Werkzeuge. */
 	public static function menu() {
 		add_management_page(
-			__( 'KI-Kennzeichnung', 'ai-act-labels' ),
-			__( 'KI-Kennzeichnung', 'ai-act-labels' ),
+			__( 'AI labels', 'ai-act-labels' ),
+			__( 'AI labels', 'ai-act-labels' ),
 			'upload_files',
 			self::SLUG,
 			array( __CLASS__, 'render' )
@@ -64,7 +64,7 @@ class AI_Act_Labels_Admin {
 			'<div class="wrap aal-wrap"><div id="ai-act-labels-app" data-tab="%s" data-filter="%s"><p class="aal-loading">%s</p></div></div>',
 			esc_attr( $tab ),
 			esc_attr( $filter ),
-			esc_html__( 'KI-Kennzeichnung lädt …', 'ai-act-labels' )
+			esc_html__( 'AI labels are loading …', 'ai-act-labels' )
 		);
 	}
 
@@ -77,14 +77,14 @@ class AI_Act_Labels_Admin {
 		if ( 'tools_page_' . self::SLUG !== $hook ) {
 			return;
 		}
-		$asset = AI_ACT_LABELS_DIR . 'build/admin.asset.php';
+		$asset = AI_ACT_LABELS_DIR . 'build/tool.asset.php';
 		$meta  = file_exists( $asset ) ? require $asset : array(
 			'dependencies' => array( 'wp-element', 'wp-api-fetch', 'wp-i18n' ),
 			'version'      => AI_ACT_LABELS_VERSION,
 		);
 		wp_enqueue_media();
-		wp_enqueue_style( 'ai-act-labels-admin', AI_ACT_LABELS_URL . 'build/admin.css', array(), $meta['version'] );
-		wp_enqueue_script( 'ai-act-labels-admin', AI_ACT_LABELS_URL . 'build/admin.js', $meta['dependencies'], $meta['version'], true );
+		wp_enqueue_style( 'ai-act-labels-admin', AI_ACT_LABELS_URL . 'build/tool.css', array(), $meta['version'] );
+		wp_enqueue_script( 'ai-act-labels-admin', AI_ACT_LABELS_URL . 'build/tool.js', $meta['dependencies'], $meta['version'], true );
 		$boot = array(
 			'tool'      => self::url(),
 			'upload'    => admin_url( 'upload.php' ),
@@ -125,7 +125,7 @@ class AI_Act_Labels_Admin {
 	 * @return array
 	 */
 	public static function action_links( $links ) {
-		array_unshift( $links, sprintf( '<a href="%s">%s</a>', esc_url( self::url() ), esc_html__( 'Öffnen', 'ai-act-labels' ) ) );
+		array_unshift( $links, sprintf( '<a href="%s">%s</a>', esc_url( self::url() ), esc_html__( 'Open', 'ai-act-labels' ) ) );
 		return $links;
 	}
 }

@@ -15,26 +15,26 @@ import {
 } from './ui';
 
 const ICONS = [
-	[ 'official', __( 'EU-Icon je nach Art', 'ai-act-labels' ), 'generated' ],
-	[ 'basic', __( 'Rundes EU-Icon', 'ai-act-labels' ), 'basic' ],
-	[ 'basic-text', __( 'Rundes Icon mit Text', 'ai-act-labels' ), 'basic' ],
-	[ 'custom', __( 'Eigenes Icon', 'ai-act-labels' ), '' ],
-	[ 'sparkle', __( 'Funkeln', 'ai-act-labels' ), 'sparkle' ],
+	[ 'official', __( 'EU icon by kind', 'ai-act-labels' ), 'generated' ],
+	[ 'basic', __( 'Round EU icon', 'ai-act-labels' ), 'basic' ],
+	[ 'basic-text', __( 'Round icon with text', 'ai-act-labels' ), 'basic' ],
+	[ 'custom', __( 'Own icon', 'ai-act-labels' ), '' ],
+	[ 'sparkle', __( 'Sparkle', 'ai-act-labels' ), 'sparkle' ],
 ];
 
 const COLORS = [
-	[ 'black', __( 'Schwarz', 'ai-act-labels' ) ],
-	[ 'white', __( 'Weiß', 'ai-act-labels' ) ],
-	[ 'black-soft', __( 'Schwarz 50 %', 'ai-act-labels' ) ],
-	[ 'white-soft', __( 'Weiß 50 %', 'ai-act-labels' ) ],
-	[ 'auto', __( 'Nach Bild', 'ai-act-labels' ) ],
+	[ 'black', __( 'Black', 'ai-act-labels' ) ],
+	[ 'white', __( 'White', 'ai-act-labels' ) ],
+	[ 'black-soft', __( 'Black 50%', 'ai-act-labels' ) ],
+	[ 'white-soft', __( 'White 50%', 'ai-act-labels' ) ],
+	[ 'auto', __( 'By image', 'ai-act-labels' ) ],
 ];
 
 const POSITIONS = [
-	[ 'top-left', __( 'Oben links', 'ai-act-labels' ) ],
-	[ 'top-right', __( 'Oben rechts', 'ai-act-labels' ) ],
-	[ 'bottom-left', __( 'Unten links', 'ai-act-labels' ) ],
-	[ 'bottom-right', __( 'Unten rechts', 'ai-act-labels' ) ],
+	[ 'top-left', __( 'Top left', 'ai-act-labels' ) ],
+	[ 'top-right', __( 'Top right', 'ai-act-labels' ) ],
+	[ 'bottom-left', __( 'Bottom left', 'ai-act-labels' ) ],
+	[ 'bottom-right', __( 'Bottom right', 'ai-act-labels' ) ],
 ];
 
 /**
@@ -83,21 +83,19 @@ function Preview( { settings, sample } ) {
 	return (
 		<div className="aal-lpreview">
 			<div className="aal-lpreview__bar">
-				<b>
-					{ __( 'So sieht es auf der Website aus', 'ai-act-labels' ) }
-				</b>
+				<b>{ __( 'How it looks on the site', 'ai-act-labels' ) }</b>
 				<Seg
 					value={ kind }
-					label={ __( 'Art', 'ai-act-labels' ) }
+					label={ __( 'Kind', 'ai-act-labels' ) }
 					onChange={ setKind }
 					options={ [
 						{
 							value: 'generated',
-							label: __( 'KI-generiert', 'ai-act-labels' ),
+							label: __( 'AI-generated', 'ai-act-labels' ),
 						},
 						{
 							value: 'modified',
-							label: __( 'Verändert', 'ai-act-labels' ),
+							label: __( 'Modified', 'ai-act-labels' ),
 						},
 					] }
 				/>
@@ -122,18 +120,18 @@ function Preview( { settings, sample } ) {
 				</span>
 				{ settings.caption ? (
 					<figcaption>
-						{ __( 'Unsere Werkstatt im Herbst', 'ai-act-labels' ) }
+						{ __( 'Our workshop in autumn', 'ai-act-labels' ) }
 						<span className="ai-act-label__caption">
 							{ ' – ' }
 							{ kind === 'modified'
 								? settings.texts.noticeModified ||
 								  __(
-										'Dieses Bild wurde mit KI verändert.',
+										'This image was modified with AI.',
 										'ai-act-labels'
 								  )
 								: settings.texts.noticeGenerated ||
 								  __(
-										'Dieses Bild wurde mit KI erzeugt.',
+										'This image was created with AI.',
 										'ai-act-labels'
 								  ) }
 						</span>
@@ -157,7 +155,7 @@ function Preview( { settings, sample } ) {
 				</span>
 				<span className="aal-fine">
 					{ __(
-						'Auf kleinen Bildern (unter 260 px) nimmt das Plugin das runde Icon statt des breiten.',
+						'On small images (under 260 px) the plugin uses the round icon instead of the wide one.',
 						'ai-act-labels'
 					) }
 				</span>
@@ -165,7 +163,7 @@ function Preview( { settings, sample } ) {
 			{ settings.layer ? (
 				<span className="aal-fine">
 					{ __(
-						'Fahr mit der Maus übers Icon: die zweite Ebene zeigt den Hinweis. Screenreader lesen ihn als Namen des Icons – der Alt-Text des Bildes bleibt, wie er ist.',
+						"Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is.",
 						'ai-act-labels'
 					) }
 				</span>
@@ -204,7 +202,7 @@ export default function Look( { state, setState } ) {
 
 	const pickIcon = () => {
 		const frame = window.wp?.media( {
-			title: __( 'Eigenes Icon wählen', 'ai-act-labels' ),
+			title: __( 'Choose your own icon', 'ai-act-labels' ),
 			library: { type: [ 'image' ] },
 			multiple: false,
 		} );
@@ -225,7 +223,7 @@ export default function Look( { state, setState } ) {
 				{ ! can ? (
 					<Notice>
 						{ __(
-							'Die Darstellung ändern Administratoren. Kennzeichnen kannst du trotzdem.',
+							'Administrators change the appearance. You can still label.',
 							'ai-act-labels'
 						) }
 					</Notice>
@@ -234,7 +232,7 @@ export default function Look( { state, setState } ) {
 				<Section
 					title={ __( 'Icon', 'ai-act-labels' ) }
 					hint={ __(
-						'Standard sind die Icons der EU-Kommission – frei verwendbar, ohne Namensnennung.',
+						"The default is the European Commission's icons – free to use, no attribution.",
 						'ai-act-labels'
 					) }
 				>
@@ -285,13 +283,13 @@ export default function Look( { state, setState } ) {
 							onClick={ pickIcon }
 							disabled={ ! can }
 						>
-							{ __( 'Anderes Icon wählen', 'ai-act-labels' ) }
+							{ __( 'Choose another icon', 'ai-act-labels' ) }
 						</Button>
 					) : null }
 					{ local.icon === 'sparkle' || local.icon === 'custom' ? (
 						<span className="aal-fine">
 							{ __(
-								'Ein eigenes Zeichen ist erlaubt, wenn es so deutlich ist wie das EU-Icon. Sicherer bleibt das EU-Icon.',
+								'Your own mark is allowed if it is as clear as the EU icon. The EU icon is the safer choice.',
 								'ai-act-labels'
 							) }
 						</span>
@@ -299,10 +297,10 @@ export default function Look( { state, setState } ) {
 				</Section>
 
 				<Card className="aal-col aal-gap16">
-					<Line label={ __( 'Farbe', 'ai-act-labels' ) }>
+					<Line label={ __( 'Color', 'ai-act-labels' ) }>
 						<Seg
 							value={ local.color }
-							label={ __( 'Farbe', 'ai-act-labels' ) }
+							label={ __( 'Color', 'ai-act-labels' ) }
 							onChange={ ( v ) => save( { color: v } ) }
 							options={ COLORS.map( ( [ value, label ] ) => ( {
 								value,
@@ -310,10 +308,10 @@ export default function Look( { state, setState } ) {
 							} ) ) }
 						/>
 					</Line>
-					<Line label={ __( 'Größe', 'ai-act-labels' ) }>
+					<Line label={ __( 'Size', 'ai-act-labels' ) }>
 						<Seg
 							value={ local.size }
-							label={ __( 'Größe', 'ai-act-labels' ) }
+							label={ __( 'Size', 'ai-act-labels' ) }
 							onChange={ ( v ) => save( { size: v } ) }
 							options={ [
 								{ value: 's', label: 'S' },
@@ -323,16 +321,16 @@ export default function Look( { state, setState } ) {
 						/>
 					</Line>
 					<Line
-						label={ __( 'Ecke', 'ai-act-labels' ) }
+						label={ __( 'Corner', 'ai-act-labels' ) }
 						hint={ __(
-							'Videos: immer oben, wo die Steuerung nicht ist.',
+							'Videos: always at the top, away from the controls.',
 							'ai-act-labels'
 						) }
 					>
 						<span
 							className="aal-corners"
 							role="radiogroup"
-							aria-label={ __( 'Ecke', 'ai-act-labels' ) }
+							aria-label={ __( 'Corner', 'ai-act-labels' ) }
 						>
 							{ POSITIONS.map( ( [ value, label ] ) => (
 								<button
@@ -362,15 +360,15 @@ export default function Look( { state, setState } ) {
 				</Card>
 
 				<Section
-					title={ __( 'Worte', 'ai-act-labels' ) }
+					title={ __( 'Words', 'ai-act-labels' ) }
 					hint={ __(
-						'Leer lassen: der Standard in der Sprache der Website.',
+						"Leave empty: the default in the site's language.",
 						'ai-act-labels'
 					) }
 				>
 					<Card className="aal-grid2">
 						<TextSetting
-							label={ __( 'KI-generiert', 'ai-act-labels' ) }
+							label={ __( 'AI-generated', 'ai-act-labels' ) }
 							value={ local.texts.generated }
 							placeholder={ d.generated }
 							disabled={ ! can }
@@ -379,7 +377,7 @@ export default function Look( { state, setState } ) {
 							}
 						/>
 						<TextSetting
-							label={ __( 'Mit KI verändert', 'ai-act-labels' ) }
+							label={ __( 'Modified with AI', 'ai-act-labels' ) }
 							value={ local.texts.modified }
 							placeholder={ d.modified }
 							disabled={ ! can }
@@ -389,7 +387,7 @@ export default function Look( { state, setState } ) {
 						/>
 						<TextSetting
 							label={ __(
-								'Hinweis bei KI-generiert',
+								'Notice for AI-generated',
 								'ai-act-labels'
 							) }
 							value={ local.texts.noticeGenerated }
@@ -401,7 +399,7 @@ export default function Look( { state, setState } ) {
 						/>
 						<TextSetting
 							label={ __(
-								'Hinweis bei verändert',
+								'Notice for modified',
 								'ai-act-labels'
 							) }
 							value={ local.texts.noticeModified }
@@ -415,29 +413,29 @@ export default function Look( { state, setState } ) {
 				</Section>
 
 				<Section
-					title={ __( 'Wo der Hinweis erscheint', 'ai-act-labels' ) }
+					title={ __( 'Where the label appears', 'ai-act-labels' ) }
 				>
 					<Card className="aal-col aal-gap12">
 						{ [
 							[
 								'content',
 								__(
-									'Bilder in Seiten und Beiträgen',
+									'Images in pages and posts',
 									'ai-act-labels'
 								),
 								__(
-									'Blöcke, Galerien, Cover, klassischer Editor, HTML',
+									'Blocks, galleries, covers, classic editor, HTML',
 									'ai-act-labels'
 								),
 							],
 							[
 								'featured',
 								__(
-									'Beitragsbilder und Bilder des Themes',
+									"Featured images and the theme's images",
 									'ai-act-labels'
 								),
 								__(
-									'alles, was über wp_get_attachment_image() kommt',
+									'everything that comes through wp_get_attachment_image()',
 									'ai-act-labels'
 								),
 							],
@@ -445,7 +443,7 @@ export default function Look( { state, setState } ) {
 								'video',
 								__( 'Videos', 'ai-act-labels' ),
 								__(
-									'Video-Block, Cover mit Video, [video]',
+									'Video block, cover with video, [video]',
 									'ai-act-labels'
 								),
 							],
@@ -453,7 +451,7 @@ export default function Look( { state, setState } ) {
 								'audio',
 								__( 'Audio', 'ai-act-labels' ),
 								__(
-									'eine Zeile über dem Player',
+									'a line above the player',
 									'ai-act-labels'
 								),
 							],
@@ -471,18 +469,18 @@ export default function Look( { state, setState } ) {
 						) ) }
 						<Line
 							label={ __(
-								'Hinweis an Bildunterschriften',
+								'Notice in captions',
 								'ai-act-labels'
 							) }
 							hint={ __(
-								'Nur wo schon eine steht – nie im Alt-Text.',
+								'Only where there is one already – never in the alt text.',
 								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.caption }
 								label={ __(
-									'Hinweis an Bildunterschriften',
+									'Notice in captions',
 									'ai-act-labels'
 								) }
 								disabled={ ! can }
@@ -491,18 +489,18 @@ export default function Look( { state, setState } ) {
 						</Line>
 						<Line
 							label={ __(
-								'Zweite Ebene beim Überfahren',
+								'Second layer on hover',
 								'ai-act-labels'
 							) }
 							hint={ __(
-								'Der ganze Hinweis, mit Werkzeug.',
+								'The whole notice, with the tool.',
 								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.layer }
 								label={ __(
-									'Zweite Ebene beim Überfahren',
+									'Second layer on hover',
 									'ai-act-labels'
 								) }
 								disabled={ ! can }
@@ -512,22 +510,22 @@ export default function Look( { state, setState } ) {
 					</Card>
 				</Section>
 
-				<Section title={ __( 'Beim Hochladen', 'ai-act-labels' ) }>
+				<Section title={ __( 'On upload', 'ai-act-labels' ) }>
 					<Card className="aal-col aal-gap12">
 						<Line
 							label={ __(
-								'Dateien auf Spuren von KI prüfen',
+								'Check files for traces of AI',
 								'ai-act-labels'
 							) }
 							hint={ __(
-								'C2PA, IPTC, Generierungsdaten, Dateinamen – auf deinem Server.',
+								'C2PA, IPTC, generation data, file names – on your server.',
 								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.detect }
 								label={ __(
-									'Dateien auf Spuren von KI prüfen',
+									'Check files for traces of AI',
 									'ai-act-labels'
 								) }
 								disabled={ ! can }
@@ -536,18 +534,18 @@ export default function Look( { state, setState } ) {
 						</Line>
 						<Line
 							label={ __(
-								'Eindeutige Spuren gleich übernehmen',
+								'Apply unambiguous traces right away',
 								'ai-act-labels'
 							) }
 							hint={ __(
-								'Sagt die Datei selbst, dass sie mit KI gemacht ist, wird sie gleich gekennzeichnet.',
+								'If the file itself says it was made with AI, it is labeled right away.',
 								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.auto }
 								label={ __(
-									'Eindeutige Spuren gleich übernehmen',
+									'Apply unambiguous traces right away',
 									'ai-act-labels'
 								) }
 								disabled={ ! can }
@@ -556,18 +554,18 @@ export default function Look( { state, setState } ) {
 						</Line>
 						<Line
 							label={ __(
-								'Kennzeichnungen aus dem Theme übernehmen',
+								'Take over labels from the theme',
 								'ai-act-labels'
 							) }
 							hint={ __(
-								'Die erste Version als Theme-Klasse (AiImageLabel) speicherte _ai_image_label.',
+								'The first version as a theme class (AiImageLabel) stored _ai_image_label.',
 								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.legacy }
 								label={ __(
-									'Kennzeichnungen aus dem Theme übernehmen',
+									'Take over labels from the theme',
 									'ai-act-labels'
 								) }
 								disabled={ ! can }
