@@ -3,6 +3,7 @@
  * a label), the filter „KI“ in the toolbar of the grid and the modal, and the way to the tool.
  * The fields themselves come from PHP (attachment_fields_to_edit) and save as WordPress saves them.
  */
+import apiFetch from '@wordpress/api-fetch';
 import { sprintf, __ } from '@wordpress/i18n';
 import './media.css';
 
@@ -112,3 +113,48 @@ if ( document.body.classList.contains( 'upload-php' ) && data.tool ) {
 		add.after( link );
 	}
 }
+
+/**
+ * „Bild analysieren (KI)“ in the box, in the modal and on the edit screen: the analysis runs, then the
+ * modal draws the box again from the file; the edit screen shows the reason in place.
+ */
+document.addEventListener( 'click', ( event ) => {
+	const button = event.target.closest( '[data-ai-act-analyze]' );
+	if ( ! button ) {
+		return;
+	}
+	const id = Number( button.dataset.aiActAnalyze );
+	const status = button.parentElement.querySelector( '.ai-act-box__status' );
+	button.disabled = true;
+	status.textContent = __( 'Analyzing …', 'ai-act-labels' );
+	apiFetch( {
+		path: '/ai-act-labels/v1/review',
+		method: 'POST',
+		data: { id },
+	} )
+		.then( ( r ) => {
+			status.textContent = '';
+			const box = button.closest( '.ai-act-box' );
+			box.querySelector( '.ai-act-box__note.is-analysis' )?.remove();
+			const note = document.createElement( 'p' );
+			note.className = 'ai-act-box__note is-analysis';
+			const b = document.createElement( 'b' );
+			b.textContent = __( 'Image analysis (AI):', 'ai-act-labels' ) + ' ';
+			note.append( b, r.hint?.reason || '' );
+			button.parentElement.before( note );
+			// The tile in the grid follows the new suggestion.
+			media?.attachment?.( id )?.fetch();
+		} )
+		.catch( ( e ) => {
+			status.textContent = `${ e.message || '' } `;
+			if ( e.code === 'ai_act_labels_no_provider' && data.connectors ) {
+				const link = document.createElement( 'a' );
+				link.href = data.connectors;
+				link.textContent = __( 'Open Connectors', 'ai-act-labels' );
+				status.append( link );
+			}
+		} )
+		.finally( () => {
+			button.disabled = false;
+		} );
+} );

@@ -243,7 +243,7 @@ button.aal-row__main { cursor: pointer; }
 .aal-num { display: flex; align-items: baseline; gap: 10px; }
 .aal-num > span { font: 600 30px/1 "Space Grotesk", sans-serif; color: var(--aal-ink); }
 .aal-num.is-open > span { color: var(--aal-ember-strong); }
-.aal-num p { display: flex; flex-direction: column; font-weight: 500; }
+.aal-num p { display: flex; flex-direction: column; margin: 0; font-weight: 500; }
 .aal-num em { font-style: normal; font-weight: 400; font-size: 12.5px; color: var(--aal-ink-3); }
 .aal-overview__check { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--aal-line); }
 .aal-bar { flex: 1; min-width: 200px; height: 8px; border-radius: 999px; background: var(--aal-paper-2); overflow: hidden; }

@@ -144,8 +144,13 @@ class AI_Act_Labels_Media {
 		}
 		$hint = get_post_meta( $id, AI_Act_Labels::META_HINT, true );
 		if ( is_array( $hint ) && ! empty( $hint['reason'] ) ) {
-			$html .= '<p class="ai-act-box__note"><b>' . esc_html__( 'Image analysis (AI):', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
+			$html .= '<p class="ai-act-box__note is-analysis"><b>' . esc_html__( 'Image analysis (AI):', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
 		}
+		$html       .= sprintf(
+			'<p class="ai-act-box__analyze"><button type="button" class="button" data-ai-act-analyze="%1$d">%2$s</button><span class="ai-act-box__status" role="status"></span></p>',
+			$id,
+			esc_html__( 'Analyze image (AI)', 'ai-act-labels' )
+		);
 		$placeholder = AI_Act_Labels::default_notice( in_array( $state, AI_Act_Labels::KINDS, true ) ? $state : ( in_array( $suggest, AI_Act_Labels::KINDS, true ) ? $suggest : 'generated' ), AI_Act_Labels::media_type( $id ) );
 		$html       .= sprintf(
 			'<div class="ai-act-box__more"><label for="ai-act-tool-%1$d">%2$s</label><input type="text" class="widefat" id="ai-act-tool-%1$d" name="%3$s" value="%4$s" placeholder="%5$s"><label for="ai-act-notice-%1$d">%6$s</label><input type="text" class="widefat" id="ai-act-notice-%1$d" name="%7$s" value="%8$s" placeholder="%9$s"><p class="description">%10$s</p></div>',
@@ -496,22 +501,23 @@ class AI_Act_Labels_Media {
 			'dependencies' => array( 'media-views', 'wp-i18n' ),
 			'version'      => AI_ACT_LABELS_VERSION,
 		);
-		$deps  = array_unique( array_merge( $meta['dependencies'], array( 'media-views' ) ) );
+		$deps  = array_unique( array_merge( $meta['dependencies'], array( 'media-views', 'wp-api-fetch' ) ) );
 		wp_enqueue_script( 'ai-act-labels-media', AI_ACT_LABELS_URL . 'build/media.js', $deps, $meta['version'], true );
 		wp_enqueue_style( 'ai-act-labels-media', AI_ACT_LABELS_URL . 'build/media.css', array(), $meta['version'] );
 		wp_add_inline_script(
 			'ai-act-labels-media',
 			'window.aiActLabelsMedia = ' . wp_json_encode(
 				array(
-					'filters' => self::filters(),
-					'states'  => self::state_labels(),
-					'icons'   => array(
+					'filters'    => self::filters(),
+					'states'     => self::state_labels(),
+					'icons'      => array(
 						'generated' => AI_Act_Labels_Icons::svg( 'generated' ),
 						'modified'  => AI_Act_Labels_Icons::svg( 'modified' ),
 						'basic'     => AI_Act_Labels_Icons::svg( 'basic' ),
 					),
-					'tool'    => AI_Act_Labels_Admin::url(),
-					'label'   => __( 'AI labels', 'ai-act-labels' ),
+					'tool'       => AI_Act_Labels_Admin::url(),
+					'connectors' => admin_url( 'options-connectors.php' ),
+					'label'      => __( 'AI labels', 'ai-act-labels' ),
 				)
 			) . ';',
 			'before'
@@ -529,9 +535,8 @@ class AI_Act_Labels_Media {
 			wp_enqueue_media();
 		}
 		if ( 'post.php' === $hook && self::edit_screen() ) {
-			$asset = AI_ACT_LABELS_DIR . 'build/media.asset.php';
-			$meta  = file_exists( $asset ) ? require $asset : array( 'version' => AI_ACT_LABELS_VERSION );
-			wp_enqueue_style( 'ai-act-labels-media', AI_ACT_LABELS_URL . 'build/media.css', array(), $meta['version'] );
+			// The box's button needs the script; the script needs the media views.
+			wp_enqueue_media();
 		}
 	}
 }

@@ -228,13 +228,16 @@ class AI_Act_Labels_Rest {
 	}
 
 	/**
-	 * The assistant's assessment of one file.
+	 * The image analysis of one file.
 	 *
 	 * @param WP_REST_Request $request `id`.
 	 * @return array|WP_Error
 	 */
 	public static function review( WP_REST_Request $request ) {
-		$id   = (int) $request['id'];
+		$id = (int) $request['id'];
+		if ( ! AI_Act_Labels_Assistant::status()['ready'] ) {
+			return new WP_Error( 'ai_act_labels_no_provider', __( 'For the image analysis, WordPress needs an AI provider (Settings › Connectors).', 'ai-act-labels' ), array( 'status' => 409 ) );
+		}
 		$hint = AI_Act_Labels_Assistant::review( $id );
 		if ( is_wp_error( $hint ) ) {
 			return $hint;

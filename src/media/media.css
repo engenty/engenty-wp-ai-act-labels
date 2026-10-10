@@ -59,3 +59,5 @@
 .compat-item .ai-act-box .ai-act-box__opt svg { float: none; }
 .compat-item .ai-act-box fieldset { float: none; width: auto; }
 .ai-act-box:has(input[value="generated"]:checked, input[value="modified"]:checked, input[value="none"]:checked) .ai-act-box__sug { display: none; }
+.ai-act-box__analyze { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0; }
+.ai-act-box__status { font-size: 12px; color: #50575e; }
