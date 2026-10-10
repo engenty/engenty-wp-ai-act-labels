@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <phpunit bootstrap="tests/php/bootstrap.php" colors="true" cacheDirectory=".phpunit.cache">
 	<testsuites>
-		<testsuite name="ai-act-image-labels">
+		<testsuite name="ai-act-labels">
 			<directory suffix="Test.php">tests/php</directory>
 		</testsuite>
 	</testsuites>

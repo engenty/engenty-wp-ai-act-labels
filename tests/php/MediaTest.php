@@ -44,12 +44,12 @@ class MediaTest extends AI_Act_Labels_TestCase {
 	}
 
 	public function test_rest_routes_label_and_need_permission() {
-		$routes = rest_get_server()->get_routes( 'ai-act-image-labels/v1' );
+		$routes = rest_get_server()->get_routes( 'ai-act-labels/v1' );
 		foreach ( array( 'state', 'media', 'label', 'settings', 'scan', 'review', 'verify', 'assist', 'preview' ) as $route ) {
-			$this->assertArrayHasKey( '/ai-act-image-labels/v1/' . $route, $routes );
+			$this->assertArrayHasKey( '/ai-act-labels/v1/' . $route, $routes );
 		}
 		$id      = $this->image();
-		$request = new WP_REST_Request( 'POST', '/ai-act-image-labels/v1/label' );
+		$request = new WP_REST_Request( 'POST', '/ai-act-labels/v1/label' );
 		$request->set_param( 'ids', array( $id ) );
 		$request->set_param( 'state', 'generated' );
 		$this->assertSame( 200, rest_do_request( $request )->get_status() );
@@ -59,7 +59,7 @@ class MediaTest extends AI_Act_Labels_TestCase {
 	}
 
 	public function test_the_preview_renders_with_unsaved_settings() {
-		$request = new WP_REST_Request( 'POST', '/ai-act-image-labels/v1/preview' );
+		$request = new WP_REST_Request( 'POST', '/ai-act-labels/v1/preview' );
 		$request->set_param( 'settings', array( 'icon' => 'basic' ) );
 		$data = rest_do_request( $request )->get_data();
 		$this->assertStringContainsString( 'ai-act-icon--basic', $data['generated'] );
@@ -76,7 +76,7 @@ class MediaTest extends AI_Act_Labels_TestCase {
 	public function test_all_suggestions_are_taken_over_at_once() {
 		$ai = $this->attachment( 'acc.jpg', AI_Act_Labels_Test_Files::jpeg_with_xmp( AI_Act_Labels_Test_Files::scene( 'team' ), 'compositeWithTrainedAlgorithmicMedia' ) );
 		$this->assertSame( '1', get_post_meta( $ai, AI_Act_Labels::OPEN_SUGGESTED, true ) );
-		$data = rest_do_request( new WP_REST_Request( 'POST', '/ai-act-image-labels/v1/accept' ) )->get_data();
+		$data = rest_do_request( new WP_REST_Request( 'POST', '/ai-act-labels/v1/accept' ) )->get_data();
 		$this->assertContains( array( 'id' => $ai, 'state' => 'modified' ), $data['done'] );
 		$this->assertSame( 'modified', AI_Act_Labels::get( $ai ) );
 		$this->assertSame( '', get_post_meta( $ai, AI_Act_Labels::OPEN_SUGGESTED, true ) );

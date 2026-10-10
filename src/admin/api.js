@@ -4,12 +4,12 @@ import { __ } from '@wordpress/i18n';
 export const boot = window.aiActLabelsAdmin || {};
 
 /**
- * A route of `ai-act-image-labels/v1` (includes/class-rest.php).
+ * A route of `ai-act-labels/v1` (includes/class-rest.php).
  * @param path
  * @param options
  */
 export const api = ( path, options = {} ) =>
-	apiFetch( { path: `/ai-act-image-labels/v1${ path }`, ...options } );
+	apiFetch( { path: `/ai-act-labels/v1${ path }`, ...options } );
 
 export const post = ( path, data = {} ) =>
 	api( path, { method: 'POST', data } );
@@ -24,8 +24,7 @@ export function problem( error ) {
 			/^ai_act_labels_/,
 			''
 		),
-		message:
-			error?.message || __( 'That did not work.', 'ai-act-image-labels' ),
+		message: error?.message || __( 'That did not work.', 'ai-act-labels' ),
 	};
 }
 

@@ -47,10 +47,6 @@ if ( function_exists( 'ai_act_labels_wrap' ) ) {
 notice. A theme helper that builds images itself can pass its markup through WordPress' own filter, the
 label follows: `apply_filters( 'wp_get_attachment_image', $html, $id, $size, false, $attr )`.
 
-Labels of the first, theme-bound version (`AiImageLabel`, meta `_ai_image_label` / `_ai_image_notice`)
-are read as *KI-generiert* with their notice until a decision is made here (setting *Kennzeichnungen aus
-dem Theme übernehmen*).
-
 Filters: `ai_act_labels_show` (per place), `ai_act_labels_wrap` (the labelled markup),
 `ai_act_labels_usage` (places this plugin does not know). Action: `ai_act_labels_changed`.
 
@@ -68,7 +64,7 @@ npm run i18n                          # POT, PO, MO, the scripts' JSON
 sh bin/zip.sh
 ```
 
-WP-CLI: `wp ai-act-image-labels scan | label <id>... --as=generated | list --filter=suggested | detect <id>`.
+WP-CLI: `wp ai-act-labels scan | label <id>... --as=generated | list --filter=suggested | detect <id>`.
 
 The EU icons in `assets/icons/eu` are the European Commission's files (June 2026), free to use without
 attribution. This plugin helps with labelling; it is not legal advice.

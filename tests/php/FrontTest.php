@@ -70,7 +70,7 @@ class FrontTest extends AI_Act_Labels_TestCase {
 	public function test_the_settings_change_the_icon() {
 		$id = $this->image();
 		AI_Act_Labels::set( $id, 'generated' );
-		AI_Act_Labels::save_settings( array( 'icon' => 'basic-text', 'color' => 'white', 'position' => 'top-left', 'size' => 'l' ) );
+		AI_Act_Labels::save_settings( array( 'icon' => 'basic-text', 'color' => 'light', 'position' => 'top-left', 'size' => 'l' ) );
 		$html = wp_get_attachment_image( $id, 'large' );
 		$this->assertStringContainsString( 'is-basic-text is-light is-top-left', $html );
 		// The round icon on top of the EU icon of its kind, which opens on hover.

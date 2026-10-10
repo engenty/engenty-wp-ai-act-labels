@@ -30,29 +30,26 @@ import {
 
 /** The lists, in the order of their tabs. */
 const LISTS = [
-	[ 'suggested', __( 'Suggestions', 'ai-act-image-labels' ) ],
-	[ 'unchecked', __( 'Used, not decided', 'ai-act-image-labels' ) ],
-	[ 'labelled', __( 'Labeled', 'ai-act-image-labels' ) ],
-	[ 'none', __( 'No label needed', 'ai-act-image-labels' ) ],
-	[ 'all', __( 'All', 'ai-act-image-labels' ) ],
+	[ 'suggested', __( 'Suggestions', 'ai-act-labels' ) ],
+	[ 'unchecked', __( 'Used, not decided', 'ai-act-labels' ) ],
+	[ 'labelled', __( 'Labeled', 'ai-act-labels' ) ],
+	[ 'none', __( 'No label needed', 'ai-act-labels' ) ],
+	[ 'all', __( 'All', 'ai-act-labels' ) ],
 ];
 
 /** What each list says when it is empty. */
 const EMPTY = {
 	suggested: __(
 		'No file carries traces of AI without a decision. Traces are often missing – go through “Used, not decided” too.',
-		'ai-act-image-labels'
+		'ai-act-labels'
 	),
 	unchecked: __(
 		'Everything used on your site has a decision. Or the site has not been checked yet.',
-		'ai-act-image-labels'
+		'ai-act-labels'
 	),
-	labelled: __( 'No file labeled yet.', 'ai-act-image-labels' ),
-	none: __(
-		'No file decided as needing no label yet.',
-		'ai-act-image-labels'
-	),
-	all: __( 'No images, videos or recordings.', 'ai-act-image-labels' ),
+	labelled: __( 'No file labeled yet.', 'ai-act-labels' ),
+	none: __( 'No file decided as needing no label yet.', 'ai-act-labels' ),
+	all: __( 'No images, videos or recordings.', 'ai-act-labels' ),
 };
 
 /**
@@ -98,15 +95,12 @@ function Overview( { state, onDone } ) {
 
 	const phase = run
 		? {
-				posts: __(
-					'Reading your pages and posts …',
-					'ai-act-image-labels'
-				),
+				posts: __( 'Reading your pages and posts …', 'ai-act-labels' ),
 				files: __(
 					'Reading the traces in your files …',
-					'ai-act-image-labels'
+					'ai-act-labels'
 				),
-				done: __( 'Done.', 'ai-act-image-labels' ),
+				done: __( 'Done.', 'ai-act-labels' ),
 		  }[ run.phase ]
 		: '';
 	const pct =
@@ -118,13 +112,13 @@ function Overview( { state, onDone } ) {
 				<div className="aal-num">
 					<span>{ labelled }</span>
 					<p>
-						{ __( 'labeled', 'ai-act-image-labels' ) }
+						{ __( 'labeled', 'ai-act-labels' ) }
 						<em>
 							{ sprintf(
 								/* translators: 1: generated count, 2: modified count */
 								__(
 									'%1$d AI-generated · %2$d modified',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 								c.generated,
 								c.modified
@@ -135,11 +129,11 @@ function Overview( { state, onDone } ) {
 				<div className={ `aal-num${ c.suggested ? ' is-open' : '' }` }>
 					<span>{ c.suggested }</span>
 					<p>
-						{ __( 'Suggestions', 'ai-act-image-labels' ) }
+						{ __( 'Suggestions', 'ai-act-labels' ) }
 						<em>
 							{ __(
 								'traces of AI, no decision',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						</em>
 					</p>
@@ -147,12 +141,9 @@ function Overview( { state, onDone } ) {
 				<div className={ `aal-num${ c.unchecked ? ' is-open' : '' }` }>
 					<span>{ c.unchecked }</span>
 					<p>
-						{ __( 'used, not decided', 'ai-act-image-labels' ) }
+						{ __( 'used, not decided', 'ai-act-labels' ) }
 						<em>
-							{ __(
-								'visible on your site',
-								'ai-act-image-labels'
-							) }
+							{ __( 'visible on your site', 'ai-act-labels' ) }
 						</em>
 					</p>
 				</div>
@@ -179,7 +170,7 @@ function Overview( { state, onDone } ) {
 										/* translators: 1: date, 2: pages, 3: files in use */
 										__(
 											'Last checked %1$s: %2$d pages and posts, %3$d files in use.',
-											'ai-act-image-labels'
+											'ai-act-labels'
 										),
 										when( state.last.at ),
 										state.last.posts,
@@ -187,7 +178,7 @@ function Overview( { state, onDone } ) {
 								  )
 								: __(
 										'Not checked yet: where your media is used and which traces of AI it carries.',
-										'ai-act-image-labels'
+										'ai-act-labels'
 								  ) }
 						</span>
 						<Button
@@ -196,8 +187,8 @@ function Overview( { state, onDone } ) {
 							onClick={ () => step( true ) }
 						>
 							{ state.last
-								? __( 'Check again', 'ai-act-image-labels' )
-								: __( 'Check site', 'ai-act-image-labels' ) }
+								? __( 'Check again', 'ai-act-labels' )
+								: __( 'Check site', 'ai-act-labels' ) }
 						</Button>
 					</>
 				) }
@@ -258,7 +249,7 @@ function MediaRow( {
 					>
 						{ sprintf(
 							/* translators: %s: KI-generiert or Mit KI verändert */
-							__( 'Apply: %s', 'ai-act-image-labels' ),
+							__( 'Apply: %s', 'ai-act-labels' ),
 							STATE_LABELS[ item.suggests ]
 						) }
 					</Button>
@@ -278,8 +269,8 @@ function MediaRow( {
 						onClick={ () => onReview( item ) }
 					>
 						{ item.hint
-							? __( 'Assess again', 'ai-act-image-labels' )
-							: __( 'Assess', 'ai-act-image-labels' ) }
+							? __( 'Assess again', 'ai-act-labels' )
+							: __( 'Assess', 'ai-act-labels' ) }
 					</Button>
 				) : null }
 			</span>
@@ -289,10 +280,10 @@ function MediaRow( {
 
 /** What a check of a page found. */
 const CHECKS = {
-	shown: [ 'moss', __( 'Label visible', 'ai-act-image-labels' ) ],
-	missing: [ 'rose', __( 'Image without label', 'ai-act-image-labels' ) ],
-	absent: [ '', __( 'not on the page', 'ai-act-image-labels' ) ],
-	error: [ 'amber', __( 'page not reachable', 'ai-act-image-labels' ) ],
+	shown: [ 'moss', __( 'Label visible', 'ai-act-labels' ) ],
+	missing: [ 'rose', __( 'Image without label', 'ai-act-labels' ) ],
+	absent: [ '', __( 'not on the page', 'ai-act-labels' ) ],
+	error: [ 'amber', __( 'page not reachable', 'ai-act-labels' ) ],
 };
 
 /**
@@ -337,7 +328,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			footer={
 				<>
 					<Button kind="ghost" size="sm" href={ item.edit }>
-						{ __( 'Open in Media Library', 'ai-act-image-labels' ) }
+						{ __( 'Open in Media Library', 'ai-act-labels' ) }
 					</Button>
 					<span className="aal-fine">{ item.file }</span>
 				</>
@@ -366,7 +357,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				) : null }
 			</div>
 
-			<Section title={ __( 'Decision', 'ai-act-image-labels' ) }>
+			<Section title={ __( 'Decision', 'ai-act-labels' ) }>
 				<Decide
 					value={ item.state }
 					suggests={ item.suggests }
@@ -374,25 +365,17 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 				/>
 				{ labelled ? (
 					<p className="aal-small">
-						{ __( 'The site says:', 'ai-act-image-labels' ) }{ ' ' }
+						{ __( 'The site says:', 'ai-act-labels' ) }{ ' ' }
 						<b>“{ item.shown }”</b>
 					</p>
-				) : null }
-				{ item.legacy ? (
-					<span className="aal-fine">
-						{ __(
-							'Taken over from the first version in the theme. Choose a kind so the decision is stored here.',
-							'ai-act-image-labels'
-						) }
-					</span>
 				) : null }
 				{ labelled ? (
 					<div className="aal-grid2">
 						<Field
-							label={ __( 'AI tool', 'ai-act-image-labels' ) }
+							label={ __( 'AI tool', 'ai-act-labels' ) }
 							hint={ __(
 								'Optional, then appears in the notice.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<input
@@ -400,19 +383,16 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 								value={ tool }
 								placeholder={
 									item.signals?.tool ||
-									__(
-										'e.g. Midjourney',
-										'ai-act-image-labels'
-									)
+									__( 'e.g. Midjourney', 'ai-act-labels' )
 								}
 								onChange={ ( e ) => setTool( e.target.value ) }
 							/>
 						</Field>
 						<Field
-							label={ __( 'Own notice', 'ai-act-image-labels' ) }
+							label={ __( 'Own notice', 'ai-act-labels' ) }
 							hint={ __(
 								"Empty: the kind's default.",
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<input
@@ -429,10 +409,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			</Section>
 
 			<Section
-				title={ __(
-					"The assistant's assessment",
-					'ai-act-image-labels'
-				) }
+				title={ __( "The assistant's assessment", 'ai-act-labels' ) }
 				aside={
 					assistant.ready ? (
 						<Button
@@ -442,8 +419,8 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							onClick={ () => run( 'review', '/review' ) }
 						>
 							{ item.hint
-								? __( 'Assess again', 'ai-act-image-labels' )
-								: __( 'Assess', 'ai-act-image-labels' ) }
+								? __( 'Assess again', 'ai-act-labels' )
+								: __( 'Assess', 'ai-act-labels' ) }
 						</Button>
 					) : null
 				}
@@ -459,18 +436,18 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							) : null }
 							{ item.hint.deepfake === 'yes' ? (
 								<Chip tone="rose">
-									{ __( 'Deepfake', 'ai-act-image-labels' ) }
+									{ __( 'Deepfake', 'ai-act-labels' ) }
 								</Chip>
 							) : null }
 							<span className="aal-fine">
 								{ item.hint.seen
 									? __(
 											'looking at the image',
-											'ai-act-image-labels'
+											'ai-act-labels'
 									  )
 									: __(
 											'without seeing the image',
-											'ai-act-image-labels'
+											'ai-act-labels'
 									  ) }
 								{ item.hint.model
 									? ` · ${ item.hint.model }`
@@ -482,29 +459,27 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 					<p className="aal-fine">
 						{ __(
 							'The assistant looks at the image, its traces and the pages it is on, and says whether a label is required.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					</p>
 				) }
 			</Section>
 
-			<Section
-				title={ __( 'Traces in the file', 'ai-act-image-labels' ) }
-			>
+			<Section title={ __( 'Traces in the file', 'ai-act-labels' ) }>
 				{ item.signals?.items?.length ? (
 					<Traces signals={ item.signals } max={ 10 } />
 				) : (
 					<p className="aal-fine">
 						{ __(
 							'No traces found. That does not mean no AI was involved – after a screenshot or export they are usually gone.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					</p>
 				) }
 			</Section>
 
 			<Section
-				title={ __( 'Where it is used', 'ai-act-image-labels' ) }
+				title={ __( 'Where it is used', 'ai-act-labels' ) }
 				aside={
 					labelled && item.usage?.length ? (
 						<Button
@@ -513,7 +488,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 							busy={ busy === 'verify' }
 							onClick={ () => run( 'verify', '/verify' ) }
 						>
-							{ __( 'Check on the site', 'ai-act-image-labels' ) }
+							{ __( 'Check on the site', 'ai-act-labels' ) }
 						</Button>
 					) : null
 				}
@@ -553,7 +528,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 										<Chip tone="amber">
 											{ __(
 												'Check label',
-												'ai-act-image-labels'
+												'ai-act-labels'
 											) }
 										</Chip>
 									) : null }
@@ -565,7 +540,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 					<p className="aal-fine">
 						{ __(
 							'Not found on any page. Check the site if you changed it recently.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					</p>
 				) }
@@ -573,7 +548,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 					<span className="aal-fine">
 						{ __(
 							'“Check label”: there the file is only a URL or in a page builder. “Check on the site” shows whether the label still appears; otherwise the theme needs ai_act_labels_wrap().',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					</span>
 				) : null }
@@ -741,10 +716,10 @@ export default function Review( { state, setState, initial } ) {
 				onOpen={ ( m ) => setOpen( m ) }
 			/>
 			<Section
-				title={ __( 'Media', 'ai-act-image-labels' ) }
+				title={ __( 'Media', 'ai-act-labels' ) }
 				hint={ __(
 					'Decide per file: AI-generated, modified with AI or no label needed. The label is required when something looks real that did not happen that way.',
-					'ai-act-image-labels'
+					'ai-act-labels'
 				) }
 				aside={
 					<span className="aal-searchbox">
@@ -752,14 +727,8 @@ export default function Review( { state, setState, initial } ) {
 						<input
 							type="search"
 							value={ search }
-							placeholder={ __(
-								'Search',
-								'ai-act-image-labels'
-							) }
-							aria-label={ __(
-								'Search media',
-								'ai-act-image-labels'
-							) }
+							placeholder={ __( 'Search', 'ai-act-labels' ) }
+							aria-label={ __( 'Search media', 'ai-act-labels' ) }
 							onChange={ ( e ) => {
 								setSearch( e.target.value );
 								setPage( 1 );
@@ -805,7 +774,7 @@ export default function Review( { state, setState, initial } ) {
 								/* translators: %d: number of suggestions */
 								__(
 									'Apply all %d suggestions',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 								counts.suggested
 							) }
@@ -823,7 +792,7 @@ export default function Review( { state, setState, initial } ) {
 										/* translators: 1: done, 2: total */
 										__(
 											'Assessing … %1$d of %2$d',
-											'ai-act-image-labels'
+											'ai-act-labels'
 										),
 										batch.done,
 										batch.total
@@ -834,7 +803,7 @@ export default function Review( { state, setState, initial } ) {
 											'Have %d file assessed',
 											'Have %d files assessed',
 											unassessed,
-											'ai-act-image-labels'
+											'ai-act-labels'
 										),
 										unassessed
 								  ) }
@@ -846,10 +815,7 @@ export default function Review( { state, setState, initial } ) {
 					<Notice tone="success">
 						{ sprintf(
 							/* translators: %d: number of files */
-							__(
-								'%d suggestions applied.',
-								'ai-act-image-labels'
-							),
+							__( '%d suggestions applied.', 'ai-act-labels' ),
 							accepted.length
 						) }{ ' ' }
 						<button
@@ -857,14 +823,12 @@ export default function Review( { state, setState, initial } ) {
 							className="aal-link-btn"
 							onClick={ undoAccept }
 						>
-							{ __( 'Undo', 'ai-act-image-labels' ) }
+							{ __( 'Undo', 'ai-act-labels' ) }
 						</button>
 					</Notice>
 				) : null }
 				{ ! data ? (
-					<Spinner
-						label={ __( 'Loading …', 'ai-act-image-labels' ) }
-					/>
+					<Spinner label={ __( 'Loading …', 'ai-act-labels' ) } />
 				) : data.items.length ? (
 					<Card pad0>
 						{ data.items.map( ( item ) => (
@@ -898,10 +862,7 @@ export default function Review( { state, setState, initial } ) {
 						<span className="aal-fine">
 							{ sprintf(
 								/* translators: 1: page, 2: pages */
-								__(
-									'Page %1$d of %2$d',
-									'ai-act-image-labels'
-								),
+								__( 'Page %1$d of %2$d', 'ai-act-labels' ),
 								page,
 								data.pages
 							) }
@@ -918,10 +879,10 @@ export default function Review( { state, setState, initial } ) {
 				<span className="aal-fine">
 					{ __(
 						'Also in the Media Library: the “AI” filter, a column and bulk actions in the list view.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }{ ' ' }
 					<a href={ boot.upload }>
-						{ __( 'Open Media Library', 'ai-act-image-labels' ) }
+						{ __( 'Open Media Library', 'ai-act-labels' ) }
 					</a>
 				</span>
 			</Section>

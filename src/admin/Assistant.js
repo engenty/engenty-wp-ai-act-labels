@@ -6,10 +6,10 @@ import { STATE_LABELS, StateChip, Thumb } from './parts';
 
 /** How far a provider in Konnektoren is. */
 const OFFER_STATES = {
-	ready: __( 'set up', 'ai-act-image-labels' ),
-	key: __( 'API key missing', 'ai-act-image-labels' ),
-	offline: __( 'not responding', 'ai-act-image-labels' ),
-	plugin: __( 'plugin missing', 'ai-act-image-labels' ),
+	ready: __( 'set up', 'ai-act-labels' ),
+	key: __( 'API key missing', 'ai-act-labels' ),
+	offline: __( 'not responding', 'ai-act-labels' ),
+	plugin: __( 'plugin missing', 'ai-act-labels' ),
 };
 
 /**
@@ -28,18 +28,18 @@ export function Setup( { assistant, compact = false, onHide } ) {
 				<b className="aal-setup__title">
 					{ __(
 						'The assistant needs WordPress 7.0',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</b>
 				<p>
 					{ __(
 						'From 7.0, the assistant thinks with the AI provider you set up under Settings › Connectors. Labeling, the check and the traces in files already work.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</p>
 				<div className="aal-setup__actions">
 					<Button kind="primary" size="sm" href={ assistant.update }>
-						{ __( 'Update WordPress', 'ai-act-image-labels' ) }
+						{ __( 'Update WordPress', 'ai-act-labels' ) }
 					</Button>
 				</div>
 			</div>
@@ -54,21 +54,21 @@ export function Setup( { assistant, compact = false, onHide } ) {
 					type="button"
 					className="aal-icon-btn aal-setup__hide"
 					onClick={ onHide }
-					aria-label={ __( 'Hide notice', 'ai-act-image-labels' ) }
-					title={ __( 'Hide notice', 'ai-act-image-labels' ) }
+					aria-label={ __( 'Hide notice', 'ai-act-labels' ) }
+					title={ __( 'Hide notice', 'ai-act-labels' ) }
 				>
 					<Icon name="x" size={ 16 } />
 				</button>
 			) : null }
 			<b className="aal-setup__title">
 				<Icon name="lock" size={ 13 } />{ ' ' }
-				{ __( 'Set up an AI provider first', 'ai-act-image-labels' ) }
+				{ __( 'Set up an AI provider first', 'ai-act-labels' ) }
 			</b>
 			{ compact ? null : (
 				<p>
 					{ __(
 						'The assistant thinks with the provider you set up in WordPress under Settings › Connectors – your API key stays there. Labeling, the check and the traces in files work without it.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</p>
 			) }
@@ -100,14 +100,11 @@ export function Setup( { assistant, compact = false, onHide } ) {
 			) : null }
 			<div className="aal-setup__actions">
 				<Button kind="primary" size="sm" href={ assistant.connectors }>
-					{ __( 'Open Connectors', 'ai-act-image-labels' ) }
+					{ __( 'Open Connectors', 'ai-act-labels' ) }
 				</Button>
 				{ hasVercel ? null : (
 					<Button kind="ghost" size="sm" href={ assistant.vercel }>
-						{ __(
-							'Install Vercel AI Gateway',
-							'ai-act-image-labels'
-						) }
+						{ __( 'Install Vercel AI Gateway', 'ai-act-labels' ) }
 					</Button>
 				) }
 			</div>
@@ -115,7 +112,7 @@ export function Setup( { assistant, compact = false, onHide } ) {
 				<span className="aal-fine">
 					{ __(
 						'No contract with a provider? Vercel AI Gateway gives $5 a month free, no credit card.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</span>
 			) }
@@ -155,15 +152,12 @@ function ChatInput( { placeholder, locked, busy, onSend } ) {
 				onChange={ ( e ) => setText( e.target.value ) }
 				placeholder={
 					locked
-						? __(
-								'Waiting for an AI provider …',
-								'ai-act-image-labels'
-						  )
+						? __( 'Waiting for an AI provider …', 'ai-act-labels' )
 						: placeholder
 				}
 				aria-label={ __(
 					'Question for the assistant',
-					'ai-act-image-labels'
+					'ai-act-labels'
 				) }
 				disabled={ locked || busy }
 			/>
@@ -171,7 +165,7 @@ function ChatInput( { placeholder, locked, busy, onSend } ) {
 				type="submit"
 				className="aal-go"
 				disabled={ locked || busy || ! text.trim() }
-				aria-label={ __( 'Send', 'ai-act-image-labels' ) }
+				aria-label={ __( 'Send', 'ai-act-labels' ) }
 			>
 				<Icon name={ locked ? 'lock' : 'send' } size={ 16 } />
 			</button>
@@ -203,11 +197,11 @@ function SuggestionCard( { s, applied, onApply, onOpen } ) {
 			{ applied ? (
 				<span className="aal-chip aal-chip--moss">
 					<Icon name="check" size={ 11 } />{ ' ' }
-					{ __( 'applied', 'ai-act-image-labels' ) }
+					{ __( 'applied', 'ai-act-labels' ) }
 				</span>
 			) : (
 				<Button size="sm" onClick={ onApply }>
-					{ __( 'Apply', 'ai-act-image-labels' ) }
+					{ __( 'Apply', 'ai-act-labels' ) }
 				</Button>
 			) }
 		</div>
@@ -294,12 +288,9 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 	};
 
 	const suggestions = [
-		__( 'Which images do I have to label?', 'ai-act-image-labels' ),
-		__(
-			'Is an AI portrait on the team page a deepfake?',
-			'ai-act-image-labels'
-		),
-		__( 'Is a note in the imprint enough?', 'ai-act-image-labels' ),
+		__( 'Which images do I have to label?', 'ai-act-labels' ),
+		__( 'Is an AI portrait on the team page a deepfake?', 'ai-act-labels' ),
+		__( 'Is a note in the imprint enough?', 'ai-act-labels' ),
 	];
 
 	return (
@@ -309,19 +300,19 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 			</span>
 			<span className={ `aal-kick${ locked ? ' is-off' : '' }` }>
 				<Icon name="sparkle" size={ 12 } />{ ' ' }
-				{ __( 'Assistant', 'ai-act-image-labels' ) }
+				{ __( 'Assistant', 'ai-act-labels' ) }
 			</span>
-			<h2>{ __( 'What do I have to label?', 'ai-act-image-labels' ) }</h2>
+			<h2>{ __( 'What do I have to label?', 'ai-act-labels' ) }</h2>
 			<p>
 				{ __(
 					'The assistant knows the AI Act, the traces in your files and where they are used. It suggests – you decide.',
-					'ai-act-image-labels'
+					'ai-act-labels'
 				) }
 			</p>
 			<ChatInput
 				placeholder={ __(
 					'e.g. “Which images on the home page need a label?”',
-					'ai-act-image-labels'
+					'ai-act-labels'
 				) }
 				locked={ locked }
 				busy={ busy }
@@ -337,14 +328,14 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 				<span className="aal-fine aal-setup-hidden">
 					{ __(
 						'The assistant needs an AI provider.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }{ ' ' }
 					<button
 						type="button"
 						className="aal-link-btn"
 						onClick={ () => toggleSetup( false ) }
 					>
-						{ __( 'How?', 'ai-act-image-labels' ) }
+						{ __( 'How?', 'ai-act-labels' ) }
 					</button>
 				</span>
 			) : null }
@@ -402,7 +393,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 														/* translators: %d: number of suggestions */
 														__(
 															'Apply all %d',
-															'ai-act-image-labels'
+															'ai-act-labels'
 														),
 														t.suggestions.length
 													) }
@@ -416,7 +407,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 					) ) }
 					{ busy ? (
 						<Spinner
-							label={ __( 'thinking …', 'ai-act-image-labels' ) }
+							label={ __( 'thinking …', 'ai-act-labels' ) }
 						/>
 					) : null }
 					{ error ? <Notice tone="error">{ error }</Notice> : null }
@@ -427,7 +418,7 @@ export function AssistantCard( { state, setState, onLabel, onOpen } ) {
 				<span className="aal-fine aal-acard__who">
 					{ sprintf(
 						/* translators: %s: provider and model */
-						__( 'Thinks with %s', 'ai-act-image-labels' ),
+						__( 'Thinks with %s', 'ai-act-labels' ),
 						assistant.last
 					) }
 				</span>

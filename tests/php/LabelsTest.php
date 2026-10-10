@@ -38,26 +38,11 @@ class LabelsTest extends AI_Act_Labels_TestCase {
 		$this->assertSame( 'Mit KI bearbeitet.', AI_Act_Labels::default_notice( 'modified', 'image' ) );
 	}
 
-	public function test_labels_of_the_theme_class_count_until_switched_off() {
-		$id = $this->image();
-		update_post_meta( $id, AI_Act_Labels::LEGACY, '1' );
-		update_post_meta( $id, AI_Act_Labels::LEGACY_NOTICE, 'Mit KI.' );
-		$this->assertSame( 'generated', AI_Act_Labels::get( $id ) );
-		$this->assertSame( 'Mit KI.', AI_Act_Labels::notice( $id ) );
-		$this->assertContains( $id, AI_Act_Labels::query_ids( 'labelled', -1 ) );
-		AI_Act_Labels::save_settings( array( 'legacy' => false ) );
-		$this->assertSame( '', AI_Act_Labels::get( $id ) );
-		AI_Act_Labels::save_settings( array( 'legacy' => true ) );
-		AI_Act_Labels::set( $id, '' );
-		$this->assertSame( '', get_post_meta( $id, AI_Act_Labels::LEGACY, true ) );
-	}
-
 	public function test_settings_keep_only_what_is_allowed() {
-		$s = AI_Act_Labels::save_settings( array( 'icon' => 'rainbow', 'color' => 'white-soft', 'size' => 'xxl', 'position' => 'top-left', 'where' => array( 'audio' => false ) ) );
+		$s = AI_Act_Labels::save_settings( array( 'icon' => 'rainbow', 'color' => 'white-soft', 'alpha' => 33, 'size' => 'xxl', 'position' => 'top-left', 'where' => array( 'audio' => false ) ) );
 		$this->assertSame( 'official', $s['icon'] );
-		// The old variant splits into colour and transparency.
-		$this->assertSame( 'light', $s['color'] );
-		$this->assertSame( 50, $s['alpha'] );
+		$this->assertSame( 'dark', $s['color'] );
+		$this->assertSame( 0, $s['alpha'] );
 		$this->assertSame( 'm', $s['size'] );
 		$this->assertSame( 'top-left', $s['position'] );
 		$this->assertFalse( $s['where']['audio'] );

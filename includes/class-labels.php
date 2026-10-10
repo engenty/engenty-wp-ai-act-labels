@@ -31,11 +31,6 @@ class AI_Act_Labels {
 	 */
 	const OPEN_SUGGESTED = '_ai_act_open_s';
 	const OPEN_USED      = '_ai_act_open_u';
-	const OPEN_VERSION   = 'ai_act_labels_open';
-
-	/** Meta of the first version, a class in a theme (AiImageLabel): a checkbox and an own notice. */
-	const LEGACY        = '_ai_image_label';
-	const LEGACY_NOTICE = '_ai_image_notice';
 
 	const KINDS = array( 'generated', 'modified' );
 
@@ -82,7 +77,6 @@ class AI_Act_Labels {
 			),
 			'detect'   => true,
 			'auto'     => false,
-			'legacy'   => true,
 		);
 	}
 
@@ -104,24 +98,12 @@ class AI_Act_Labels {
 	 * @return array
 	 */
 	public static function sanitize_settings( array $in, ?array $base = null ) {
-		$d     = $base ?? self::defaults();
-		$color = $in['color'] ?? $d['color'];
-		$alpha = $d['alpha'] ?? 0;
-		// Settings from before the colour and the transparency were apart: black, white, black-soft, white-soft.
-		$old = array(
-			'black'      => array( 'dark', 0 ),
-			'white'      => array( 'light', 0 ),
-			'black-soft' => array( 'dark', 50 ),
-			'white-soft' => array( 'light', 50 ),
-		);
-		if ( isset( $old[ $color ] ) ) {
-			list( $color, $alpha ) = $old[ $color ];
-		}
+		$d   = $base ?? self::defaults();
 		$out = array(
 			'icon'     => self::one_of( $in['icon'] ?? $d['icon'], self::ICONS, 'official' ),
-			'color'    => self::one_of( $color, self::COLORS, 'dark' ),
+			'color'    => self::one_of( $in['color'] ?? $d['color'], self::COLORS, 'dark' ),
 			'hex'      => sanitize_hex_color( (string) ( $in['hex'] ?? $d['hex'] ) ) ?? self::defaults()['hex'],
-			'alpha'    => self::one_of( (int) ( $in['alpha'] ?? $alpha ), self::ALPHAS, 0 ),
+			'alpha'    => self::one_of( (int) ( $in['alpha'] ?? $d['alpha'] ), self::ALPHAS, 0 ),
 			'size'     => self::one_of( $in['size'] ?? $d['size'], array_keys( self::SIZES ), 'm' ),
 			'position' => self::one_of( $in['position'] ?? $d['position'], self::POSITIONS, 'bottom-right' ),
 			'custom'   => absint( $in['custom'] ?? $d['custom'] ),
@@ -131,7 +113,6 @@ class AI_Act_Labels {
 			'where'    => array(),
 			'detect'   => (bool) ( $in['detect'] ?? $d['detect'] ),
 			'auto'     => (bool) ( $in['auto'] ?? $d['auto'] ),
-			'legacy'   => (bool) ( $in['legacy'] ?? $d['legacy'] ),
 		);
 		foreach ( self::defaults()['texts'] as $key => $unused ) {
 			$out['texts'][ $key ] = sanitize_text_field( (string) ( $in['texts'][ $key ] ?? $d['texts'][ $key ] ?? '' ) );
@@ -189,13 +170,7 @@ class AI_Act_Labels {
 			return '';
 		}
 		$state = (string) get_post_meta( $id, self::META, true );
-		if ( in_array( $state, self::STATES, true ) ) {
-			return $state;
-		}
-		if ( self::settings()['legacy'] && get_post_meta( $id, self::LEGACY, true ) ) {
-			return 'generated';
-		}
-		return '';
+		return in_array( $state, self::STATES, true ) ? $state : '';
 	}
 
 	/**
@@ -226,7 +201,6 @@ class AI_Act_Labels {
 		if ( '' === $state ) {
 			delete_post_meta( $id, self::META );
 			delete_post_meta( $id, self::META_DECIDED );
-			delete_post_meta( $id, self::LEGACY );
 		} elseif ( in_array( $state, self::STATES, true ) ) {
 			update_post_meta( $id, self::META, $state );
 			update_post_meta(
@@ -238,9 +212,6 @@ class AI_Act_Labels {
 					'via' => sanitize_key( $via ),
 				)
 			);
-			if ( 'none' === $state ) {
-				delete_post_meta( $id, self::LEGACY );
-			}
 		} else {
 			return false;
 		}
@@ -290,9 +261,9 @@ class AI_Act_Labels {
 	public static function label_text( $kind ) {
 		$texts = self::settings()['texts'];
 		if ( 'modified' === $kind ) {
-			return '' !== $texts['modified'] ? $texts['modified'] : __( 'Modified with AI', 'ai-act-image-labels' );
+			return '' !== $texts['modified'] ? $texts['modified'] : __( 'Modified with AI', 'ai-act-labels' );
 		}
-		return '' !== $texts['generated'] ? $texts['generated'] : __( 'AI-generated', 'ai-act-image-labels' );
+		return '' !== $texts['generated'] ? $texts['generated'] : __( 'AI-generated', 'ai-act-labels' );
 	}
 
 	/**
@@ -310,16 +281,16 @@ class AI_Act_Labels {
 		}
 		$notices = array(
 			'generated' => array(
-				'image' => __( 'This image was created with AI.', 'ai-act-image-labels' ),
-				'video' => __( 'This video was created with AI.', 'ai-act-image-labels' ),
-				'audio' => __( 'This recording was created with AI.', 'ai-act-image-labels' ),
-				'file'  => __( 'This content was created with AI.', 'ai-act-image-labels' ),
+				'image' => __( 'This image was created with AI.', 'ai-act-labels' ),
+				'video' => __( 'This video was created with AI.', 'ai-act-labels' ),
+				'audio' => __( 'This recording was created with AI.', 'ai-act-labels' ),
+				'file'  => __( 'This content was created with AI.', 'ai-act-labels' ),
 			),
 			'modified'  => array(
-				'image' => __( 'This image was modified with AI.', 'ai-act-image-labels' ),
-				'video' => __( 'This video was modified with AI.', 'ai-act-image-labels' ),
-				'audio' => __( 'This recording was modified with AI.', 'ai-act-image-labels' ),
-				'file'  => __( 'This content was modified with AI.', 'ai-act-image-labels' ),
+				'image' => __( 'This image was modified with AI.', 'ai-act-labels' ),
+				'video' => __( 'This video was modified with AI.', 'ai-act-labels' ),
+				'audio' => __( 'This recording was modified with AI.', 'ai-act-labels' ),
+				'file'  => __( 'This content was modified with AI.', 'ai-act-labels' ),
 			),
 		);
 		$kind    = 'modified' === $kind ? 'modified' : 'generated';
@@ -327,7 +298,7 @@ class AI_Act_Labels {
 	}
 
 	/**
-	 * The notice of a media file: its own, the one of the first version, or the default – with the tool.
+	 * The notice of a media file: its own or the default – with the tool.
 	 *
 	 * @param int $id Attachment ID.
 	 * @return string
@@ -335,19 +306,13 @@ class AI_Act_Labels {
 	public static function notice( $id ) {
 		$kind   = self::kind( $id );
 		$notice = trim( (string) get_post_meta( $id, self::META_NOTICE, true ) );
-		if ( '' === $notice && self::settings()['legacy'] && ! get_post_meta( $id, self::META, true ) ) {
-			$notice = trim( (string) get_post_meta( $id, self::LEGACY_NOTICE, true ) );
-			if ( '' === $notice && get_post_meta( $id, self::LEGACY, true ) ) {
-				$notice = __( 'This image was created or edited with the help of AI.', 'ai-act-image-labels' );
-			}
-		}
 		if ( '' === $notice ) {
 			$notice = self::default_notice( $kind ? $kind : 'generated', self::media_type( $id ) );
 		}
 		$tool = trim( (string) get_post_meta( $id, self::META_TOOL, true ) );
 		if ( '' !== $tool ) {
 			/* translators: %s: the AI tool, e.g. Midjourney */
-			$notice = rtrim( $notice ) . ' ' . sprintf( __( 'Tool: %s.', 'ai-act-image-labels' ), $tool );
+			$notice = rtrim( $notice ) . ' ' . sprintf( __( 'Tool: %s.', 'ai-act-labels' ), $tool );
 		}
 		return $notice;
 	}
@@ -382,7 +347,6 @@ class AI_Act_Labels {
 			'alt'      => (string) get_post_meta( $id, '_wp_attachment_image_alt', true ),
 			'caption'  => $post ? (string) $post->post_excerpt : '',
 			'state'    => $state,
-			'legacy'   => '' !== $state && '' === (string) get_post_meta( $id, self::META, true ),
 			'tool'     => (string) get_post_meta( $id, self::META_TOOL, true ),
 			'notice'   => (string) get_post_meta( $id, self::META_NOTICE, true ),
 			'shown'    => self::kind( $id ) ? self::notice( $id ) : '',
@@ -436,17 +400,6 @@ class AI_Act_Labels {
 				$counts[ $row['v'] ] = (int) $row['n'];
 			}
 		}
-		if ( self::settings()['legacy'] ) {
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$counts['generated'] += (int) $wpdb->get_var(
-				$wpdb->prepare(
-					"SELECT COUNT(*) FROM {$wpdb->postmeta} l LEFT JOIN {$wpdb->postmeta} o ON o.post_id = l.post_id AND o.meta_key = %s WHERE l.meta_key = %s AND l.meta_value <> '' AND l.meta_value <> '0' AND o.meta_id IS NULL",
-					self::META,
-					self::LEGACY
-				)
-			);
-		}
-		self::ensure_open();
 		$counts['suggested'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::OPEN_SUGGESTED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$counts['unchecked'] = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", self::OPEN_USED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$counts['open']      = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(DISTINCT post_id) FROM {$wpdb->postmeta} WHERE meta_key IN (%s, %s)", self::OPEN_SUGGESTED, self::OPEN_USED ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -494,13 +447,6 @@ class AI_Act_Labels {
 		}
 	}
 
-	/** Builds the markers once for files written before they existed (or after the legacy setting changed). */
-	public static function ensure_open() {
-		if ( get_option( self::OPEN_VERSION ) !== AI_ACT_LABELS_VERSION . ( self::settings()['legacy'] ? '+legacy' : '' ) ) {
-			self::rebuild_open();
-		}
-	}
-
 	/** Builds the markers of all files again: two statements, no loop over the library. */
 	public static function rebuild_open() {
 		global $wpdb;
@@ -508,9 +454,6 @@ class AI_Act_Labels {
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQLPlaceholders, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- one-off rebuild of the plugin's own meta.
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$m} WHERE meta_key IN (%s, %s)", self::OPEN_SUGGESTED, self::OPEN_USED ) );
 		$undecided = $wpdb->prepare( "NOT EXISTS (SELECT 1 FROM {$m} d WHERE d.post_id = x.post_id AND d.meta_key = %s)", self::META );
-		if ( self::settings()['legacy'] ) {
-			$undecided .= $wpdb->prepare( " AND NOT EXISTS (SELECT 1 FROM {$m} l WHERE l.post_id = x.post_id AND l.meta_key = %s AND l.meta_value NOT IN ('', '0'))", self::LEGACY );
-		}
 		$wpdb->query(
 			$wpdb->prepare(
 				"INSERT INTO {$m} (post_id, meta_key, meta_value) SELECT DISTINCT x.post_id, %s, '1' FROM {$m} x WHERE x.meta_key IN (%s, %s) AND (x.meta_value LIKE %s OR x.meta_value LIKE %s) AND {$undecided}",
@@ -535,7 +478,6 @@ class AI_Act_Labels {
 			wp_cache_flush();
 		}
 		wp_cache_set_last_changed( 'posts' );
-		update_option( self::OPEN_VERSION, AI_ACT_LABELS_VERSION . ( self::settings()['legacy'] ? '+legacy' : '' ), false );
 	}
 
 	/**
@@ -576,36 +518,10 @@ class AI_Act_Labels {
 	 * @return array Empty for all.
 	 */
 	public static function meta_query( $filter ) {
-		$legacy    = self::settings()['legacy'];
-		$own_none  = array(
-			'key'     => self::META,
-			'compare' => 'NOT EXISTS',
-		);
 		$undecided = array(
-			'relation' => 'AND',
-			$own_none,
-		);
-		if ( $legacy ) {
-			$undecided[] = array(
-				'relation' => 'OR',
-				array(
-					'key'     => self::LEGACY,
-					'compare' => 'NOT EXISTS',
-				),
-				array(
-					'key'     => self::LEGACY,
-					'value'   => array( '', '0' ),
-					'compare' => 'IN',
-				),
-			);
-		}
-		$legacy_on = array(
-			'relation' => 'AND',
-			$own_none,
 			array(
-				'key'     => self::LEGACY,
-				'value'   => array( '', '0' ),
-				'compare' => 'NOT IN',
+				'key'     => self::META,
+				'compare' => 'NOT EXISTS',
 			),
 		);
 		switch ( $filter ) {
@@ -644,22 +560,14 @@ class AI_Act_Labels {
 					'key'   => self::META,
 					'value' => $filter,
 				);
-				return 'generated' === $filter && $legacy ? array(
-					'relation' => 'OR',
-					$own,
-					$legacy_on,
-				) : array( $own );
+				return array( $own );
 			case 'labelled':
 				$own = array(
 					'key'     => self::META,
 					'value'   => self::KINDS,
 					'compare' => 'IN',
 				);
-				return $legacy ? array(
-					'relation' => 'OR',
-					$own,
-					$legacy_on,
-				) : array( $own );
+				return array( $own );
 		}
 		return array();
 	}

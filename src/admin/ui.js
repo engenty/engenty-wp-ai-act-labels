@@ -322,7 +322,7 @@ export function Drawer( { title, head, onClose, footer, children } ) {
 			<button
 				type="button"
 				className="aal-drawer__back"
-				aria-label={ __( 'Close', 'ai-act-image-labels' ) }
+				aria-label={ __( 'Close', 'ai-act-labels' ) }
 				onClick={ onClose }
 			/>
 			<div className="aal-drawer__panel" ref={ panel } tabIndex={ -1 }>
@@ -335,7 +335,7 @@ export function Drawer( { title, head, onClose, footer, children } ) {
 						type="button"
 						className="aal-icon-btn"
 						onClick={ onClose }
-						aria-label={ __( 'Close', 'ai-act-image-labels' ) }
+						aria-label={ __( 'Close', 'ai-act-labels' ) }
 					>
 						<Icon name="x" size={ 18 } />
 					</button>
@@ -381,12 +381,10 @@ export function Accordion( {
 				<b>{ title }</b>
 				<span className="aal-acc__sum">{ summary }</span>
 				{ recommended ? (
-					<Chip>
-						{ __( 'as recommended', 'ai-act-image-labels' ) }
-					</Chip>
+					<Chip>{ __( 'as recommended', 'ai-act-labels' ) }</Chip>
 				) : (
 					<Chip tone="amber">
-						{ __( 'changed', 'ai-act-image-labels' ) }
+						{ __( 'changed', 'ai-act-labels' ) }
 					</Chip>
 				) }
 				<Icon name={ open ? 'down' : 'chevron' } size={ 16 } />

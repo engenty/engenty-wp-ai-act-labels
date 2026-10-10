@@ -15,22 +15,22 @@ import {
 } from './ui';
 
 const ICONS = [
-	[ 'official', __( 'EU icon by kind', 'ai-act-image-labels' ), 'generated' ],
-	[ 'basic', __( 'Round EU icon', 'ai-act-image-labels' ), 'basic' ],
+	[ 'official', __( 'EU icon by kind', 'ai-act-labels' ), 'generated' ],
+	[ 'basic', __( 'Round EU icon', 'ai-act-labels' ), 'basic' ],
 	[
 		'basic-text',
-		__( 'Round icon, opens on hover', 'ai-act-image-labels' ),
+		__( 'Round icon, opens on hover', 'ai-act-labels' ),
 		'basic',
 	],
-	[ 'custom', __( 'Own icon', 'ai-act-image-labels' ), '' ],
-	[ 'sparkle', __( 'Sparkle', 'ai-act-image-labels' ), 'sparkle' ],
+	[ 'custom', __( 'Own icon', 'ai-act-labels' ), '' ],
+	[ 'sparkle', __( 'Sparkle', 'ai-act-labels' ), 'sparkle' ],
 ];
 
 const COLORS = [
-	[ 'dark', __( 'Dark', 'ai-act-image-labels' ) ],
-	[ 'light', __( 'Light', 'ai-act-image-labels' ) ],
-	[ 'auto', __( 'Image', 'ai-act-image-labels' ) ],
-	[ 'custom', __( 'Color', 'ai-act-image-labels' ) ],
+	[ 'dark', __( 'Dark', 'ai-act-labels' ) ],
+	[ 'light', __( 'Light', 'ai-act-labels' ) ],
+	[ 'auto', __( 'Image', 'ai-act-labels' ) ],
+	[ 'custom', __( 'Color', 'ai-act-labels' ) ],
 ];
 
 const ALPHAS = [ 0, 25, 50, 75 ];
@@ -49,10 +49,10 @@ function ink( hex ) {
 }
 
 const POSITIONS = [
-	[ 'top-left', __( 'Top left', 'ai-act-image-labels' ) ],
-	[ 'top-right', __( 'Top right', 'ai-act-image-labels' ) ],
-	[ 'bottom-left', __( 'Bottom left', 'ai-act-image-labels' ) ],
-	[ 'bottom-right', __( 'Bottom right', 'ai-act-image-labels' ) ],
+	[ 'top-left', __( 'Top left', 'ai-act-labels' ) ],
+	[ 'top-right', __( 'Top right', 'ai-act-labels' ) ],
+	[ 'bottom-left', __( 'Bottom left', 'ai-act-labels' ) ],
+	[ 'bottom-right', __( 'Bottom right', 'ai-act-labels' ) ],
 ];
 
 /**
@@ -101,21 +101,19 @@ function Preview( { settings, sample } ) {
 	return (
 		<div className="aal-lpreview">
 			<div className="aal-lpreview__bar">
-				<b>
-					{ __( 'How it looks on the site', 'ai-act-image-labels' ) }
-				</b>
+				<b>{ __( 'How it looks on the site', 'ai-act-labels' ) }</b>
 				<Seg
 					value={ kind }
-					label={ __( 'Kind', 'ai-act-image-labels' ) }
+					label={ __( 'Kind', 'ai-act-labels' ) }
 					onChange={ setKind }
 					options={ [
 						{
 							value: 'generated',
-							label: __( 'AI-generated', 'ai-act-image-labels' ),
+							label: __( 'AI-generated', 'ai-act-labels' ),
 						},
 						{
 							value: 'modified',
-							label: __( 'Modified', 'ai-act-image-labels' ),
+							label: __( 'Modified', 'ai-act-labels' ),
 						},
 					] }
 				/>
@@ -140,22 +138,19 @@ function Preview( { settings, sample } ) {
 				</span>
 				{ settings.caption ? (
 					<figcaption>
-						{ __(
-							'Our workshop in autumn',
-							'ai-act-image-labels'
-						) }
+						{ __( 'Our workshop in autumn', 'ai-act-labels' ) }
 						<span className="ai-act-label__caption">
 							{ ' – ' }
 							{ kind === 'modified'
 								? settings.texts.noticeModified ||
 								  __(
 										'This image was modified with AI.',
-										'ai-act-image-labels'
+										'ai-act-labels'
 								  )
 								: settings.texts.noticeGenerated ||
 								  __(
 										'This image was created with AI.',
-										'ai-act-image-labels'
+										'ai-act-labels'
 								  ) }
 						</span>
 					</figcaption>
@@ -179,7 +174,7 @@ function Preview( { settings, sample } ) {
 				<span className="aal-fine">
 					{ __(
 						'On small images (under 400 px) the plugin uses the round icon instead of the wide one.',
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</span>
 			</div>
@@ -187,7 +182,7 @@ function Preview( { settings, sample } ) {
 				<span className="aal-fine">
 					{ __(
 						"Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is.",
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				</span>
 			) : null }
@@ -225,7 +220,7 @@ export default function Look( { state, setState } ) {
 
 	const pickIcon = () => {
 		const frame = window.wp?.media( {
-			title: __( 'Choose your own icon', 'ai-act-image-labels' ),
+			title: __( 'Choose your own icon', 'ai-act-labels' ),
 			library: { type: [ 'image' ] },
 			multiple: false,
 		} );
@@ -265,16 +260,16 @@ export default function Look( { state, setState } ) {
 					<Notice>
 						{ __(
 							'Administrators change the appearance. You can still label.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					</Notice>
 				) : null }
 				{ error ? <Notice tone="error">{ error }</Notice> : null }
 				<Section
-					title={ __( 'Icon', 'ai-act-image-labels' ) }
+					title={ __( 'Icon', 'ai-act-labels' ) }
 					hint={ __(
 						"The default is the European Commission's icons – free to use, no attribution.",
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				>
 					<div className="aal-icons">
@@ -324,27 +319,24 @@ export default function Look( { state, setState } ) {
 							onClick={ pickIcon }
 							disabled={ ! can }
 						>
-							{ __(
-								'Choose another icon',
-								'ai-act-image-labels'
-							) }
+							{ __( 'Choose another icon', 'ai-act-labels' ) }
 						</Button>
 					) : null }
 					{ local.icon === 'sparkle' || local.icon === 'custom' ? (
 						<span className="aal-fine">
 							{ __(
 								'Your own mark is allowed if it is as clear as the EU icon. The EU icon is the safer choice.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						</span>
 					) : null }
 				</Section>
 
 				<Card className="aal-col aal-gap16">
-					<Line label={ __( 'Color', 'ai-act-image-labels' ) }>
+					<Line label={ __( 'Color', 'ai-act-labels' ) }>
 						<Seg
 							value={ local.color }
-							label={ __( 'Color', 'ai-act-image-labels' ) }
+							label={ __( 'Color', 'ai-act-labels' ) }
 							onChange={ ( v ) => {
 								if ( v !== local.color ) {
 									save( { color: v } );
@@ -372,42 +364,36 @@ export default function Look( { state, setState } ) {
 							type="color"
 							className="aal-picker"
 							tabIndex={ -1 }
-							aria-label={ __(
-								'Pick a color',
-								'ai-act-image-labels'
-							) }
+							aria-label={ __( 'Pick a color', 'ai-act-labels' ) }
 							value={ hex }
 							onChange={ ( e ) => setHex( e.target.value ) }
 						/>
 					</Line>
 					<Line
-						label={ __( 'Transparency', 'ai-act-image-labels' ) }
+						label={ __( 'Transparency', 'ai-act-labels' ) }
 						hint={ __(
 							'Of the shape; the letters stay solid.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					>
 						<Seg
 							value={ String( local.alpha ) }
-							label={ __(
-								'Transparency',
-								'ai-act-image-labels'
-							) }
+							label={ __( 'Transparency', 'ai-act-labels' ) }
 							onChange={ ( v ) => save( { alpha: Number( v ) } ) }
 							options={ ALPHAS.map( ( a ) => ( {
 								value: String( a ),
 								label: sprintf(
 									/* translators: %d: a percentage. */
-									__( '%d%%', 'ai-act-image-labels' ),
+									__( '%d%%', 'ai-act-labels' ),
 									a
 								),
 							} ) ) }
 						/>
 					</Line>
-					<Line label={ __( 'Size', 'ai-act-image-labels' ) }>
+					<Line label={ __( 'Size', 'ai-act-labels' ) }>
 						<Seg
 							value={ local.size }
-							label={ __( 'Size', 'ai-act-image-labels' ) }
+							label={ __( 'Size', 'ai-act-labels' ) }
 							onChange={ ( v ) => save( { size: v } ) }
 							options={ [
 								{ value: 's', label: 'S' },
@@ -417,16 +403,16 @@ export default function Look( { state, setState } ) {
 						/>
 					</Line>
 					<Line
-						label={ __( 'Corner', 'ai-act-image-labels' ) }
+						label={ __( 'Corner', 'ai-act-labels' ) }
 						hint={ __(
 							'Videos: always at the top, away from the controls.',
-							'ai-act-image-labels'
+							'ai-act-labels'
 						) }
 					>
 						<span
 							className="aal-corners"
 							role="radiogroup"
-							aria-label={ __( 'Corner', 'ai-act-image-labels' ) }
+							aria-label={ __( 'Corner', 'ai-act-labels' ) }
 						>
 							{ POSITIONS.map( ( [ value, label ] ) => (
 								<button
@@ -456,18 +442,15 @@ export default function Look( { state, setState } ) {
 				</Card>
 
 				<Section
-					title={ __( 'Words', 'ai-act-image-labels' ) }
+					title={ __( 'Words', 'ai-act-labels' ) }
 					hint={ __(
 						"Leave empty: the default in the site's language.",
-						'ai-act-image-labels'
+						'ai-act-labels'
 					) }
 				>
 					<Card className="aal-grid2">
 						<TextSetting
-							label={ __(
-								'AI-generated',
-								'ai-act-image-labels'
-							) }
+							label={ __( 'AI-generated', 'ai-act-labels' ) }
 							value={ local.texts.generated }
 							placeholder={ d.generated }
 							disabled={ ! can }
@@ -476,10 +459,7 @@ export default function Look( { state, setState } ) {
 							}
 						/>
 						<TextSetting
-							label={ __(
-								'Modified with AI',
-								'ai-act-image-labels'
-							) }
+							label={ __( 'Modified with AI', 'ai-act-labels' ) }
 							value={ local.texts.modified }
 							placeholder={ d.modified }
 							disabled={ ! can }
@@ -490,7 +470,7 @@ export default function Look( { state, setState } ) {
 						<TextSetting
 							label={ __(
 								'Notice for AI-generated',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							value={ local.texts.noticeGenerated }
 							placeholder={ d.noticeGenerated }
@@ -502,7 +482,7 @@ export default function Look( { state, setState } ) {
 						<TextSetting
 							label={ __(
 								'Notice for modified',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							value={ local.texts.noticeModified }
 							placeholder={ d.noticeModified }
@@ -515,10 +495,7 @@ export default function Look( { state, setState } ) {
 				</Section>
 
 				<Section
-					title={ __(
-						'Where the label appears',
-						'ai-act-image-labels'
-					) }
+					title={ __( 'Where the label appears', 'ai-act-labels' ) }
 				>
 					<Card className="aal-col aal-gap12">
 						{ [
@@ -526,38 +503,38 @@ export default function Look( { state, setState } ) {
 								'content',
 								__(
 									'Images in pages and posts',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 								__(
 									'Blocks, galleries, covers, classic editor, HTML',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 							],
 							[
 								'featured',
 								__(
 									"Featured images and the theme's images",
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 								__(
 									'everything that comes through wp_get_attachment_image()',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 							],
 							[
 								'video',
-								__( 'Videos', 'ai-act-image-labels' ),
+								__( 'Videos', 'ai-act-labels' ),
 								__(
 									'Video block, cover with video, [video]',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 							],
 							[
 								'audio',
-								__( 'Audio', 'ai-act-image-labels' ),
+								__( 'Audio', 'ai-act-labels' ),
 								__(
 									'a line above the player',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								),
 							],
 						].map( ( [ key, label, hint ] ) => (
@@ -575,18 +552,18 @@ export default function Look( { state, setState } ) {
 						<Line
 							label={ __(
 								'Notice in captions',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							hint={ __(
 								'Only where there is one already – never in the alt text.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.caption }
 								label={ __(
 									'Notice in captions',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								) }
 								disabled={ ! can }
 								onChange={ ( v ) => save( { caption: v } ) }
@@ -595,18 +572,18 @@ export default function Look( { state, setState } ) {
 						<Line
 							label={ __(
 								'Second layer on hover',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							hint={ __(
 								'The whole notice, with the tool.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.layer }
 								label={ __(
 									'Second layer on hover',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								) }
 								disabled={ ! can }
 								onChange={ ( v ) => save( { layer: v } ) }
@@ -615,23 +592,23 @@ export default function Look( { state, setState } ) {
 					</Card>
 				</Section>
 
-				<Section title={ __( 'On upload', 'ai-act-image-labels' ) }>
+				<Section title={ __( 'On upload', 'ai-act-labels' ) }>
 					<Card className="aal-col aal-gap12">
 						<Line
 							label={ __(
 								'Check files for traces of AI',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							hint={ __(
 								'C2PA, IPTC, generation data, file names – on your server.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.detect }
 								label={ __(
 									'Check files for traces of AI',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								) }
 								disabled={ ! can }
 								onChange={ ( v ) => save( { detect: v } ) }
@@ -640,41 +617,21 @@ export default function Look( { state, setState } ) {
 						<Line
 							label={ __(
 								'Apply unambiguous traces right away',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 							hint={ __(
 								'If the file itself says it was made with AI, it is labeled right away.',
-								'ai-act-image-labels'
+								'ai-act-labels'
 							) }
 						>
 							<Switch
 								checked={ local.auto }
 								label={ __(
 									'Apply unambiguous traces right away',
-									'ai-act-image-labels'
+									'ai-act-labels'
 								) }
 								disabled={ ! can }
 								onChange={ ( v ) => save( { auto: v } ) }
-							/>
-						</Line>
-						<Line
-							label={ __(
-								'Take over labels from the theme',
-								'ai-act-image-labels'
-							) }
-							hint={ __(
-								'The first version as a theme class (AiImageLabel) stored _ai_image_label.',
-								'ai-act-image-labels'
-							) }
-						>
-							<Switch
-								checked={ local.legacy }
-								label={ __(
-									'Take over labels from the theme',
-									'ai-act-image-labels'
-								) }
-								disabled={ ! can }
-								onChange={ ( v ) => save( { legacy: v } ) }
 							/>
 						</Line>
 					</Card>

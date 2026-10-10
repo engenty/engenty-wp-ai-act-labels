@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       AI Act Image Labels
- * Plugin URI:        https://engenty.ai/ai-act-image-labels
+ * Plugin URI:        https://engenty.ai/ai-act-labels
  * Description:       Marks AI-generated and AI-modified media as the EU AI Act asks – right in the media library, with the EU's official icons on the site, and an assistant that finds what needs a label.
  * Version:           0.1.0
  * Requires at least: 6.6
@@ -10,7 +10,7 @@
  * Author URI:        https://engenty.ai
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-act-image-labels
+ * Text Domain:       ai-act-labels
  * Domain Path:       /languages
  *
  * @package AI_Act_Labels
@@ -93,30 +93,12 @@ register_activation_hook(
 	}
 );
 
-// The scripts' strings follow the same rule.
-add_filter(
-	'load_script_translation_file',
-	static function ( $file, $handle, $domain ) {
-		if ( 'ai-act-image-labels' !== $domain || ( $file && is_readable( $file ) ) || ! str_starts_with( determine_locale(), 'de' ) ) {
-			return $file;
-		}
-		$fallback = $file ? preg_replace( '/-de(_[A-Z]{2})?(_[a-z]+)?-([0-9a-f]{32})\.json$/', '-de_DE-$3.json', $file ) : '';
-		return $fallback && is_readable( $fallback ) ? $fallback : $file;
-	},
-	10,
-	3
-);
-
 add_action(
 	'plugins_loaded',
 	static function () {
-		// Translations from translate.wordpress.org load by themselves. Until a language has one there, the shipped
-		// files fill in: German (every German locale reads de_DE) and British English.
+		// The plugin's own translations (de_DE, en_GB); the scripts' come through wp_set_script_translations().
 		$locale = determine_locale();
-		$own    = AI_ACT_LABELS_DIR . 'languages/ai-act-image-labels-' . ( str_starts_with( $locale, 'de' ) ? 'de_DE' : $locale ) . '.mo';
-		if ( ! is_readable( WP_LANG_DIR . '/plugins/ai-act-image-labels-' . $locale . '.mo' ) && is_readable( $own ) ) {
-			load_textdomain( 'ai-act-image-labels', $own, $locale );
-		}
+		load_textdomain( 'ai-act-labels', AI_ACT_LABELS_DIR . 'languages/ai-act-labels-' . $locale . '.mo', $locale );
 		AI_Act_Labels_Front::init();
 		AI_Act_Labels_Media::init();
 		AI_Act_Labels_Rest::init();
