@@ -50,7 +50,7 @@ msgstr "KI-Kennzeichnung (AI Act)"
 #: includes/class-media.php:125
 #: includes/class-media.php:520
 #: src/admin/index.js:54
-#: src/admin/parts.js:125
+#: src/admin/parts.js:126
 msgid "AI labels"
 msgstr "KI-Kennzeichnung"
 
@@ -60,7 +60,6 @@ msgid "AI labels are loading …"
 msgstr "KI-Kennzeichnung lädt …"
 
 #: includes/class-admin.php:130
-#: src/admin/parts.js:304
 msgid "Open"
 msgstr "Öffnen"
 
@@ -73,7 +72,7 @@ msgid "The answer was not JSON. Try again."
 msgstr "Die Antwort war kein JSON. Versuch es noch einmal."
 
 #: includes/class-assistant.php:277
-#: includes/class-rest.php:163
+#: includes/class-rest.php:154
 msgid "This file does not exist."
 msgstr "Diese Datei gibt es nicht."
 
@@ -175,26 +174,26 @@ msgstr "Dateiname deutet auf KI"
 #: includes/class-labels.php:264
 #: includes/class-media.php:67
 #: includes/class-media.php:340
-#: includes/class-rest.php:66
+#: includes/class-rest.php:62
 #: src/admin/Knowledge.js:288
 #: src/admin/Look.js:462
-#: src/admin/parts.js:7
+#: src/admin/parts.js:8
 msgid "Modified with AI"
 msgstr "Mit KI verändert"
 
 #: includes/class-labels.php:266
 #: includes/class-media.php:66
 #: includes/class-media.php:339
-#: includes/class-rest.php:65
+#: includes/class-rest.php:61
 #: src/admin/Knowledge.js:292
 #: src/admin/Look.js:112
 #: src/admin/Look.js:453
-#: src/admin/parts.js:6
+#: src/admin/parts.js:7
 msgid "AI-generated"
 msgstr "KI-generiert"
 
 #: includes/class-labels.php:284
-#: includes/class-rest.php:67
+#: includes/class-rest.php:63
 #: src/admin/Look.js:151
 msgid "This image was created with AI."
 msgstr "Dieses Bild wurde mit KI erzeugt."
@@ -212,7 +211,7 @@ msgid "This content was created with AI."
 msgstr "Dieser Inhalt wurde mit KI erzeugt."
 
 #: includes/class-labels.php:290
-#: includes/class-rest.php:68
+#: includes/class-rest.php:64
 #: src/admin/Look.js:146
 msgid "This image was modified with AI."
 msgstr "Dieses Bild wurde mit KI verändert."
@@ -241,13 +240,13 @@ msgstr "Noch nicht entschieden"
 
 #: includes/class-media.php:68
 #: includes/class-media.php:344
-#: src/admin/parts.js:8
+#: src/admin/parts.js:9
 #: src/admin/Review.js:21
 msgid "No label needed"
 msgstr "Kein Hinweis nötig"
 
 #: includes/class-media.php:136
-#: src/admin/parts.js:141
+#: src/admin/parts.js:142
 msgid "Suggestion"
 msgstr "Vorschlag"
 
@@ -312,7 +311,7 @@ msgid "Used, not decided"
 msgstr "Verwendet, nicht entschieden"
 
 #: includes/class-media.php:343
-#: src/admin/parts.js:9
+#: src/admin/parts.js:10
 msgid "Not decided"
 msgstr "Nicht entschieden"
 
@@ -372,7 +371,7 @@ msgstr "Ansehen"
 msgid "Later"
 msgstr "Später"
 
-#: includes/class-rest.php:178
+#: includes/class-rest.php:169
 msgid "This label does not exist."
 msgstr "Diese Kennzeichnung gibt es nicht."
 
@@ -386,12 +385,12 @@ msgid "Site logo"
 msgstr "Logo der Website"
 
 #: includes/class-usage.php:479
-#: src/admin/parts.js:37
+#: src/admin/parts.js:38
 msgid "Site icon"
 msgstr "Website-Icon"
 
 #: includes/class-usage.php:481
-#: src/admin/parts.js:38
+#: src/admin/parts.js:39
 msgid "Header image"
 msgstr "Kopfbild"
 
@@ -803,7 +802,7 @@ msgid "Video block, cover with video, [video]"
 msgstr "Video-Block, Cover mit Video, [video]"
 
 #: src/admin/Look.js:534
-#: src/admin/parts.js:31
+#: src/admin/parts.js:32
 msgid "Audio"
 msgstr "Audio"
 
@@ -851,92 +850,76 @@ msgstr "Eindeutige Spuren gleich übernehmen"
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr "Sagt die Datei selbst, dass sie mit KI gemacht ist, wird sie gleich gekennzeichnet."
 
-#: src/admin/parts.js:25
+#: src/admin/parts.js:26
 msgid "Featured image"
 msgstr "Beitragsbild"
 
 #: src/admin/Look.js:32
-#: src/admin/parts.js:26
+#: src/admin/parts.js:27
 msgid "Image"
 msgstr "Bild"
 
-#: src/admin/parts.js:27
+#: src/admin/parts.js:28
 msgid "Gallery"
 msgstr "Galerie"
 
-#: src/admin/parts.js:28
+#: src/admin/parts.js:29
 msgid "Cover"
 msgstr "Cover"
 
-#: src/admin/parts.js:29
+#: src/admin/parts.js:30
 msgid "Media & Text"
 msgstr "Medien und Text"
 
-#: src/admin/parts.js:30
+#: src/admin/parts.js:31
 msgid "Video"
 msgstr "Video"
 
-#: src/admin/parts.js:32
+#: src/admin/parts.js:33
 msgid "only as a URL"
 msgstr "nur als Adresse"
 
-#: src/admin/parts.js:33
+#: src/admin/parts.js:34
 msgid "Page builder"
 msgstr "Page Builder"
 
-#: src/admin/parts.js:34
+#: src/admin/parts.js:35
 msgid "ACF field"
 msgstr "ACF-Feld"
 
-#: src/admin/parts.js:35
+#: src/admin/parts.js:36
 msgid "Product gallery"
 msgstr "Produktgalerie"
 
-#: src/admin/parts.js:36
+#: src/admin/parts.js:37
 msgid "Logo"
 msgstr "Logo"
 
-#: src/admin/parts.js:190
+#: src/admin/parts.js:191
 msgid "Label required"
 msgstr "Hinweis Pflicht"
 
-#: src/admin/parts.js:191
+#: src/admin/parts.js:192
 msgid "Label voluntary"
 msgstr "Hinweis freiwillig"
 
-#: src/admin/parts.js:192
+#: src/admin/parts.js:193
 msgid "no label needed"
 msgstr "kein Hinweis nötig"
 
-#: src/admin/parts.js:193
+#: src/admin/parts.js:194
 msgid "unclear"
 msgstr "unklar"
 
-#: src/admin/parts.js:231
+#: src/admin/parts.js:232
 msgid "Not found on any page"
 msgstr "Auf keiner Seite gefunden"
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:262
+#: src/admin/parts.js:263
 #, js-format
 msgid "and %d more"
 msgstr "und %d weitere"
-
-#: src/admin/parts.js:284
-msgid "From engenty, the makers of this plugin"
-msgstr "Von engenty, den Machern dieses Plugins"
-
-#: src/admin/parts.js:290
-msgid "engenty wizards: guided flows for your visitors"
-msgstr "engenty wizards: geführte Abläufe für deine Besucher"
-
-#: src/admin/parts.js:296
-msgid "Enquiries, quotes, appointments – step by step on your site, built with AI instead of code."
-msgstr "Anfragen, Angebote, Termine – Schritt für Schritt auf deiner Website, mit KI gebaut statt programmiert."
-
-#: src/admin/parts.js:309
-msgid "View plugin"
-msgstr "Plugin ansehen"
 
 #: src/admin/Review.js:22
 msgid "All"
@@ -1014,11 +997,11 @@ msgstr "Neu prüfen"
 msgid "Check site"
 msgstr "Website prüfen"
 
-#: src/admin/parts.js:223
+#: src/admin/parts.js:224
 msgid "not on the page"
 msgstr "nicht auf der Seite"
 
-#: src/admin/parts.js:224
+#: src/admin/parts.js:225
 msgid "page not reachable"
 msgstr "Seite nicht erreichbar"
 
@@ -1164,26 +1147,26 @@ msgid_plural "Analyze %d images (AI)"
 msgstr[0] "%d Bild analysieren (KI)"
 msgstr[1] "%d Bilder analysieren (KI)"
 
-#: src/admin/parts.js:14
+#: src/admin/parts.js:15
 msgctxt "decision beside the AI icon"
 msgid "generated"
 msgstr "generiert"
 
-#: src/admin/parts.js:19
+#: src/admin/parts.js:20
 msgctxt "decision beside the AI icon"
 msgid "modified"
 msgstr "verändert"
 
-#: src/admin/parts.js:20
+#: src/admin/parts.js:21
 msgctxt "decision"
 msgid "No label"
 msgstr "Kein Hinweis"
 
-#: src/admin/parts.js:221
+#: src/admin/parts.js:222
 msgid "label visible"
 msgstr "Hinweis sichtbar"
 
-#: src/admin/parts.js:222
+#: src/admin/parts.js:223
 msgid "without label"
 msgstr "ohne Hinweis"
 
@@ -1191,7 +1174,7 @@ msgstr "ohne Hinweis"
 msgid "Open in the Media Library"
 msgstr "In der Mediathek öffnen"
 
-#: includes/class-rest.php:239
+#: includes/class-rest.php:230
 msgid "For the image analysis, WordPress needs an AI provider (Settings › Connectors)."
 msgstr "Für die Bildanalyse braucht WordPress einen KI-Anbieter (Einstellungen › Konnektoren)."
 

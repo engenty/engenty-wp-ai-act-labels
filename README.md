@@ -16,11 +16,16 @@ applies since 2 August 2026) – right in the media library, with the EU's offic
   names AI tools use – and suggests a label. Nothing leaves the server.
 - **Where it is used:** the check reads every page, post, template and reusable block and lists where each
   file is used; *Auf der Website prüfen* opens those pages and shows whether the label really appears.
-- **Assistant:** looks at a file (the picture, its traces, where it is used) and says whether a label is
-  required, voluntary or not needed; answers questions and suggests labels for the library. It uses the AI
-  provider set up under *Einstellungen › Konnektoren* (WordPress 7.0+) and stays locked until there is one.
-- **Configurable:** icon (EU icon by kind, round icon, round icon with text, own icon, sparkle), colour
-  (the four EU variants or picked per image), size, corner, words, where the label appears.
+- **Bild analysieren (KI):** looks at a file (the picture, its traces, where it is used) and says whether a
+  label is required, voluntary or not needed – per file, for a list, and in the media library's box. It uses
+  the AI provider set up under *Einstellungen › Konnektoren* (WordPress 7.0+); without one, the button shows
+  the way there.
+- **Configurable:** icon (EU icon by kind, round icon, round icon that opens on hover, own icon, sparkle),
+  colour (dark, light, picked per image, own colour), transparency 0–75 %, size, corner, words, where the
+  label appears.
+- **Card from engenty:** the words of the card at the end of the tool come from
+  `https://engenty.ai/wordpress-plugins/ai-act-image-labels/promo.json` (once a day, nothing sent about the
+  site; see readme.txt › External services).
 
 The tool lives under **Media › AI labels** (German: *Medien › KI-Kennzeichnung*), tabs *Review*,
 *Appearance*, *Knowledge*. The source strings are English; German (de_DE, also read by de_AT and de_CH)
@@ -30,7 +35,7 @@ and British English ship in `languages/`.
 
 `skills/eu-ai-act-labels/` is an [Agent Skill](https://agentskills.io): the AI Act rules for labelling
 media (deepfake test, standard editing, exceptions, the icons and their placement, dates, sources) as of
-9 October 2026. The assistant thinks with it; any agent that reads skills can use the same folder.
+9 October 2026. The image analysis thinks with it; any agent that reads skills can use the same folder.
 
 ## For themes
 

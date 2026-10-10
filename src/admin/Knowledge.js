@@ -385,7 +385,7 @@ export default function Knowledge( { state } ) {
 					) ) }
 				</Card>
 			</Section>
-			<Promo wizards={ state.wizards } />
+			<Promo promo={ state.promo } />
 		</>
 	);
 }

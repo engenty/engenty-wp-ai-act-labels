@@ -30,6 +30,7 @@ require_once AI_ACT_LABELS_DIR . 'includes/class-usage.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-front.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-media.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-assistant.php';
+require_once AI_ACT_LABELS_DIR . 'includes/class-promo.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-rest.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-admin.php';
 require_once AI_ACT_LABELS_DIR . 'includes/class-admin-columns.php';

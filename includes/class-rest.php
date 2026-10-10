@@ -55,10 +55,6 @@ class AI_Act_Labels_Rest {
 	 * @return array
 	 */
 	public static function state() {
-		$wizards = 'engenty-wizards/engenty-wizards.php';
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
 		return array(
 			'settings'    => AI_Act_Labels::settings(),
 			'defaults'    => array(
@@ -74,12 +70,7 @@ class AI_Act_Labels_Rest {
 			'canSettings' => current_user_can( 'manage_options' ),
 			'custom'      => self::custom_icon(),
 			'sample'      => self::sample(),
-			'wizards'     => array(
-				'installed' => file_exists( WP_PLUGIN_DIR . '/' . $wizards ),
-				'active'    => is_plugin_active( $wizards ),
-				'install'   => admin_url( 'plugin-install.php?s=' . rawurlencode( 'engenty wizards' ) . '&tab=search&type=term' ),
-				'open'      => admin_url( 'admin.php?page=engenty-wizards' ),
-			),
+			'promo'       => AI_Act_Labels_Promo::card(),
 		);
 	}
 

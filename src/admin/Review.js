@@ -610,7 +610,7 @@ export default function Review( { state, setState, initial } ) {
 					</a>
 				</span>
 			</Section>
-			<Promo wizards={ state.wizards } />
+			<Promo promo={ state.promo } />
 			{ setup ? (
 				<SetupDialog
 					assistant={ state.assistant }

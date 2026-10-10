@@ -1,5 +1,6 @@
 import { __, _x, sprintf } from '@wordpress/i18n';
 import { boot } from './api';
+import { ENGENTY_KINDS } from './engenties';
 import { Button, Chip, Engenty, Icon } from './ui';
 
 export const STATE_LABELS = {
@@ -268,56 +269,36 @@ export function UsageLine( { usage } ) {
 }
 
 /**
- * engenty wizards, from the makers of this plugin.
+ * The card from engenty: its words come from engenty.ai (includes/class-promo.php), printed as text.
  * @param root0
- * @param root0.wizards Whether the plugin is installed or active, its links.
+ * @param root0.promo The card, or null.
  */
-export function Promo( { wizards } ) {
-	if ( ! wizards ) {
+export function Promo( { promo } ) {
+	if ( ! promo ) {
 		return null;
 	}
 	return (
 		<aside className="aal-promo">
-			<Engenty kind="flame" size={ 40 } />
+			<Engenty
+				kind={
+					ENGENTY_KINDS.includes( promo.engenty )
+						? promo.engenty
+						: 'round'
+				}
+				size={ 40 }
+			/>
 			<div className="aal-promo__t">
-				<span className="aal-kick">
-					{ __(
-						'From engenty, the makers of this plugin',
-						'ai-act-labels'
-					) }
-				</span>
-				<b>
-					{ __(
-						'engenty wizards: guided flows for your visitors',
-						'ai-act-labels'
-					) }
-				</b>
-				<p>
-					{ __(
-						'Enquiries, quotes, appointments – step by step on your site, built with AI instead of code.',
-						'ai-act-labels'
-					) }
-				</p>
+				{ promo.kicker ? (
+					<span className="aal-kick">{ promo.kicker }</span>
+				) : null }
+				<b>{ promo.title }</b>
+				{ promo.text ? <p>{ promo.text }</p> : null }
 			</div>
-			{ wizards.active ? (
-				<Button size="sm" href={ wizards.open }>
-					{ __( 'Open', 'ai-act-labels' ) }
+			{ promo.button?.url && promo.button?.label ? (
+				<Button size="sm" href={ promo.button.url } external>
+					{ promo.button.label }
 				</Button>
-			) : (
-				<span className="aal-row-inline">
-					<Button size="sm" href={ wizards.install }>
-						{ __( 'View plugin', 'ai-act-labels' ) }
-					</Button>
-					<Button
-						kind="ghost"
-						size="sm"
-						href="https://engenty.ai/"
-						external
-					>
-						engenty.ai
-					</Button>
-				</span>
-			) }
+			) : null }
 		</aside>
 	);
 }

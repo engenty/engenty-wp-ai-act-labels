@@ -50,7 +50,7 @@ msgstr ""
 #: includes/class-media.php:125
 #: includes/class-media.php:520
 #: src/admin/index.js:54
-#: src/admin/parts.js:125
+#: src/admin/parts.js:126
 msgid "AI labels"
 msgstr ""
 
@@ -60,7 +60,6 @@ msgid "AI labels are loading …"
 msgstr ""
 
 #: includes/class-admin.php:130
-#: src/admin/parts.js:304
 msgid "Open"
 msgstr ""
 
@@ -73,7 +72,7 @@ msgid "The answer was not JSON. Try again."
 msgstr ""
 
 #: includes/class-assistant.php:277
-#: includes/class-rest.php:163
+#: includes/class-rest.php:154
 msgid "This file does not exist."
 msgstr ""
 
@@ -175,26 +174,26 @@ msgstr ""
 #: includes/class-labels.php:264
 #: includes/class-media.php:67
 #: includes/class-media.php:340
-#: includes/class-rest.php:66
+#: includes/class-rest.php:62
 #: src/admin/Knowledge.js:288
 #: src/admin/Look.js:462
-#: src/admin/parts.js:7
+#: src/admin/parts.js:8
 msgid "Modified with AI"
 msgstr ""
 
 #: includes/class-labels.php:266
 #: includes/class-media.php:66
 #: includes/class-media.php:339
-#: includes/class-rest.php:65
+#: includes/class-rest.php:61
 #: src/admin/Knowledge.js:292
 #: src/admin/Look.js:112
 #: src/admin/Look.js:453
-#: src/admin/parts.js:6
+#: src/admin/parts.js:7
 msgid "AI-generated"
 msgstr ""
 
 #: includes/class-labels.php:284
-#: includes/class-rest.php:67
+#: includes/class-rest.php:63
 #: src/admin/Look.js:151
 msgid "This image was created with AI."
 msgstr ""
@@ -212,7 +211,7 @@ msgid "This content was created with AI."
 msgstr ""
 
 #: includes/class-labels.php:290
-#: includes/class-rest.php:68
+#: includes/class-rest.php:64
 #: src/admin/Look.js:146
 msgid "This image was modified with AI."
 msgstr ""
@@ -241,13 +240,13 @@ msgstr ""
 
 #: includes/class-media.php:68
 #: includes/class-media.php:344
-#: src/admin/parts.js:8
+#: src/admin/parts.js:9
 #: src/admin/Review.js:21
 msgid "No label needed"
 msgstr ""
 
 #: includes/class-media.php:136
-#: src/admin/parts.js:141
+#: src/admin/parts.js:142
 msgid "Suggestion"
 msgstr ""
 
@@ -312,7 +311,7 @@ msgid "Used, not decided"
 msgstr ""
 
 #: includes/class-media.php:343
-#: src/admin/parts.js:9
+#: src/admin/parts.js:10
 msgid "Not decided"
 msgstr ""
 
@@ -372,7 +371,7 @@ msgstr ""
 msgid "Later"
 msgstr ""
 
-#: includes/class-rest.php:178
+#: includes/class-rest.php:169
 msgid "This label does not exist."
 msgstr ""
 
@@ -386,12 +385,12 @@ msgid "Site logo"
 msgstr ""
 
 #: includes/class-usage.php:479
-#: src/admin/parts.js:37
+#: src/admin/parts.js:38
 msgid "Site icon"
 msgstr ""
 
 #: includes/class-usage.php:481
-#: src/admin/parts.js:38
+#: src/admin/parts.js:39
 msgid "Header image"
 msgstr ""
 
@@ -803,7 +802,7 @@ msgid "Video block, cover with video, [video]"
 msgstr ""
 
 #: src/admin/Look.js:534
-#: src/admin/parts.js:31
+#: src/admin/parts.js:32
 msgid "Audio"
 msgstr ""
 
@@ -851,91 +850,75 @@ msgstr ""
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr "If the file itself says it was made with AI, it is labelled right away."
 
-#: src/admin/parts.js:25
+#: src/admin/parts.js:26
 msgid "Featured image"
 msgstr ""
 
 #: src/admin/Look.js:32
-#: src/admin/parts.js:26
+#: src/admin/parts.js:27
 msgid "Image"
 msgstr ""
 
-#: src/admin/parts.js:27
+#: src/admin/parts.js:28
 msgid "Gallery"
 msgstr ""
 
-#: src/admin/parts.js:28
+#: src/admin/parts.js:29
 msgid "Cover"
 msgstr ""
 
-#: src/admin/parts.js:29
+#: src/admin/parts.js:30
 msgid "Media & Text"
 msgstr ""
 
-#: src/admin/parts.js:30
+#: src/admin/parts.js:31
 msgid "Video"
 msgstr ""
 
-#: src/admin/parts.js:32
+#: src/admin/parts.js:33
 msgid "only as a URL"
 msgstr ""
 
-#: src/admin/parts.js:33
+#: src/admin/parts.js:34
 msgid "Page builder"
 msgstr ""
 
-#: src/admin/parts.js:34
+#: src/admin/parts.js:35
 msgid "ACF field"
 msgstr ""
 
-#: src/admin/parts.js:35
+#: src/admin/parts.js:36
 msgid "Product gallery"
 msgstr ""
 
-#: src/admin/parts.js:36
+#: src/admin/parts.js:37
 msgid "Logo"
 msgstr ""
 
-#: src/admin/parts.js:190
+#: src/admin/parts.js:191
 msgid "Label required"
 msgstr ""
 
-#: src/admin/parts.js:191
+#: src/admin/parts.js:192
 msgid "Label voluntary"
 msgstr ""
 
-#: src/admin/parts.js:192
+#: src/admin/parts.js:193
 msgid "no label needed"
 msgstr ""
 
-#: src/admin/parts.js:193
+#: src/admin/parts.js:194
 msgid "unclear"
 msgstr ""
 
-#: src/admin/parts.js:231
+#: src/admin/parts.js:232
 msgid "Not found on any page"
 msgstr ""
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:262
+#: src/admin/parts.js:263
 #, js-format
 msgid "and %d more"
-msgstr ""
-
-#: src/admin/parts.js:284
-msgid "From engenty, the makers of this plugin"
-msgstr ""
-
-#: src/admin/parts.js:290
-msgid "engenty wizards: guided flows for your visitors"
-msgstr ""
-
-#: src/admin/parts.js:296
-msgid "Enquiries, quotes, appointments – step by step on your site, built with AI instead of code."
-msgstr ""
-
-#: src/admin/parts.js:309
-msgid "View plugin"
 msgstr ""
 
 #: src/admin/Review.js:22
@@ -1014,11 +997,11 @@ msgstr ""
 msgid "Check site"
 msgstr ""
 
-#: src/admin/parts.js:223
+#: src/admin/parts.js:224
 msgid "not on the page"
 msgstr ""
 
-#: src/admin/parts.js:224
+#: src/admin/parts.js:225
 msgid "page not reachable"
 msgstr ""
 
@@ -1164,26 +1147,26 @@ msgid_plural "Analyze %d images (AI)"
 msgstr[0] "Analyse %d image (AI)"
 msgstr[1] "Analyse %d images (AI)"
 
-#: src/admin/parts.js:14
+#: src/admin/parts.js:15
 msgctxt "decision beside the AI icon"
 msgid "generated"
 msgstr ""
 
-#: src/admin/parts.js:19
+#: src/admin/parts.js:20
 msgctxt "decision beside the AI icon"
 msgid "modified"
 msgstr ""
 
-#: src/admin/parts.js:20
+#: src/admin/parts.js:21
 msgctxt "decision"
 msgid "No label"
 msgstr ""
 
-#: src/admin/parts.js:221
+#: src/admin/parts.js:222
 msgid "label visible"
 msgstr ""
 
-#: src/admin/parts.js:222
+#: src/admin/parts.js:223
 msgid "without label"
 msgstr ""
 
@@ -1191,7 +1174,7 @@ msgstr ""
 msgid "Open in the Media Library"
 msgstr ""
 
-#: includes/class-rest.php:239
+#: includes/class-rest.php:230
 msgid "For the image analysis, WordPress needs an AI provider (Settings › Connectors)."
 msgstr ""
 
