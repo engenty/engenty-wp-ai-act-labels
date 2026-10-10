@@ -17,7 +17,11 @@ import {
 const ICONS = [
 	[ 'official', __( 'EU icon by kind', 'ai-act-labels' ), 'generated' ],
 	[ 'basic', __( 'Round EU icon', 'ai-act-labels' ), 'basic' ],
-	[ 'basic-text', __( 'Round icon with text', 'ai-act-labels' ), 'basic' ],
+	[
+		'basic-text',
+		__( 'Round icon, opens on hover', 'ai-act-labels' ),
+		'basic',
+	],
 	[ 'custom', __( 'Own icon', 'ai-act-labels' ), '' ],
 	[ 'sparkle', __( 'Sparkle', 'ai-act-labels' ), 'sparkle' ],
 ];
@@ -267,10 +271,10 @@ export default function Look( { state, setState } ) {
 										<EuIcon name={ icon } />
 									) }
 									{ value === 'basic-text' ? (
-										<span className="aal-opt__txt">
-											{ local.texts.generated ||
-												d.generated }
-										</span>
+										<EuIcon
+											name="generated"
+											className="aal-opt__open"
+										/>
 									) : null }
 								</span>
 								{ name }

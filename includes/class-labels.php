@@ -45,9 +45,9 @@ class AI_Act_Labels {
 	const ICONS     = array( 'official', 'basic', 'basic-text', 'custom', 'sparkle' );
 	const COLORS    = array( 'black', 'white', 'black-soft', 'white-soft', 'auto' );
 	const SIZES     = array(
-		's' => 24,
-		'm' => 30,
-		'l' => 38,
+		's' => 18,
+		'm' => 22,
+		'l' => 28,
 	);
 	const POSITIONS = array( 'bottom-right', 'bottom-left', 'top-right', 'top-left' );
 

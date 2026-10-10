@@ -110,9 +110,12 @@ add_filter(
 add_action(
 	'plugins_loaded',
 	static function () {
-		// The plugin speaks English and ships German; a German locale without its own translation (de_AT, de_CH) reads de_DE.
-		if ( ! load_plugin_textdomain( 'ai-act-labels', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ) && str_starts_with( determine_locale(), 'de' ) ) {
-			load_textdomain( 'ai-act-labels', AI_ACT_LABELS_DIR . 'languages/ai-act-labels-de_DE.mo' );
+		// Translations from translate.wordpress.org load by themselves. Until a language has one there, the shipped
+		// files fill in: German (every German locale reads de_DE) and British English.
+		$locale = determine_locale();
+		$own    = AI_ACT_LABELS_DIR . 'languages/ai-act-labels-' . ( str_starts_with( $locale, 'de' ) ? 'de_DE' : $locale ) . '.mo';
+		if ( ! is_readable( WP_LANG_DIR . '/plugins/ai-act-labels-' . $locale . '.mo' ) && is_readable( $own ) ) {
+			load_textdomain( 'ai-act-labels', $own, $locale );
 		}
 		AI_Act_Labels_Front::init();
 		AI_Act_Labels_Media::init();

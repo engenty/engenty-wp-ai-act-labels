@@ -411,7 +411,8 @@ class AI_Act_Labels_Front {
 		if ( $top ) {
 			$pos = str_replace( 'bottom', 'top', $pos );
 		}
-		$color = 'auto' === $s['color'] ? self::tone( $id, $pos ) : $s['color'];
+		// By image: the half-transparent variant, black or white by how light the corner is.
+		$color = 'auto' === $s['color'] ? self::tone( $id, $pos ) . '-soft' : $s['color'];
 		$icon  = $s['icon'];
 		if ( 'official' === $icon && $small ) {
 			$icon = 'basic';
@@ -422,8 +423,9 @@ class AI_Act_Labels_Front {
 				$ratio = 1;
 				break;
 			case 'basic-text':
-				$inner = AI_Act_Labels_Icons::svg( 'basic', $color ) . '<span class="ai-act-label__text">' . esc_html( $label ) . '</span>';
-				$ratio = 0;
+				// The round icon; on hover it opens to the EU icon of its kind.
+				$inner = AI_Act_Labels_Icons::svg( $kind, $color ) . AI_Act_Labels_Icons::svg( 'basic', $color );
+				$ratio = AI_Act_Labels_Icons::ratio( $kind );
 				break;
 			case 'custom':
 				$src   = $s['custom'] ? wp_get_attachment_image_url( $s['custom'], 'thumbnail' ) : '';
@@ -532,19 +534,20 @@ class AI_Act_Labels_Front {
 			. ':where(.is-image-fill-element>.wp-block-media-text__media)>.ai-act-label{position:static;display:block;height:100%}'
 			. ':where(.ai-act-host){position:relative}'
 			. ':where(.ai-act-label__badge){position:absolute;z-index:3;display:flex;align-items:center;gap:.35em;height:var(--ai-act-h);width:min(calc(var(--ai-act-h) * var(--ai-act-r, 1)),45%);line-height:1;pointer-events:auto;font:600 calc(var(--ai-act-h) * .42)/1 system-ui,-apple-system,"Segoe UI",sans-serif}'
-			. ':where(.ai-act-label__badge.is-basic-text),:where(.ai-act-label__badge.is-custom){width:auto;max-width:calc(100% - 1em)}'
+			. ':where(.ai-act-label__badge.is-custom){width:auto;max-width:calc(100% - 1em)}'
 			. ':where(.ai-act-label__badge.is-bottom-right){right:.5em;bottom:.5em}'
 			. ':where(.ai-act-label__badge.is-bottom-left){left:.5em;bottom:.5em}'
 			. ':where(.ai-act-label__badge.is-top-right){right:.5em;top:.5em}'
 			. ':where(.ai-act-label__badge.is-top-left){left:.5em;top:.5em}'
 			. ':where(.ai-act-label__badge) .ai-act-icon{display:block;width:100%;height:auto;max-height:100%;flex:none}'
-			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon,:where(.ai-act-label__badge.is-custom) .ai-act-icon{width:var(--ai-act-h);height:var(--ai-act-h)}'
+			. ':where(.ai-act-label__badge.is-custom) .ai-act-icon{width:var(--ai-act-h);height:var(--ai-act-h)}'
+			. ':where(.ai-act-label__badge.is-basic-text){width:var(--ai-act-h);overflow:hidden;border-radius:999px;transition:width .2s ease}'
+			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));max-width:none;height:var(--ai-act-h)}'
+			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{position:absolute;left:0;top:0;width:var(--ai-act-h);transition:opacity .2s ease}'
+			. ':where(.ai-act-label__badge.is-basic-text):hover{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));overflow:visible}'
+			. ':where(.ai-act-label__badge.is-basic-text):hover .ai-act-icon--basic{opacity:0}'
+			. '@media (prefers-reduced-motion:reduce){:where(.ai-act-label__badge.is-basic-text),:where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{transition:none}}'
 			. ':where(.ai-act-label__badge.is-sparkle) .ai-act-icon{width:60%;margin:auto}'
-			. ':where(.ai-act-label__text){padding:.3em .7em .3em .25em;margin-left:calc(var(--ai-act-h) * -.55);padding-left:calc(var(--ai-act-h) * .6);border-radius:999px;background:#000;color:#fff;white-space:nowrap;letter-spacing:.01em}'
-			. ':where(.ai-act-label__badge.is-white .ai-act-label__text,.ai-act-label__badge.is-white-soft .ai-act-label__text){background:#fff;color:#1d1d1b}'
-			. ':where(.ai-act-label__badge.is-black-soft .ai-act-label__text){background:rgba(0,0,0,.5)}'
-			. ':where(.ai-act-label__badge.is-white-soft .ai-act-label__text){background:rgba(255,255,255,.5)}'
-			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon{position:relative;z-index:1}'
 			. ':where(.ai-act-label__layer){position:absolute;bottom:calc(100% + 6px);right:0;display:none;width:max-content;max-width:min(260px,80vw);padding:.55em .75em;border-radius:8px;background:#1d1d1b;color:#fff;font:400 13px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.25);white-space:normal;text-align:left}'
 			. ':where(.ai-act-label__badge.is-bottom-left,.ai-act-label__badge.is-top-left) .ai-act-label__layer{right:auto;left:0}'
 			. ':where(.ai-act-label__badge.is-top-right,.ai-act-label__badge.is-top-left) .ai-act-label__layer{bottom:auto;top:calc(100% + 6px)}'

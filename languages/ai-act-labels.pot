@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T11:30:09+00:00\n"
+"POT-Creation-Date: 2026-10-10T11:34:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ai-act-labels\n"
@@ -178,7 +178,7 @@ msgstr ""
 #: includes/class-media.php:338
 #: includes/class-rest.php:68
 #: src/admin/Knowledge.js:289
-#: src/admin/Look.js:380
+#: src/admin/Look.js:384
 #: src/admin/parts.js:7
 msgid "Modified with AI"
 msgstr ""
@@ -188,15 +188,15 @@ msgstr ""
 #: includes/class-media.php:337
 #: includes/class-rest.php:67
 #: src/admin/Knowledge.js:293
-#: src/admin/Look.js:94
-#: src/admin/Look.js:371
+#: src/admin/Look.js:98
+#: src/admin/Look.js:375
 #: src/admin/parts.js:6
 msgid "AI-generated"
 msgstr ""
 
 #: includes/class-labels.php:296
 #: includes/class-rest.php:69
-#: src/admin/Look.js:133
+#: src/admin/Look.js:137
 msgid "This image was created with AI."
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 
 #: includes/class-labels.php:302
 #: includes/class-rest.php:70
-#: src/admin/Look.js:128
+#: src/admin/Look.js:132
 msgid "This image was modified with AI."
 msgstr ""
 
@@ -745,7 +745,7 @@ msgid "File"
 msgstr ""
 
 #: src/admin/Knowledge.js:277
-#: src/admin/Look.js:89
+#: src/admin/Look.js:93
 msgid "Kind"
 msgstr ""
 
@@ -797,216 +797,216 @@ msgstr ""
 msgid "Round EU icon"
 msgstr ""
 
-#: src/admin/Look.js:20
-msgid "Round icon with text"
+#: src/admin/Look.js:22
+msgid "Round icon, opens on hover"
 msgstr ""
 
-#: src/admin/Look.js:21
+#: src/admin/Look.js:25
 msgid "Own icon"
 msgstr ""
 
-#: src/admin/Look.js:22
+#: src/admin/Look.js:26
 msgid "Sparkle"
 msgstr ""
 
-#: src/admin/Look.js:26
+#: src/admin/Look.js:30
 msgid "Black"
 msgstr ""
 
-#: src/admin/Look.js:27
+#: src/admin/Look.js:31
 msgid "White"
 msgstr ""
 
-#: src/admin/Look.js:28
+#: src/admin/Look.js:32
 msgid "Black 50%"
 msgstr ""
 
-#: src/admin/Look.js:29
+#: src/admin/Look.js:33
 msgid "White 50%"
 msgstr ""
 
-#: src/admin/Look.js:30
+#: src/admin/Look.js:34
 msgid "By image"
 msgstr ""
 
-#: src/admin/Look.js:34
+#: src/admin/Look.js:38
 msgid "Top left"
 msgstr ""
 
-#: src/admin/Look.js:35
+#: src/admin/Look.js:39
 msgid "Top right"
 msgstr ""
 
-#: src/admin/Look.js:36
+#: src/admin/Look.js:40
 msgid "Bottom left"
 msgstr ""
 
-#: src/admin/Look.js:37
+#: src/admin/Look.js:41
 msgid "Bottom right"
 msgstr ""
 
-#: src/admin/Look.js:86
+#: src/admin/Look.js:90
 msgid "How it looks on the site"
 msgstr ""
 
-#: src/admin/Look.js:98
+#: src/admin/Look.js:102
 msgid "Modified"
 msgstr ""
 
-#: src/admin/Look.js:123
+#: src/admin/Look.js:127
 msgid "Our workshop in autumn"
 msgstr ""
 
-#: src/admin/Look.js:157
+#: src/admin/Look.js:161
 msgid "On small images (under 260 px) the plugin uses the round icon instead of the wide one."
 msgstr ""
 
-#: src/admin/Look.js:165
+#: src/admin/Look.js:169
 msgid "Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is."
 msgstr ""
 
-#: src/admin/Look.js:205
+#: src/admin/Look.js:209
 msgid "Choose your own icon"
 msgstr ""
 
-#: src/admin/Look.js:225
+#: src/admin/Look.js:229
 msgid "Administrators change the appearance. You can still label."
 msgstr ""
 
-#: src/admin/Look.js:233
+#: src/admin/Look.js:237
 msgid "Icon"
 msgstr ""
 
-#: src/admin/Look.js:234
+#: src/admin/Look.js:238
 msgid "The default is the European Commission's icons – free to use, no attribution."
 msgstr ""
 
-#: src/admin/Look.js:286
+#: src/admin/Look.js:290
 msgid "Choose another icon"
 msgstr ""
 
-#: src/admin/Look.js:291
+#: src/admin/Look.js:295
 msgid "Your own mark is allowed if it is as clear as the EU icon. The EU icon is the safer choice."
 msgstr ""
 
-#: src/admin/Look.js:300
-#: src/admin/Look.js:303
+#: src/admin/Look.js:304
+#: src/admin/Look.js:307
 msgid "Color"
 msgstr ""
 
-#: src/admin/Look.js:311
-#: src/admin/Look.js:314
+#: src/admin/Look.js:315
+#: src/admin/Look.js:318
 msgid "Size"
 msgstr ""
 
-#: src/admin/Look.js:324
-#: src/admin/Look.js:333
+#: src/admin/Look.js:328
+#: src/admin/Look.js:337
 msgid "Corner"
 msgstr ""
 
-#: src/admin/Look.js:325
+#: src/admin/Look.js:329
 msgid "Videos: always at the top, away from the controls."
 msgstr ""
 
-#: src/admin/Look.js:363
+#: src/admin/Look.js:367
 msgid "Words"
 msgstr ""
 
-#: src/admin/Look.js:364
+#: src/admin/Look.js:368
 msgid "Leave empty: the default in the site's language."
 msgstr ""
 
-#: src/admin/Look.js:389
+#: src/admin/Look.js:393
 msgid "Notice for AI-generated"
 msgstr ""
 
-#: src/admin/Look.js:401
+#: src/admin/Look.js:405
 msgid "Notice for modified"
 msgstr ""
 
-#: src/admin/Look.js:416
+#: src/admin/Look.js:420
 msgid "Where the label appears"
 msgstr ""
 
-#: src/admin/Look.js:422
+#: src/admin/Look.js:426
 msgid "Images in pages and posts"
 msgstr ""
 
-#: src/admin/Look.js:426
+#: src/admin/Look.js:430
 msgid "Blocks, galleries, covers, classic editor, HTML"
 msgstr ""
 
-#: src/admin/Look.js:433
+#: src/admin/Look.js:437
 msgid "Featured images and the theme's images"
 msgstr ""
 
-#: src/admin/Look.js:437
+#: src/admin/Look.js:441
 msgid "everything that comes through wp_get_attachment_image()"
 msgstr ""
 
-#: src/admin/Look.js:444
+#: src/admin/Look.js:448
 msgid "Videos"
 msgstr ""
 
-#: src/admin/Look.js:445
+#: src/admin/Look.js:449
 msgid "Video block, cover with video, [video]"
 msgstr ""
 
-#: src/admin/Look.js:452
+#: src/admin/Look.js:456
 #: src/admin/parts.js:20
 msgid "Audio"
 msgstr ""
 
-#: src/admin/Look.js:453
+#: src/admin/Look.js:457
 msgid "a line above the player"
 msgstr ""
 
-#: src/admin/Look.js:471
-#: src/admin/Look.js:482
+#: src/admin/Look.js:475
+#: src/admin/Look.js:486
 msgid "Notice in captions"
 msgstr ""
 
-#: src/admin/Look.js:475
+#: src/admin/Look.js:479
 msgid "Only where there is one already – never in the alt text."
 msgstr ""
 
-#: src/admin/Look.js:491
-#: src/admin/Look.js:502
+#: src/admin/Look.js:495
+#: src/admin/Look.js:506
 msgid "Second layer on hover"
 msgstr ""
 
-#: src/admin/Look.js:495
+#: src/admin/Look.js:499
 msgid "The whole notice, with the tool."
 msgstr ""
 
-#: src/admin/Look.js:513
+#: src/admin/Look.js:517
 msgid "On upload"
 msgstr ""
 
-#: src/admin/Look.js:516
-#: src/admin/Look.js:527
+#: src/admin/Look.js:520
+#: src/admin/Look.js:531
 msgid "Check files for traces of AI"
 msgstr ""
 
-#: src/admin/Look.js:520
+#: src/admin/Look.js:524
 msgid "C2PA, IPTC, generation data, file names – on your server."
 msgstr ""
 
-#: src/admin/Look.js:536
-#: src/admin/Look.js:547
+#: src/admin/Look.js:540
+#: src/admin/Look.js:551
 msgid "Apply unambiguous traces right away"
 msgstr ""
 
-#: src/admin/Look.js:540
+#: src/admin/Look.js:544
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr ""
 
-#: src/admin/Look.js:556
-#: src/admin/Look.js:567
+#: src/admin/Look.js:560
+#: src/admin/Look.js:571
 msgid "Take over labels from the theme"
 msgstr ""
 
-#: src/admin/Look.js:560
+#: src/admin/Look.js:564
 msgid "The first version as a theme class (AiImageLabel) stored _ai_image_label."
 msgstr ""
 

@@ -34,7 +34,7 @@ class FrontTest extends AI_Act_Labels_TestCase {
 		$this->assertSame( 1, substr_count( $html, 'data-ai-act-id="' . $id . '"' ) );
 		$this->assertStringContainsString( 'Unsere Küche<span class="ai-act-label__caption"> – Dieses Bild wurde mit KI verändert.</span></figcaption>', $html );
 		// The caption carries the notice: the icon is not read a second time.
-		$this->assertStringContainsString( 'ai-act-label__badge is-official is-black is-bottom-right" style="--ai-act-h:30px;--ai-act-r:4.619" aria-hidden="true"', $html );
+		$this->assertStringContainsString( 'ai-act-label__badge is-official is-black is-bottom-right" style="--ai-act-h:22px;--ai-act-r:4.619" aria-hidden="true"', $html );
 		$this->assertStringContainsString( 'alt="Alt bleibt"', $html );
 	}
 
@@ -73,8 +73,11 @@ class FrontTest extends AI_Act_Labels_TestCase {
 		AI_Act_Labels::save_settings( array( 'icon' => 'basic-text', 'color' => 'white', 'position' => 'top-left', 'size' => 'l' ) );
 		$html = wp_get_attachment_image( $id, 'large' );
 		$this->assertStringContainsString( 'is-basic-text is-white is-top-left', $html );
-		$this->assertStringContainsString( '<span class="ai-act-label__text">KI-generiert</span>', $html );
-		$this->assertStringContainsString( '--ai-act-h:38px', $html );
+		// The round icon on top of the EU icon of its kind, which opens on hover.
+		$this->assertMatchesRegularExpression( '/ai-act-icon--generated.*ai-act-icon--basic/s', $html );
+		$this->assertStringContainsString( '--ai-act-h:28px', $html );
+		AI_Act_Labels::save_settings( array( 'color' => 'auto' ) );
+		$this->assertMatchesRegularExpression( '/is-basic-text is-(black|white)-soft /', wp_get_attachment_image( $id, 'large' ) );
 		AI_Act_Labels::save_settings( array( 'where' => array( 'featured' => false ) ) );
 		$this->assertStringNotContainsString( 'ai-act-label', wp_get_attachment_image( $id, 'large' ) );
 	}
