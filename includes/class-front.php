@@ -440,7 +440,7 @@ class AI_Act_Labels_Front {
 				$inner = AI_Act_Labels_Icons::svg( $kind, $color );
 				$ratio = AI_Act_Labels_Icons::ratio( $kind );
 		}
-		$a11y  = $decorative ? ' aria-hidden="true"' : ' role="img" aria-label="' . esc_attr( $label . ': ' . $notice ) . '"';
+		$a11y = $decorative ? ' aria-hidden="true"' : ' role="img" aria-label="' . esc_attr( $label . ': ' . $notice ) . '"';
 		// No second layer where the notice shows already: in the caption, or as the icon that opens on hover.
 		$layer = $s['layer'] && ! $decorative && 'basic-text' !== $icon ? '<span class="ai-act-label__layer" aria-hidden="true">' . esc_html( $notice ) . '</span>' : '';
 		$style = '--ai-act-h:' . AI_Act_Labels::SIZES[ $s['size'] ] . 'px' . ( $ratio ? ';--ai-act-r:' . round( $ratio, 3 ) : '' );
