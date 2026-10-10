@@ -828,10 +828,6 @@ msgstr ""
 msgid "Our workshop in autumn"
 msgstr ""
 
-#: src/admin/Look.js:175
-msgid "On small images (under 260 px) the plugin uses the round icon instead of the wide one."
-msgstr ""
-
 #: src/admin/Look.js:183
 msgid "Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is."
 msgstr ""
@@ -1360,4 +1356,8 @@ msgstr ""
 #: src/admin/Look.js:387
 #, js-format
 msgid "%d%%"
+msgstr ""
+
+#: src/admin/Look.js:175
+msgid "On small images (under 400 px) the plugin uses the round icon instead of the wide one."
 msgstr ""

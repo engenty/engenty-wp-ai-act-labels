@@ -173,7 +173,7 @@ function Preview( { settings, sample } ) {
 				</span>
 				<span className="aal-fine">
 					{ __(
-						'On small images (under 260 px) the plugin uses the round icon instead of the wide one.',
+						'On small images (under 400 px) the plugin uses the round icon instead of the wide one.',
 						'ai-act-labels'
 					) }
 				</span>

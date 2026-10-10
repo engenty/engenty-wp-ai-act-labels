@@ -828,10 +828,6 @@ msgstr "Verändert"
 msgid "Our workshop in autumn"
 msgstr "Unsere Werkstatt im Herbst"
 
-#: src/admin/Look.js:175
-msgid "On small images (under 260 px) the plugin uses the round icon instead of the wide one."
-msgstr "Auf kleinen Bildern (unter 260 px) nimmt das Plugin das runde Icon statt des breiten."
-
 #: src/admin/Look.js:183
 msgid "Hover over the icon: the second layer shows the notice. Screen readers read it as the icon's name – the image's alt text stays as it is."
 msgstr "Fahr mit der Maus übers Icon: die zweite Ebene zeigt den Hinweis. Screenreader lesen ihn als Namen des Icons – der Alt-Text des Bildes bleibt, wie er ist."
@@ -1361,3 +1357,7 @@ msgstr "Der Form; die Buchstaben bleiben deckend."
 #, js-format
 msgid "%d%%"
 msgstr "%d %%"
+
+#: src/admin/Look.js:175
+msgid "On small images (under 400 px) the plugin uses the round icon instead of the wide one."
+msgstr "Auf kleinen Bildern (unter 400 px) nimmt das Plugin das runde Icon statt des breiten."

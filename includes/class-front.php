@@ -358,7 +358,7 @@ class AI_Act_Labels_Front {
 		if ( '' === $html || ! $kind || str_contains( $html, 'data-ai-act-id=' ) ) {
 			return $html;
 		}
-		$small = preg_match( '/\swidth=["\']?(\d+)/', $html, $w ) && (int) $w[1] < 260;
+		$small = preg_match( '/\swidth=["\']?(\d+)/', $html, $w ) && (int) $w[1] < 400;
 		$html  = preg_replace( '/<(img|video|picture)\b/', '<$1 data-ai-act="' . $kind . '"', $html, 1 );
 		$pos   = AI_Act_Labels::settings()['position'];
 		$out   = '<span class="ai-act-label ai-act-label--' . esc_attr( $pos ) . '" data-ai-act-id="' . (int) $id . '">' . $html . self::badge( $id, $has_caption, false, $small ) . '</span>';
