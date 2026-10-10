@@ -1,6 +1,6 @@
 <?php
 /**
- * `wp ai-act-labels`: the check, labels and lists from the command line.
+ * `wp ai-act-image-labels`: the check, labels and lists from the command line.
  *
  * @package AI_Act_Labels
  */
@@ -118,4 +118,4 @@ class AI_Act_Labels_CLI {
 	}
 }
 
-WP_CLI::add_command( 'ai-act-labels', 'AI_Act_Labels_CLI' );
+WP_CLI::add_command( 'ai-act-image-labels', 'AI_Act_Labels_CLI' );

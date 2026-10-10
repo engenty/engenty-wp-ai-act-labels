@@ -1,4 +1,4 @@
-=== AI Act Labels ===
+=== AI Act Image Labels ===
 Contributors: engenty
 Tags: ai act, ai label, ai generated, media library, eu
 Requires at least: 6.6
@@ -12,7 +12,7 @@ Marks AI-generated and AI-modified media as the EU AI Act asks – in the media 
 
 == Description ==
 
-Since 2 August 2026, Article 50 of the EU AI Act asks businesses to label images, videos and recordings that look real but were made or changed with AI. AI Act Labels puts that decision where your media lives.
+Since 2 August 2026, Article 50 of the EU AI Act asks businesses to label images, videos and recordings that look real but were made or changed with AI. AI Act Image Labels puts that decision where your media lives.
 
 * A decision per file in the media library: AI-generated, modified with AI or no label needed – in the details, as bulk actions, with a filter and a column.
 * The European Commission's official icons (AI GENERATED, AI MODIFIED, AI) in a corner of the image, with the notice for screen readers and on hover – never in the alt text.

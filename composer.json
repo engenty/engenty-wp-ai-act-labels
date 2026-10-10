@@ -1,6 +1,6 @@
 {
-	"name": "engenty/ai-act-labels",
-	"description": "AI Act Labels for WordPress",
+	"name": "engenty/ai-act-image-labels",
+	"description": "AI Act Image Labels for WordPress",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"require": {

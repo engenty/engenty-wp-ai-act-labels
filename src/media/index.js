@@ -32,7 +32,7 @@ function decorate( view ) {
 		tile.className = 'ai-act-tile is-suggest';
 		tile.title = sprintf(
 			/* translators: %s: KI-generiert or Mit KI verändert */
-			__( 'Suggestion: %s', 'ai-act-labels' ),
+			__( 'Suggestion: %s', 'ai-act-image-labels' ),
 			data.states?.[ ai.suggests ] || ''
 		);
 	} else {

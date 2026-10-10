@@ -519,9 +519,9 @@ class AI_Act_Labels_Front {
 		if ( ! self::index() ) {
 			return;
 		}
-		wp_register_style( 'ai-act-labels', false, array(), AI_ACT_LABELS_VERSION );
-		wp_enqueue_style( 'ai-act-labels' );
-		wp_add_inline_style( 'ai-act-labels', self::css() );
+		wp_register_style( 'ai-act-image-labels', false, array(), AI_ACT_LABELS_VERSION );
+		wp_enqueue_style( 'ai-act-image-labels' );
+		wp_add_inline_style( 'ai-act-image-labels', self::css() );
 	}
 
 	/**

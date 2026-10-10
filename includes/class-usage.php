@@ -454,7 +454,7 @@ class AI_Act_Labels_Usage {
 			$out[] = array(
 				'post'    => $post_id,
 				'title'   => $post ? html_entity_decode( get_the_title( $post ), ENT_QUOTES ) : self::site_label( $context ),
-				'type'    => $type ? $type->labels->singular_name : __( 'Website', 'ai-act-labels' ),
+				'type'    => $type ? $type->labels->singular_name : __( 'Website', 'ai-act-image-labels' ),
 				'url'     => $post ? ( in_array( $post->post_type, array( 'wp_block', 'wp_template', 'wp_template_part' ), true ) ? '' : (string) get_permalink( $post ) ) : home_url( '/' ),
 				'edit'    => $post ? (string) get_edit_post_link( $post, 'raw' ) : admin_url( 'site-editor.php' ),
 				'context' => $context,
@@ -474,13 +474,13 @@ class AI_Act_Labels_Usage {
 	private static function site_label( $context ) {
 		switch ( $context ) {
 			case 'logo':
-				return __( 'Site logo', 'ai-act-labels' );
+				return __( 'Site logo', 'ai-act-image-labels' );
 			case 'icon':
-				return __( 'Site icon', 'ai-act-labels' );
+				return __( 'Site icon', 'ai-act-image-labels' );
 			case 'header':
-				return __( 'Header image', 'ai-act-labels' );
+				return __( 'Header image', 'ai-act-image-labels' );
 		}
-		return __( 'Website', 'ai-act-labels' );
+		return __( 'Website', 'ai-act-image-labels' );
 	}
 
 	/**
@@ -503,7 +503,7 @@ class AI_Act_Labels_Usage {
 			}
 			++$seen;
 			$response = wp_remote_get(
-				add_query_arg( 'ai-act-labels-check', time(), $use['url'] ),
+				add_query_arg( 'ai-act-image-labels-check', time(), $use['url'] ),
 				array(
 					'timeout'   => 15,
 					'sslverify' => apply_filters( 'https_local_ssl_verify', false ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- WordPress' own filter for requests to the own site.

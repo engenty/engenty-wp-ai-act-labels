@@ -247,7 +247,7 @@ button.aal-row__main { cursor: pointer; }
 .aal-app .aal-composer input { flex: 1; min-height: 0; height: 40px; border: 0; padding: 0; background: transparent; font-size: 14px; }
 
 
-/* AI Act Labels. */
+/* AI Act Image Labels. */
 .aal-eu { display: inline-flex; flex: none; line-height: 0; }
 .aal-eu svg { display: block; height: 100%; width: auto; }
 .aal-mark { position: relative; display: inline-block; flex: none; }

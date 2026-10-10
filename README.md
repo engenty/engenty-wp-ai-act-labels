@@ -1,4 +1,4 @@
-# AI Act Labels
+# AI Act Image Labels
 
 A WordPress plugin that marks AI-generated and AI-modified media the way the EU AI Act asks (Article 50,
 applies since 2 August 2026) – right in the media library, with the EU's official icons on the site.
@@ -68,7 +68,7 @@ npm run i18n                          # POT, PO, MO, the scripts' JSON
 sh bin/zip.sh
 ```
 
-WP-CLI: `wp ai-act-labels scan | label <id>... --as=generated | list --filter=suggested | detect <id>`.
+WP-CLI: `wp ai-act-image-labels scan | label <id>... --as=generated | list --filter=suggested | detect <id>`.
 
 The EU icons in `assets/icons/eu` are the European Commission's files (June 2026), free to use without
 attribution. This plugin helps with labelling; it is not legal advice.
