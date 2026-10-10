@@ -1,7 +1,7 @@
 <?php
 /**
  * REST routes of the tool (`ai-act-labels/v1`): state, lists, labels, settings, the check, the
- * assistant, the preview of the label.
+ * assessment, the preview of the label.
  *
  * @package AI_Act_Labels
  */
@@ -33,10 +33,8 @@ class AI_Act_Labels_Rest {
 			'/scan'              => array( 'POST', 'scan', $media ),
 			'/review'            => array( 'POST', 'review', $media ),
 			'/verify'            => array( 'POST', 'verify', $media ),
-			'/assist'            => array( 'POST', 'assist', $media ),
 			'/preview'           => array( 'POST', 'preview', $media ),
 			'/accept'            => array( 'POST', 'accept', $media ),
-			'/hide'              => array( 'POST', 'hide', $media ),
 		);
 		foreach ( $routes as $path => list( $method, $callback, $permission ) ) {
 			register_rest_route(
@@ -74,7 +72,6 @@ class AI_Act_Labels_Rest {
 			'running'     => is_array( get_option( AI_Act_Labels_Usage::RUN ) ),
 			'assistant'   => AI_Act_Labels_Assistant::status(),
 			'canSettings' => current_user_can( 'manage_options' ),
-			'hidden'      => array_values( array_filter( (array) get_user_meta( get_current_user_id(), 'ai_act_labels_hidden', true ) ) ),
 			'custom'      => self::custom_icon(),
 			'sample'      => self::sample(),
 			'wizards'     => array(
@@ -264,23 +261,6 @@ class AI_Act_Labels_Rest {
 	}
 
 	/**
-	 * One turn of the chat.
-	 *
-	 * @param WP_REST_Request $request `message`, `history`, `focus`.
-	 * @return array|WP_Error
-	 */
-	public static function assist( WP_REST_Request $request ) {
-		$message = sanitize_textarea_field( (string) ( $request['message'] ?? '' ) );
-		if ( '' === trim( $message ) ) {
-			return new WP_Error( 'ai_act_labels_empty', __( 'Write a question.', 'ai-act-labels' ), array( 'status' => 400 ) );
-		}
-		if ( ! AI_Act_Labels_Assistant::status()['ready'] ) {
-			return new WP_Error( 'ai_act_labels_no_provider', __( 'For this, WordPress needs an AI provider (Settings › Connectors).', 'ai-act-labels' ), array( 'status' => 409 ) );
-		}
-		return AI_Act_Labels_Assistant::ask( $message, (array) ( $request['history'] ?? array() ), array_map( 'intval', (array) ( $request['focus'] ?? array() ) ) );
-	}
-
-	/**
 	 * Takes over every suggestion: each file gets the label its traces or the assessment suggest.
 	 *
 	 * @return array `done` (id, state), `counts`.
@@ -300,23 +280,6 @@ class AI_Act_Labels_Rest {
 			'done'   => $done,
 			'counts' => AI_Act_Labels::counts(),
 		);
-	}
-
-	/**
-	 * Hides a notice of the tool for this person, or shows it again.
-	 *
-	 * @param WP_REST_Request $request `key`, `hidden`.
-	 * @return array `hidden`.
-	 */
-	public static function hide( WP_REST_Request $request ) {
-		$key    = sanitize_key( (string) $request['key'] );
-		$hidden = (array) get_user_meta( get_current_user_id(), 'ai_act_labels_hidden', true );
-		$hidden = array_values( array_diff( array_filter( $hidden ), array( $key ) ) );
-		if ( false !== $request['hidden'] ) {
-			$hidden[] = $key;
-		}
-		update_user_meta( get_current_user_id(), 'ai_act_labels_hidden', $hidden );
-		return array( 'hidden' => $hidden );
 	}
 
 	/**

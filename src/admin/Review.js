@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { api, boot, post, problem, query } from './api';
-import { AssistantCard, Setup } from './Assistant';
+import { SetupDialog } from './Assistant';
 import {
 	CONTEXT_LABELS,
 	Decide,
@@ -206,18 +206,9 @@ function Overview( { state, onDone } ) {
  * @param root0.onLabel
  * @param root0.onOpen
  * @param root0.onReview
- * @param root0.canReview
  * @param root0.reviewing
  */
-function MediaRow( {
-	item,
-	busy,
-	onLabel,
-	onOpen,
-	onReview,
-	canReview,
-	reviewing,
-} ) {
+function MediaRow( { item, busy, onLabel, onOpen, onReview, reviewing } ) {
 	return (
 		<div className={ `aal-mrow is-${ item.state || 'open' }` }>
 			<button
@@ -260,19 +251,17 @@ function MediaRow( {
 					busy={ busy }
 					onChange={ ( s ) => onLabel( [ item.id ], s ) }
 				/>
-				{ canReview ? (
-					<Button
-						kind="ghost"
-						size="sm"
-						icon="sparkle"
-						busy={ reviewing }
-						onClick={ () => onReview( item ) }
-					>
-						{ item.hint
-							? __( 'Assess again', 'ai-act-labels' )
-							: __( 'Assess', 'ai-act-labels' ) }
-					</Button>
-				) : null }
+				<Button
+					kind="ghost"
+					size="sm"
+					icon="sparkle"
+					busy={ reviewing }
+					onClick={ () => onReview( item ) }
+				>
+					{ item.hint
+						? __( 'Assess again', 'ai-act-labels' )
+						: __( 'Assess', 'ai-act-labels' ) }
+				</Button>
 			</span>
 		</div>
 	);
@@ -294,8 +283,9 @@ const CHECKS = {
  * @param root0.onClose
  * @param root0.onItem  Called with the updated file.
  * @param root0.onLabel
+ * @param root0.onSetup
  */
-function Details( { item, state, onClose, onItem, onLabel } ) {
+function Details( { item, state, onClose, onItem, onLabel, onSetup } ) {
 	const [ busy, setBusy ] = useState( '' );
 	const [ error, setError ] = useState( null );
 	const assistant = state.assistant;
@@ -411,23 +401,23 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 			<Section
 				title={ __( "The assistant's assessment", 'ai-act-labels' ) }
 				aside={
-					assistant.ready ? (
-						<Button
-							size="sm"
-							icon="sparkle"
-							busy={ busy === 'review' }
-							onClick={ () => run( 'review', '/review' ) }
-						>
-							{ item.hint
-								? __( 'Assess again', 'ai-act-labels' )
-								: __( 'Assess', 'ai-act-labels' ) }
-						</Button>
-					) : null
+					<Button
+						size="sm"
+						icon="sparkle"
+						busy={ busy === 'review' }
+						onClick={ () =>
+							assistant.ready
+								? run( 'review', '/review' )
+								: onSetup()
+						}
+					>
+						{ item.hint
+							? __( 'Assess again', 'ai-act-labels' )
+							: __( 'Assess', 'ai-act-labels' ) }
+					</Button>
 				}
 			>
-				{ ! assistant.ready ? (
-					<Setup assistant={ assistant } compact />
-				) : item.hint ? (
+				{ item.hint ? (
 					<div className="aal-mini">
 						<HintLine hint={ item.hint } />
 						<span className="aal-row-inline">
@@ -558,7 +548,7 @@ function Details( { item, state, onClose, onItem, onLabel } ) {
 }
 
 /**
- * Prüfen: the numbers, the assistant, the files by list.
+ * Prüfen: the numbers and the files by list.
  * @param root0
  * @param root0.state
  * @param root0.setState
@@ -584,6 +574,8 @@ export default function Review( { state, setState, initial } ) {
 	const [ batch, setBatch ] = useState( null );
 	const [ accepted, setAccepted ] = useState( null );
 	const [ accepting, setAccepting ] = useState( false );
+	const [ setup, setSetup ] = useState( false );
+	const ready = state.assistant.ready;
 
 	/** Every suggestion at once; the notice offers to take it back. */
 	const acceptAll = () => {
@@ -709,12 +701,6 @@ export default function Review( { state, setState, initial } ) {
 	return (
 		<>
 			<Overview state={ state } onDone={ onScanned } />
-			<AssistantCard
-				state={ state }
-				setState={ setState }
-				onLabel={ label }
-				onOpen={ ( m ) => setOpen( m ) }
-			/>
 			<Section
 				title={ __( 'Media', 'ai-act-labels' ) }
 				hint={ __(
@@ -780,12 +766,14 @@ export default function Review( { state, setState, initial } ) {
 							) }
 						</Button>
 					) : null }
-					{ state.assistant.ready && unassessed > 1 ? (
+					{ unassessed > 1 ? (
 						<Button
 							size="sm"
 							icon="sparkle"
 							busy={ !! batch }
-							onClick={ reviewAll }
+							onClick={ () =>
+								ready ? reviewAll() : setSetup( true )
+							}
 						>
 							{ batch
 								? sprintf(
@@ -838,8 +826,9 @@ export default function Review( { state, setState, initial } ) {
 								busy={ !! busy[ item.id ] }
 								onLabel={ label }
 								onOpen={ setOpen }
-								onReview={ review }
-								canReview={ state.assistant.ready }
+								onReview={ ( it ) =>
+									ready ? review( it ) : setSetup( true )
+								}
 								reviewing={ !! reviewing[ item.id ] }
 							/>
 						) ) }
@@ -894,6 +883,13 @@ export default function Review( { state, setState, initial } ) {
 					onClose={ () => setOpen( null ) }
 					onItem={ ( it ) => replace( [ it ] ) }
 					onLabel={ label }
+					onSetup={ () => setSetup( true ) }
+				/>
+			) : null }
+			{ setup ? (
+				<SetupDialog
+					assistant={ state.assistant }
+					onClose={ () => setSetup( false ) }
 				/>
 			) : null }
 		</>

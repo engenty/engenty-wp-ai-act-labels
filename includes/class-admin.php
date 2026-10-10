@@ -1,6 +1,6 @@
 <?php
 /**
- * The tool under Werkzeuge › KI-Kennzeichnung: one page the admin app (src/admin) draws into, with
+ * The tool under Medien › KI-Kennzeichnung: one page the admin app (src/admin) draws into, with
  * the tabs Prüfen, Darstellung and Wissen.
  *
  * @package AI_Act_Labels
@@ -39,13 +39,13 @@ class AI_Act_Labels_Admin {
 					'filter' => $filter,
 				)
 			),
-			admin_url( 'tools.php' )
+			admin_url( 'upload.php' )
 		);
 	}
 
-	/** The page under Werkzeuge. */
+	/** The page under Medien. */
 	public static function menu() {
-		add_management_page(
+		add_media_page(
 			__( 'AI labels', 'ai-act-labels' ),
 			__( 'AI labels', 'ai-act-labels' ),
 			'upload_files',
@@ -74,7 +74,7 @@ class AI_Act_Labels_Admin {
 	 * @param string $hook The screen.
 	 */
 	public static function assets( $hook ) {
-		if ( 'tools_page_' . self::SLUG !== $hook ) {
+		if ( 'media_page_' . self::SLUG !== $hook ) {
 			return;
 		}
 		$asset = AI_ACT_LABELS_DIR . 'build/tool.asset.php';

@@ -4,8 +4,7 @@
  * provider set up under Einstellungen › Konnektoren – no key of its own. It knows the AI Act from the
  * skill in skills/eu-ai-act-labels (the same files work in any agent that reads Agent Skills).
  * It looks at one media file (the picture itself, if the model can see, its traces and where it is
- * used) and says what label it needs, or answers questions and suggests labels for the library –
- * deciding stays with the person.
+ * used) and says what label it needs – deciding stays with the person.
  *
  * @package AI_Act_Labels
  */
@@ -328,117 +327,5 @@ class AI_Act_Labels_Assistant {
 		update_post_meta( $id, AI_Act_Labels::META_HINT, $hint );
 		AI_Act_Labels::refresh_open( $id );
 		return $hint;
-	}
-
-	/**
-	 * One turn of the chat: an answer and labels it suggests (the person applies them).
-	 *
-	 * @param string $message What the person wrote.
-	 * @param array  $history Earlier turns: `role` (me, assistant), `text`.
-	 * @param int[]  $focus   Media the person is looking at (optional).
-	 * @return array|WP_Error `message`, `suggestions`.
-	 */
-	public static function ask( $message, array $history = array(), array $focus = array() ) {
-		$langs  = self::languages();
-		$system = implode(
-			"\n",
-			array(
-				'You are the assistant inside the WordPress plugin "AI Act Image Labels". It labels AI-generated and AI-modified media as the EU AI Act asks: in the media library each image, video or recording gets the decision "generated", "modified" or "none" (needs no label); labelled media show the EU icon in a corner on the site, with the notice behind captions; the plugin reads traces of AI in files (C2PA, IPTC, generation data, file names) and knows where each file is used. Featured images, blocks, galleries, covers and [caption] get the label by themselves; files used as a bare URL or by a page builder may need the theme to call ai_act_labels_wrap() – the check "' . __( 'Check on the site', 'ai-act-labels' ) . '" opens the pages and shows where the label is missing.',
-				'Your knowledge of the law:',
-				self::skill(),
-				'',
-				'Answer with one JSON object: "message" (short, plain, in ' . $langs['admin'] . ', address the owner as "du" in German) and "suggestions" (labels you recommend for files in the context: id, state generated|modified|none, reason in a few words; empty when you recommend nothing). Only suggest IDs from the context. Separate what the law requires from what is voluntary. When you cannot know whether AI was used for a file, say so and ask instead of suggesting. This is guidance, not legal advice – say so only when a case is borderline.',
-			)
-		);
-		$items  = array();
-		$ids    = array_unique(
-			array_merge(
-				array_map( 'intval', $focus ),
-				AI_Act_Labels::query_ids( 'suggested', 30 ),
-				AI_Act_Labels::query_ids( 'unchecked', 30 ),
-				AI_Act_Labels::query_ids( 'labelled', 20 ),
-				AI_Act_Labels::query_ids( 'all', 20 )
-			)
-		);
-		foreach ( array_slice( $ids, 0, 80 ) as $id ) {
-			$c       = self::media_context( $id );
-			$hint    = get_post_meta( $id, AI_Act_Labels::META_HINT, true );
-			$items[] = array_filter(
-				array(
-					'id'       => $c['id'],
-					'title'    => $c['title'],
-					'file'     => $c['file'],
-					'type'     => $c['type'],
-					'decision' => $c['decision'],
-					'traces'   => $c['traces'],
-					'usedOn'   => array_slice( $c['usedOn'], 0, 3 ),
-					'assessed' => is_array( $hint ) ? ( $hint['kind'] ?? '' ) . ', ' . ( $hint['duty'] ?? '' ) . ': ' . ( $hint['reason'] ?? '' ) : '',
-				)
-			);
-		}
-		$turns = array();
-		foreach ( array_slice( $history, -8 ) as $turn ) {
-			$turns[] = ( 'me' === ( $turn['role'] ?? '' ) ? 'Owner: ' : 'Assistant: ' ) . wp_strip_all_tags( (string) ( $turn['text'] ?? '' ) );
-		}
-		$counts = AI_Act_Labels::counts();
-		$prompt = 'Context (JSON): ' . wp_json_encode(
-			array(
-				'site'     => get_bloginfo( 'name' ),
-				'today'    => gmdate( 'Y-m-d' ),
-				'counts'   => $counts,
-				'settings' => array_intersect_key( AI_Act_Labels::settings(), array_flip( array( 'icon', 'color', 'size', 'position', 'caption', 'where', 'auto' ) ) ),
-				'media'    => $items,
-				'focus'    => array_map( 'intval', $focus ),
-			),
-			JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-		) . "\n\n" . ( $turns ? "Earlier:\n" . implode( "\n", $turns ) . "\n\n" : '' ) . 'Owner: ' . $message;
-
-		$str    = array( 'type' => 'string' );
-		$answer = self::generate(
-			$system,
-			$prompt,
-			array(
-				'type'       => 'object',
-				'properties' => array(
-					'message'     => $str,
-					'suggestions' => array(
-						'type'  => 'array',
-						'items' => array(
-							'type'       => 'object',
-							'properties' => array(
-								'id'     => array( 'type' => 'integer' ),
-								'state'  => array(
-									'type' => 'string',
-									'enum' => AI_Act_Labels::STATES,
-								),
-								'reason' => $str,
-							),
-							'required'   => array( 'id', 'state' ),
-						),
-					),
-				),
-				'required'   => array( 'message', 'suggestions' ),
-			)
-		);
-		if ( is_wp_error( $answer ) ) {
-			return $answer;
-		}
-		$known       = array_column( $items, 'id' );
-		$suggestions = array();
-		foreach ( (array) ( $answer['suggestions'] ?? array() ) as $s ) {
-			$id = (int) ( $s['id'] ?? 0 );
-			if ( in_array( $id, $known, true ) && in_array( $s['state'] ?? '', AI_Act_Labels::STATES, true ) ) {
-				$suggestions[] = array(
-					'id'     => $id,
-					'state'  => $s['state'],
-					'reason' => sanitize_text_field( (string) ( $s['reason'] ?? '' ) ),
-					'media'  => AI_Act_Labels::describe( $id, false ),
-				);
-			}
-		}
-		return array(
-			'message'     => sanitize_textarea_field( (string) ( $answer['message'] ?? '' ) ),
-			'suggestions' => array_slice( $suggestions, 0, 12 ),
-		);
 	}
 }

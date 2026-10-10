@@ -196,20 +196,11 @@ button.aal-row__main { cursor: pointer; }
 @keyframes aal-bob { 50% { transform: translateY(-6px); } }
 
 /* Assistant. */
-.aal-acard { position: relative; background: #fff; border-radius: 14px; box-shadow: var(--aal-raised); padding: 18px 20px 16px; }
-.aal-acard h2 { font-size: 19px; margin: 0 0 4px; padding-right: 64px; }
-.aal-acard p { color: var(--aal-ink-2); max-width: 680px; }
-.aal-acard__eng { position: absolute; right: 24px; top: -22px; }
 .aal-kick { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--aal-ember-strong); margin-bottom: 6px; }
 .aal-kick.is-off { color: var(--aal-ink-3); }
 .aal-go { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--aal-ember-strong); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none; }
 .aal-go:disabled { opacity: .45; cursor: default; }
-.aal-sugg { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
-.aal-sugg button { font: 12.5px Geist, sans-serif; color: var(--aal-ink-2); padding: 4px 10px; border-radius: 999px; border: 0; background: var(--aal-paper-2); cursor: pointer; }
-.aal-sugg button:hover { color: var(--aal-ink); background: var(--aal-paper-3); }
 .aal-setup { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px 44px 14px 16px; border-radius: 12px; background: var(--aal-paper); font-size: 13.5px; }
-.aal-setup__close { position: absolute; top: 8px; right: 8px; }
-.aal-acard .aal-setup { margin-top: 8px; }
 .aal-setup__title { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; color: var(--aal-ink); }
 .aal-setup p { margin: 0; color: var(--aal-ink-2); }
 .aal-offers { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -223,10 +214,6 @@ button.aal-row__main { cursor: pointer; }
 .aal-composer.is-locked input { cursor: not-allowed; }
 .aal-composer.is-locked .aal-go { background: var(--aal-paper-2); color: var(--aal-ink-2); }
 .aal-composer.is-locked .aal-go:hover { background: var(--aal-paper-3); color: var(--aal-ink); }
-.aal-msg { display: flex; gap: 10px; align-items: flex-start; }
-.aal-msg--me { justify-content: flex-end; }
-.aal-msg__b { max-width: 600px; padding: 10px 14px; border-radius: 14px; background: var(--aal-paper); font-size: 14px; line-height: 1.55; }
-.aal-msg--me .aal-msg__b { background: var(--aal-paper-2); }
 
 .aal-table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 12px; box-shadow: var(--aal-raised); overflow: hidden; font-size: 14px; }
 .aal-table th { text-align: left; padding: 10px 14px; font-size: 12px; font-weight: 500; color: var(--aal-ink-3); background: var(--aal-paper); border-bottom: 1px solid var(--aal-line); }
@@ -274,16 +261,6 @@ button.aal-row__main { cursor: pointer; }
 @media (max-width: 900px) { .aal-overview__nums { grid-template-columns: 1fr; } }
 
 /* Assistant. */
-.aal-acard__who { display: block; margin-top: 10px; }
-.aal-thread { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; max-height: 560px; overflow: auto; }
-.aal-sugcards { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
-.aal-sugcards__all { display: flex; justify-content: flex-end; }
-.aal-sugcard { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--aal-line); }
-.aal-sugcard__t { flex: 1; min-width: 0; display: flex; flex-direction: column; background: none; border: 0; padding: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
-.aal-sugcard__t b { font-weight: 500; }
-.aal-sugcard__t span { font-size: 12.5px; color: var(--aal-ink-3); }
-.aal-msg .aal-msg__b { white-space: pre-line; }
-.aal-msg__b .aal-sugcards { white-space: normal; }
 
 /* The list of files. */
 .aal-toolbar { margin-top: -2px; }
@@ -423,6 +400,8 @@ a.aal-row__main:hover b { color: var(--aal-ember-strong); }
 @media (min-width: 1181px) { .aal-pill-status.is-law .aal-law-short { display: none; } }
 
 .aal-setup { position: relative; }
-.aal-setup__hide { position: absolute; top: 6px; right: 6px; }
-.aal-setup-hidden { display: block; margin-top: 8px; }
 .aal-mrow__right .aal-btn--primary { align-self: flex-end; }
+/* The setup, when an assessment is asked for without an AI provider. */
+.aal-modal { position: fixed; inset: 0; z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(29, 29, 27, .4); }
+.aal-modal__box { position: relative; width: min(520px, 100%); max-height: calc(100vh - 32px); overflow: auto; padding: 22px; border-radius: 14px; background: #fff; box-shadow: 0 12px 40px rgba(0, 0, 0, .2); }
+.aal-modal__close { position: absolute; top: 10px; right: 10px; }

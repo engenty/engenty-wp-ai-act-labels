@@ -45,7 +45,7 @@ class MediaTest extends AI_Act_Labels_TestCase {
 
 	public function test_rest_routes_label_and_need_permission() {
 		$routes = rest_get_server()->get_routes( 'ai-act-labels/v1' );
-		foreach ( array( 'state', 'media', 'label', 'settings', 'scan', 'review', 'verify', 'assist', 'preview' ) as $route ) {
+		foreach ( array( 'state', 'media', 'label', 'settings', 'scan', 'review', 'verify', 'preview' ) as $route ) {
 			$this->assertArrayHasKey( '/ai-act-labels/v1/' . $route, $routes );
 		}
 		$id      = $this->image();

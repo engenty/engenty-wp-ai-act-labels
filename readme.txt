@@ -22,12 +22,12 @@ Since 2 August 2026, Article 50 of the EU AI Act asks businesses to label images
 * An assistant that knows the AI Act and says what needs a label – using the AI provider set up under Settings › Connectors (WordPress 7.0+). Everything else works without AI.
 * Configurable icon, colour, size, corner and words.
 
-The tool is under Tools › AI labels. This plugin helps with labelling; it is not legal advice.
+The tool is under Media › AI labels. This plugin helps with labelling; it is not legal advice.
 
 == Installation ==
 
 1. Install the plugin from Plugins › Add New, or upload the zip under Plugins › Add New › Upload Plugin.
-2. Activate it. The tool opens under Tools › AI labels.
+2. Activate it. The tool opens under Media › AI labels.
 3. Click "Check site": the plugin reads where your media is used and looks for traces of AI in the files.
 4. Decide per file in the Review tab or in the media library. Labelled media show the icon on the site right away.
 5. Optional: for the assistant, set up an AI provider under Settings › Connectors (WordPress 7.0 or later).

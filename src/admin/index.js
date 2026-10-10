@@ -115,7 +115,7 @@ function App( { tab: initialTab, filter } ) {
 					<Look state={ state } setState={ setState } />
 				) : null }
 				{ state && tab === 'knowledge' ? (
-					<Knowledge state={ state } onAsk={ () => go( 'review' ) } />
+					<Knowledge state={ state } />
 				) : null }
 			</main>
 		</div>

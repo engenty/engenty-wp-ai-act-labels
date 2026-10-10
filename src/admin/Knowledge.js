@@ -99,9 +99,8 @@ const SOURCES = [
  * Wissen: what Article 50 asks of a website, in plain words – the same knowledge the assistant has.
  * @param root0
  * @param root0.state
- * @param root0.onAsk Goes to the assistant.
  */
-export default function Knowledge( { state, onAsk } ) {
+export default function Knowledge( { state } ) {
 	return (
 		<>
 			<div className="aal-khero">
@@ -336,7 +335,7 @@ export default function Knowledge( { state, onAsk } ) {
 					<Card className="aal-prose">
 						<p>
 							{ __(
-								'The assistant thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others.',
+								'The assessment thinks with a skill: a guide to the AI Act with sources, in the plugin under skills/eu-ai-act-labels. You can give the same files to any AI agent that reads Agent Skills – Claude, Cursor, Codex and others.',
 								'ai-act-labels'
 							) }
 						</p>
@@ -348,14 +347,6 @@ export default function Knowledge( { state, onAsk } ) {
 								icon="book"
 							>
 								{ __( 'View SKILL.md', 'ai-act-labels' ) }
-							</Button>
-							<Button
-								size="sm"
-								kind="ghost"
-								icon="sparkle"
-								onClick={ onAsk }
-							>
-								{ __( 'Ask the assistant', 'ai-act-labels' ) }
 							</Button>
 						</span>
 					</Card>
