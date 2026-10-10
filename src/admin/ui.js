@@ -215,9 +215,13 @@ export function Switch( { checked, onChange, label, disabled = false } ) {
 	);
 }
 
-export function Seg( { value, options, onChange, label } ) {
+export function Seg( { value, options, onChange, label, grid = false } ) {
 	return (
-		<span className="aal-seg" role="radiogroup" aria-label={ label }>
+		<span
+			className={ `aal-seg${ grid ? ' aal-seg--grid' : '' }` }
+			role="radiogroup"
+			aria-label={ label }
+		>
 			{ options.map( ( o ) => (
 				<button
 					key={ o.value }

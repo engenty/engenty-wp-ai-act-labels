@@ -178,7 +178,7 @@ msgstr ""
 #: includes/class-media.php:338
 #: includes/class-rest.php:68
 #: src/admin/Knowledge.js:289
-#: src/admin/Look.js:384
+#: src/admin/Look.js:385
 #: src/admin/parts.js:7
 msgid "Modified with AI"
 msgstr ""
@@ -189,7 +189,7 @@ msgstr ""
 #: includes/class-rest.php:67
 #: src/admin/Knowledge.js:293
 #: src/admin/Look.js:98
-#: src/admin/Look.js:375
+#: src/admin/Look.js:376
 #: src/admin/parts.js:6
 msgid "AI-generated"
 msgstr ""
@@ -885,119 +885,119 @@ msgstr ""
 msgid "Color"
 msgstr "Colour"
 
-#: src/admin/Look.js:315
-#: src/admin/Look.js:318
+#: src/admin/Look.js:316
+#: src/admin/Look.js:319
 msgid "Size"
 msgstr ""
 
-#: src/admin/Look.js:328
-#: src/admin/Look.js:337
+#: src/admin/Look.js:329
+#: src/admin/Look.js:338
 msgid "Corner"
 msgstr ""
 
-#: src/admin/Look.js:329
+#: src/admin/Look.js:330
 msgid "Videos: always at the top, away from the controls."
 msgstr ""
 
-#: src/admin/Look.js:367
+#: src/admin/Look.js:368
 msgid "Words"
 msgstr ""
 
-#: src/admin/Look.js:368
+#: src/admin/Look.js:369
 msgid "Leave empty: the default in the site's language."
 msgstr ""
 
-#: src/admin/Look.js:393
+#: src/admin/Look.js:394
 msgid "Notice for AI-generated"
 msgstr ""
 
-#: src/admin/Look.js:405
+#: src/admin/Look.js:406
 msgid "Notice for modified"
 msgstr ""
 
-#: src/admin/Look.js:420
+#: src/admin/Look.js:421
 msgid "Where the label appears"
 msgstr ""
 
-#: src/admin/Look.js:426
+#: src/admin/Look.js:427
 msgid "Images in pages and posts"
 msgstr ""
 
-#: src/admin/Look.js:430
+#: src/admin/Look.js:431
 msgid "Blocks, galleries, covers, classic editor, HTML"
 msgstr ""
 
-#: src/admin/Look.js:437
+#: src/admin/Look.js:438
 msgid "Featured images and the theme's images"
 msgstr ""
 
-#: src/admin/Look.js:441
+#: src/admin/Look.js:442
 msgid "everything that comes through wp_get_attachment_image()"
 msgstr ""
 
-#: src/admin/Look.js:448
+#: src/admin/Look.js:449
 msgid "Videos"
 msgstr ""
 
-#: src/admin/Look.js:449
+#: src/admin/Look.js:450
 msgid "Video block, cover with video, [video]"
 msgstr ""
 
-#: src/admin/Look.js:456
+#: src/admin/Look.js:457
 #: src/admin/parts.js:20
 msgid "Audio"
 msgstr ""
 
-#: src/admin/Look.js:457
+#: src/admin/Look.js:458
 msgid "a line above the player"
 msgstr ""
 
-#: src/admin/Look.js:475
-#: src/admin/Look.js:486
+#: src/admin/Look.js:476
+#: src/admin/Look.js:487
 msgid "Notice in captions"
 msgstr ""
 
-#: src/admin/Look.js:479
+#: src/admin/Look.js:480
 msgid "Only where there is one already – never in the alt text."
 msgstr ""
 
-#: src/admin/Look.js:495
-#: src/admin/Look.js:506
+#: src/admin/Look.js:496
+#: src/admin/Look.js:507
 msgid "Second layer on hover"
 msgstr ""
 
-#: src/admin/Look.js:499
+#: src/admin/Look.js:500
 msgid "The whole notice, with the tool."
 msgstr ""
 
-#: src/admin/Look.js:517
+#: src/admin/Look.js:518
 msgid "On upload"
 msgstr ""
 
-#: src/admin/Look.js:520
-#: src/admin/Look.js:531
+#: src/admin/Look.js:521
+#: src/admin/Look.js:532
 msgid "Check files for traces of AI"
 msgstr ""
 
-#: src/admin/Look.js:524
+#: src/admin/Look.js:525
 msgid "C2PA, IPTC, generation data, file names – on your server."
 msgstr ""
 
-#: src/admin/Look.js:540
-#: src/admin/Look.js:551
+#: src/admin/Look.js:541
+#: src/admin/Look.js:552
 msgid "Apply unambiguous traces right away"
 msgstr ""
 
-#: src/admin/Look.js:544
+#: src/admin/Look.js:545
 msgid "If the file itself says it was made with AI, it is labeled right away."
 msgstr "If the file itself says it was made with AI, it is labelled right away."
 
-#: src/admin/Look.js:560
-#: src/admin/Look.js:571
+#: src/admin/Look.js:561
+#: src/admin/Look.js:572
 msgid "Take over labels from the theme"
 msgstr ""
 
-#: src/admin/Look.js:564
+#: src/admin/Look.js:565
 msgid "The first version as a theme class (AiImageLabel) stored _ai_image_label."
 msgstr ""
 
@@ -1331,16 +1331,16 @@ msgstr ""
 msgid "Open Media Library"
 msgstr ""
 
-#: src/admin/ui.js:324
-#: src/admin/ui.js:337
+#: src/admin/ui.js:328
+#: src/admin/ui.js:341
 msgid "Close"
 msgstr ""
 
-#: src/admin/ui.js:383
+#: src/admin/ui.js:387
 msgid "as recommended"
 msgstr ""
 
-#: src/admin/ui.js:386
+#: src/admin/ui.js:390
 msgid "changed"
 msgstr ""
 

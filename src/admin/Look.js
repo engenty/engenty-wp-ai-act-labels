@@ -306,6 +306,7 @@ export default function Look( { state, setState } ) {
 							value={ local.color }
 							label={ __( 'Color', 'ai-act-labels' ) }
 							onChange={ ( v ) => save( { color: v } ) }
+							grid
 							options={ COLORS.map( ( [ value, label ] ) => ( {
 								value,
 								label,

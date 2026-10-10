@@ -441,7 +441,8 @@ class AI_Act_Labels_Front {
 				$ratio = AI_Act_Labels_Icons::ratio( $kind );
 		}
 		$a11y  = $decorative ? ' aria-hidden="true"' : ' role="img" aria-label="' . esc_attr( $label . ': ' . $notice ) . '"';
-		$layer = $s['layer'] ? '<span class="ai-act-label__layer" aria-hidden="true">' . esc_html( $notice ) . '</span>' : '';
+		// No second layer where the notice shows already: in the caption, or as the icon that opens on hover.
+		$layer = $s['layer'] && ! $decorative && 'basic-text' !== $icon ? '<span class="ai-act-label__layer" aria-hidden="true">' . esc_html( $notice ) . '</span>' : '';
 		$style = '--ai-act-h:' . AI_Act_Labels::SIZES[ $s['size'] ] . 'px' . ( $ratio ? ';--ai-act-r:' . round( $ratio, 3 ) : '' );
 		return sprintf(
 			'<span class="ai-act-label__badge is-%1$s is-%2$s is-%3$s" style="%4$s"%5$s>%6$s%7$s</span>',
@@ -544,7 +545,7 @@ class AI_Act_Labels_Front {
 			. ':where(.ai-act-label__badge.is-basic-text){width:var(--ai-act-h);overflow:hidden;border-radius:999px;transition:width .2s ease}'
 			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));max-width:none;height:var(--ai-act-h)}'
 			. ':where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{position:absolute;left:0;top:0;width:var(--ai-act-h);transition:opacity .2s ease}'
-			. ':where(.ai-act-label__badge.is-basic-text):hover{width:calc(var(--ai-act-h) * var(--ai-act-r, 1));overflow:visible}'
+			. ':where(.ai-act-label__badge.is-basic-text):hover{width:calc(var(--ai-act-h) * var(--ai-act-r, 1))}'
 			. ':where(.ai-act-label__badge.is-basic-text):hover .ai-act-icon--basic{opacity:0}'
 			. '@media (prefers-reduced-motion:reduce){:where(.ai-act-label__badge.is-basic-text),:where(.ai-act-label__badge.is-basic-text) .ai-act-icon--basic{transition:none}}'
 			. ':where(.ai-act-label__badge.is-sparkle) .ai-act-icon{width:60%;margin:auto}'
