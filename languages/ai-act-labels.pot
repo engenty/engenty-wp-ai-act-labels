@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-10T12:39:41+00:00\n"
+"POT-Creation-Date: 2026-10-10T12:42:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ai-act-labels\n"
@@ -48,7 +48,7 @@ msgstr ""
 #: includes/class-admin.php:49
 #: includes/class-admin.php:50
 #: includes/class-media.php:125
-#: includes/class-media.php:517
+#: includes/class-media.php:514
 #: src/admin/index.js:54
 #: src/admin/parts.js:125
 msgid "AI labels"
@@ -59,8 +59,8 @@ msgstr ""
 msgid "AI labels are loading …"
 msgstr ""
 
-#: includes/class-admin.php:128
-#: src/admin/parts.js:283
+#: includes/class-admin.php:130
+#: src/admin/parts.js:304
 msgid "Open"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 
 #: includes/class-labels.php:264
 #: includes/class-media.php:67
-#: includes/class-media.php:338
+#: includes/class-media.php:335
 #: includes/class-rest.php:66
 #: src/admin/Knowledge.js:288
 #: src/admin/Look.js:462
@@ -180,7 +180,7 @@ msgstr ""
 
 #: includes/class-labels.php:266
 #: includes/class-media.php:66
-#: includes/class-media.php:337
+#: includes/class-media.php:334
 #: includes/class-rest.php:65
 #: src/admin/Knowledge.js:292
 #: src/admin/Look.js:112
@@ -236,9 +236,9 @@ msgid "Not decided yet"
 msgstr ""
 
 #: includes/class-media.php:68
-#: includes/class-media.php:342
+#: includes/class-media.php:339
 #: src/admin/parts.js:8
-#: src/admin/Review.js:35
+#: src/admin/Review.js:21
 msgid "No label needed"
 msgstr ""
 
@@ -255,95 +255,89 @@ msgstr ""
 msgid "Image analysis (AI):"
 msgstr ""
 
-#: includes/class-media.php:150
-msgid "Taken over from the first version in the theme."
-msgstr ""
-
-#: includes/class-media.php:156
-#: src/admin/Review.js:347
+#: includes/class-media.php:153
 msgid "AI tool"
 msgstr ""
 
-#: includes/class-media.php:159
+#: includes/class-media.php:156
 msgid "optional, e.g. Midjourney"
 msgstr ""
 
-#: includes/class-media.php:160
-#: src/admin/Review.js:364
+#: includes/class-media.php:157
 msgid "Own notice"
 msgstr ""
 
-#: includes/class-media.php:164
+#: includes/class-media.php:161
 msgid "Empty: the default. The tool then appears in the notice."
 msgstr ""
 
-#: includes/class-media.php:168
+#: includes/class-media.php:165
 msgid "AI Act, Article 50: the label is required when real or plausible people, places or events look real. Ordinary photo editing needs none."
 msgstr ""
 
-#: includes/class-media.php:170
+#: includes/class-media.php:167
 msgid "Review all media →"
 msgstr ""
 
+#: includes/class-media.php:281
 #: includes/class-media.php:284
-#: includes/class-media.php:287
 msgid "AI"
 msgstr ""
 
 #. translators: %s: KI-generiert or Mit KI verändert
-#: includes/class-media.php:323
+#: includes/class-media.php:320
 #: src/media/index.js:35
 #, php-format,js-format
 msgid "Suggestion: %s"
 msgstr ""
 
-#: includes/class-media.php:335
+#: includes/class-media.php:332
 msgid "AI: all"
 msgstr ""
 
-#: includes/class-media.php:336
-#: src/admin/Review.js:34
+#: includes/class-media.php:333
+#: src/admin/Review.js:20
 msgid "Labeled"
 msgstr ""
 
-#: includes/class-media.php:339
-#: src/admin/Review.js:32
-#: src/admin/Review.js:131
+#: includes/class-media.php:336
+#: src/admin/Review.js:18
+#: src/admin/Review.js:117
 msgid "Suggestions"
 msgstr ""
 
-#: includes/class-media.php:340
-#: src/admin/Review.js:33
+#: includes/class-media.php:337
+#: src/admin/Review.js:19
 msgid "Used, not decided"
 msgstr ""
 
-#: includes/class-media.php:341
+#: includes/class-media.php:338
 #: src/admin/parts.js:9
 msgid "Not decided"
 msgstr ""
 
-#: includes/class-media.php:357
+#: includes/class-media.php:354
 msgid "Filter by AI label"
 msgstr ""
 
-#: includes/class-media.php:396
+#: includes/class-media.php:393
 msgid "Label as AI-generated"
 msgstr ""
 
-#: includes/class-media.php:397
+#: includes/class-media.php:394
 msgid "Label as modified with AI"
 msgstr ""
 
-#: includes/class-media.php:398
+#: includes/class-media.php:395
 msgid "AI: no label needed"
 msgstr ""
 
-#: includes/class-media.php:399
+#: includes/class-media.php:396
 msgid "Remove AI label"
 msgstr ""
 
 #. translators: %d: number of files
-#: includes/class-media.php:442
+#: includes/class-media.php:439
 #, php-format
 msgid "Removed the AI label from %d file."
 msgid_plural "Removed the AI label from %d files."
@@ -351,30 +345,30 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: number of files, 2: KI-generiert, Mit KI verändert or Kein Hinweis nötig
-#: includes/class-media.php:444
+#: includes/class-media.php:441
 #, php-format
 msgid "%1$d file: %2$s."
 msgid_plural "%1$d files: %2$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-media.php:457
+#: includes/class-media.php:454
 msgid "AI labels:"
 msgstr ""
 
 #. translators: %d: number of files
-#: includes/class-media.php:459
+#: includes/class-media.php:456
 #, php-format
 msgid "%d file carries traces of AI and has no decision yet."
 msgid_plural "%d files carry traces of AI and have no decision yet."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-media.php:461
+#: includes/class-media.php:458
 msgid "View"
 msgstr ""
 
-#: includes/class-media.php:463
+#: includes/class-media.php:460
 msgid "Later"
 msgstr ""
 
@@ -455,8 +449,6 @@ msgid "No contract with a provider? Vercel AI Gateway gives $5 a month free, no 
 msgstr ""
 
 #: src/admin/Assistant.js:136
-#: src/admin/ui.js:325
-#: src/admin/ui.js:338
 msgid "Close"
 msgstr ""
 
@@ -994,231 +986,166 @@ msgstr ""
 msgid "unclear"
 msgstr ""
 
+#: src/admin/parts.js:221
+msgid "label visible"
+msgstr ""
+
+#: src/admin/parts.js:222
+msgid "without label"
+msgstr ""
+
 #: src/admin/parts.js:223
+msgid "not on the page"
+msgstr ""
+
+#: src/admin/parts.js:224
+msgid "page not reachable"
+msgstr ""
+
+#: src/admin/parts.js:231
 msgid "Not found on any page"
 msgstr ""
 
 #. translators: %d: number of further places
-#: src/admin/parts.js:241
+#: src/admin/parts.js:262
 #, js-format
 msgid "and %d more"
 msgstr ""
 
-#: src/admin/parts.js:263
+#: src/admin/parts.js:284
 msgid "From engenty, the makers of this plugin"
 msgstr ""
 
-#: src/admin/parts.js:269
+#: src/admin/parts.js:290
 msgid "engenty wizards: guided flows for your visitors"
 msgstr ""
 
-#: src/admin/parts.js:275
+#: src/admin/parts.js:296
 msgid "Enquiries, quotes, appointments – step by step on your site, built with AI instead of code."
 msgstr ""
 
-#: src/admin/parts.js:288
+#: src/admin/parts.js:309
 msgid "View plugin"
 msgstr ""
 
-#: src/admin/Review.js:36
+#: src/admin/Review.js:22
 msgid "All"
 msgstr ""
 
-#: src/admin/Review.js:41
+#: src/admin/Review.js:27
 msgid "No file carries traces of AI without a decision. Traces are often missing – go through “Used, not decided” too."
 msgstr ""
 
-#: src/admin/Review.js:45
+#: src/admin/Review.js:31
 msgid "Everything used on your site has a decision. Or the site has not been checked yet."
 msgstr ""
 
-#: src/admin/Review.js:49
+#: src/admin/Review.js:35
 msgid "No file labeled yet."
 msgstr ""
 
-#: src/admin/Review.js:50
+#: src/admin/Review.js:36
 msgid "No file decided as needing no label yet."
 msgstr ""
 
-#: src/admin/Review.js:51
+#: src/admin/Review.js:37
 msgid "No images, videos or recordings."
 msgstr ""
 
-#: src/admin/Review.js:97
+#: src/admin/Review.js:83
 msgid "Reading your pages and posts …"
 msgstr ""
 
-#: src/admin/Review.js:98
+#: src/admin/Review.js:84
 msgid "Reading the traces in your files …"
 msgstr ""
 
-#: src/admin/Review.js:102
+#: src/admin/Review.js:88
 msgid "Done."
 msgstr ""
 
-#: src/admin/Review.js:114
+#: src/admin/Review.js:100
 msgid "labeled"
 msgstr ""
 
 #. translators: 1: generated count, 2: modified count
-#: src/admin/Review.js:118
+#: src/admin/Review.js:104
 #, js-format
 msgid "%1$d AI-generated · %2$d modified"
 msgstr ""
 
-#: src/admin/Review.js:133
+#: src/admin/Review.js:119
 msgid "traces of AI, no decision"
 msgstr ""
 
-#: src/admin/Review.js:143
+#: src/admin/Review.js:129
 msgid "used, not decided"
 msgstr ""
 
-#: src/admin/Review.js:145
+#: src/admin/Review.js:131
 msgid "visible on your site"
 msgstr ""
 
 #. translators: 1: date, 2: pages, 3: files in use
-#: src/admin/Review.js:170
+#: src/admin/Review.js:156
 #, js-format
 msgid "Last checked %1$s: %2$d pages and posts, %3$d files in use."
 msgstr ""
 
-#: src/admin/Review.js:178
+#: src/admin/Review.js:164
 msgid "Not checked yet: where your media is used and which traces of AI it carries."
 msgstr ""
 
-#: src/admin/Review.js:189
+#: src/admin/Review.js:175
 msgid "Check again"
 msgstr ""
 
-#: src/admin/Review.js:190
+#: src/admin/Review.js:176
 msgid "Check site"
 msgstr ""
 
-#: src/admin/Review.js:238
-#: src/admin/Review.js:396
-msgid "Analyze image (AI)"
+#: src/admin/Review.js:214
+msgid "Open in the Media Library"
 msgstr ""
 
-#: src/admin/Review.js:254
-msgid "Label visible"
-msgstr ""
-
-#: src/admin/Review.js:255
-msgid "Image without label"
-msgstr ""
-
-#: src/admin/Review.js:256
-msgid "not on the page"
-msgstr ""
-
-#: src/admin/Review.js:257
-msgid "page not reachable"
-msgstr ""
-
-#: src/admin/Review.js:303
-msgid "Open in Media Library"
-msgstr ""
-
-#: src/admin/Review.js:332
-msgid "Decision"
-msgstr ""
-
-#: src/admin/Review.js:340
-msgid "The site says:"
-msgstr ""
-
-#: src/admin/Review.js:348
-msgid "Optional, then appears in the notice."
-msgstr ""
-
-#: src/admin/Review.js:358
-msgid "e.g. Midjourney"
-msgstr ""
-
-#: src/admin/Review.js:365
-msgid "Empty: the kind's default."
-msgstr ""
-
-#: src/admin/Review.js:384
-msgid "Image analysis (AI)"
-msgstr ""
-
-#: src/admin/Review.js:409
-msgid "Deepfake"
-msgstr ""
-
-#: src/admin/Review.js:414
-msgid "looking at the image"
-msgstr ""
-
-#: src/admin/Review.js:418
-msgid "without seeing the image"
-msgstr ""
-
-#: src/admin/Review.js:430
-msgid "The AI looks at the image, its traces and the pages it is on, and says whether a label is required."
-msgstr ""
-
-#: src/admin/Review.js:438
-msgid "Traces in the file"
-msgstr ""
-
-#: src/admin/Review.js:443
-msgid "No traces found. That does not mean no AI was involved – after a screenshot or export they are usually gone."
-msgstr ""
-
-#: src/admin/Review.js:452
-msgid "Where it is used"
-msgstr ""
-
-#: src/admin/Review.js:461
+#: src/admin/Review.js:244
 msgid "Check on the site"
 msgstr ""
 
-#: src/admin/Review.js:499
-msgid "Check label"
+#: src/admin/Review.js:254
+msgid "Analyze image (AI)"
 msgstr ""
 
-#: src/admin/Review.js:511
-msgid "Not found on any page. Check the site if you changed it recently."
-msgstr ""
-
-#: src/admin/Review.js:519
-msgid "“Check label”: there the file is only a URL or in a page builder. “Check on the site” shows whether the label still appears; otherwise the theme needs ai_act_labels_wrap()."
-msgstr ""
-
-#: src/admin/Review.js:685
+#: src/admin/Review.js:439
 msgid "Media"
 msgstr ""
 
-#: src/admin/Review.js:686
+#: src/admin/Review.js:440
 msgid "Decide per file: AI-generated, modified with AI or no label needed. The label is required when something looks real that did not happen that way."
 msgstr ""
 
-#: src/admin/Review.js:696
+#: src/admin/Review.js:450
 msgid "Search"
 msgstr ""
 
-#: src/admin/Review.js:697
+#: src/admin/Review.js:451
 msgid "Search media"
 msgstr ""
 
 #. translators: %d: number of suggestions
-#: src/admin/Review.js:741
+#: src/admin/Review.js:495
 #, js-format
 msgid "Apply all %d suggestions"
 msgstr ""
 
 #. translators: 1: done, 2: total
-#: src/admin/Review.js:761
+#: src/admin/Review.js:515
 #, js-format
 msgid "Analyzing … %1$d of %2$d"
 msgstr ""
 
 #. translators: %d: number of files
-#: src/admin/Review.js:770
+#: src/admin/Review.js:524
 #, js-format
 msgid "Analyze %d image (AI)"
 msgid_plural "Analyze %d images (AI)"
@@ -1226,37 +1153,37 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of files
-#: src/admin/Review.js:786
+#: src/admin/Review.js:540
 #, js-format
 msgid "%d suggestions applied."
 msgstr ""
 
-#: src/admin/Review.js:794
+#: src/admin/Review.js:548
 msgid "Undo"
 msgstr ""
 
-#: src/admin/Review.js:799
+#: src/admin/Review.js:553
 msgid "Loading …"
 msgstr ""
 
 #. translators: 1: page, 2: pages
-#: src/admin/Review.js:834
+#: src/admin/Review.js:589
 #, js-format
 msgid "Page %1$d of %2$d"
 msgstr ""
 
-#: src/admin/Review.js:849
+#: src/admin/Review.js:604
 msgid "Also in the Media Library: the “AI” filter, a column and bulk actions in the list view."
 msgstr ""
 
-#: src/admin/Review.js:854
+#: src/admin/Review.js:609
 msgid "Open Media Library"
 msgstr ""
 
-#: src/admin/ui.js:384
+#: src/admin/ui.js:330
 msgid "as recommended"
 msgstr ""
 
-#: src/admin/ui.js:387
+#: src/admin/ui.js:333
 msgid "changed"
 msgstr ""

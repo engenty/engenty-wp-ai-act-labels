@@ -296,60 +296,6 @@ export function Field( { label, hint, children } ) {
 }
 
 /**
- * A side panel over the page, closed with Esc or a click beside it.
- * @param root0
- * @param root0.title
- * @param root0.head
- * @param root0.onClose
- * @param root0.footer
- * @param root0.children
- */
-export function Drawer( { title, head, onClose, footer, children } ) {
-	const panel = useRef();
-	useEffect( () => {
-		const onKey = ( e ) => e.key === 'Escape' && onClose();
-		window.addEventListener( 'keydown', onKey );
-		panel.current?.focus();
-		return () => window.removeEventListener( 'keydown', onKey );
-	}, [ onClose ] );
-	return (
-		<div
-			className="aal-drawer"
-			role="dialog"
-			aria-modal="true"
-			aria-label={ title }
-		>
-			<button
-				type="button"
-				className="aal-drawer__back"
-				aria-label={ __( 'Close', 'ai-act-labels' ) }
-				onClick={ onClose }
-			/>
-			<div className="aal-drawer__panel" ref={ panel } tabIndex={ -1 }>
-				<header className="aal-drawer__head">
-					<div className="aal-drawer__title">
-						{ head }
-						<h2>{ title }</h2>
-					</div>
-					<button
-						type="button"
-						className="aal-icon-btn"
-						onClick={ onClose }
-						aria-label={ __( 'Close', 'ai-act-labels' ) }
-					>
-						<Icon name="x" size={ 18 } />
-					</button>
-				</header>
-				<div className="aal-drawer__body">{ children }</div>
-				{ footer ? (
-					<footer className="aal-drawer__foot">{ footer }</footer>
-				) : null }
-			</div>
-		</div>
-	);
-}
-
-/**
  * One topic of a settings page: its summary in one line, the switches inside.
  * @param root0
  * @param root0.title

@@ -3,29 +3,15 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { api, boot, post, problem, query } from './api';
 import { SetupDialog } from './Assistant';
 import {
-	CONTEXT_LABELS,
 	Decide,
 	EuIcon,
 	HintLine,
 	Promo,
-	StateChip,
 	Thumb,
 	Traces,
 	UsageLine,
 } from './parts';
-import {
-	Button,
-	Card,
-	Chip,
-	Drawer,
-	Field,
-	Icon,
-	Notice,
-	Section,
-	Spinner,
-	useDraft,
-	when,
-} from './ui';
+import { Button, Card, Icon, Notice, Section, Spinner, when } from './ui';
 
 /** The lists, in the order of their tabs. */
 const LISTS = [
@@ -198,332 +184,85 @@ function Overview( { state, onDone } ) {
 }
 
 /**
- * One file in the list.
+ * One file in the list: its name opens it in the media library, the decision and the image analysis
+ * right here; a labelled file that is used can be checked on the site.
  * @param root0
  * @param root0.item
  * @param root0.busy
  * @param root0.onLabel
- * @param root0.onOpen
  * @param root0.onReview
  * @param root0.reviewing
+ * @param root0.onVerify
+ * @param root0.verifying
  */
-function MediaRow( { item, busy, onLabel, onOpen, onReview, reviewing } ) {
+function MediaRow( {
+	item,
+	busy,
+	onLabel,
+	onReview,
+	reviewing,
+	onVerify,
+	verifying,
+} ) {
+	const labelled = item.state === 'generated' || item.state === 'modified';
 	return (
 		<div className={ `aal-mrow is-${ item.state || 'open' }` }>
-			<button
-				type="button"
-				className="aal-mrow__main"
-				onClick={ () => onOpen( item ) }
-			>
-				<Thumb item={ item } />
+			<span className="aal-mrow__main">
+				<a
+					href={ `${ boot.item }${ item.id }` }
+					className="aal-mrow__thumb"
+					aria-label={ __(
+						'Open in the Media Library',
+						'ai-act-labels'
+					) }
+				>
+					<Thumb item={ item } />
+				</a>
 				<span className="aal-mrow__t">
 					<b>
-						{ item.title || item.file }
+						<a href={ `${ boot.item }${ item.id }` }>
+							{ item.title || item.file }
+						</a>
 						<i>{ item.file }</i>
 					</b>
 					<UsageLine usage={ item.usage } />
 					<Traces signals={ item.signals } />
 					<HintLine hint={ item.hint } />
 				</span>
-			</button>
+			</span>
 			<span className="aal-mrow__right">
 				<span className="aal-mrow__acts">
-					<Button
-						kind="ghost"
-						size="sm"
-						icon="sparkle"
-						busy={ reviewing }
-						onClick={ () => onReview( item ) }
-					>
-						{ __( 'Analyze image (AI)', 'ai-act-labels' ) }
-					</Button>
+					<span className="aal-mrow__btns">
+						{ labelled && item.usage?.length ? (
+							<Button
+								kind="ghost"
+								size="sm"
+								icon="eye"
+								busy={ verifying }
+								onClick={ () => onVerify( item ) }
+							>
+								{ __( 'Check on the site', 'ai-act-labels' ) }
+							</Button>
+						) : null }
+						<Button
+							kind="ghost"
+							size="sm"
+							icon="sparkle"
+							busy={ reviewing }
+							onClick={ () => onReview( item ) }
+						>
+							{ __( 'Analyze image (AI)', 'ai-act-labels' ) }
+						</Button>
+					</span>
 					<Decide
 						value={ item.state }
 						suggests={ item.suggests }
 						busy={ busy }
-						onChange={ ( s ) => onLabel( [ item.id ], s ) }
+						onChange={ ( st ) => onLabel( [ item.id ], st ) }
 					/>
 				</span>
 			</span>
 		</div>
-	);
-}
-
-/** What a check of a page found. */
-const CHECKS = {
-	shown: [ 'moss', __( 'Label visible', 'ai-act-labels' ) ],
-	missing: [ 'rose', __( 'Image without label', 'ai-act-labels' ) ],
-	absent: [ '', __( 'not on the page', 'ai-act-labels' ) ],
-	error: [ 'amber', __( 'page not reachable', 'ai-act-labels' ) ],
-};
-
-/**
- * Everything about one file.
- * @param root0
- * @param root0.item
- * @param root0.state
- * @param root0.onClose
- * @param root0.onItem  Called with the updated file.
- * @param root0.onLabel
- * @param root0.onSetup
- */
-function Details( { item, state, onClose, onItem, onLabel, onSetup } ) {
-	const [ busy, setBusy ] = useState( '' );
-	const [ error, setError ] = useState( null );
-	const assistant = state.assistant;
-	const save = ( extra ) =>
-		post( '/label', { ids: [ item.id ], state: item.state, ...extra } )
-			.then( ( r ) => r.items[ 0 ] && onItem( r.items[ 0 ] ) )
-			.catch( ( e ) => setError( problem( e ).message ) );
-	const [ tool, setTool ] = useDraft( item.tool, ( v ) =>
-		save( { tool: v } )
-	);
-	const [ notice, setNotice ] = useDraft( item.notice, ( v ) =>
-		save( { notice: v } )
-	);
-	const run = ( what, path ) => {
-		setBusy( what );
-		setError( null );
-		post( path, { id: item.id } )
-			.then( ( r ) => onItem( r.item ) )
-			.catch( ( e ) => setError( problem( e ).message ) )
-			.finally( () => setBusy( '' ) );
-	};
-	const labelled = item.state === 'generated' || item.state === 'modified';
-	const manual = ( item.usage || [] ).some( ( u ) => ! u.auto );
-
-	return (
-		<Drawer
-			title={ item.title || item.file }
-			head={ <Thumb item={ item } size={ 40 } /> }
-			onClose={ onClose }
-			footer={
-				<>
-					<Button kind="ghost" size="sm" href={ item.edit }>
-						{ __( 'Open in Media Library', 'ai-act-labels' ) }
-					</Button>
-					<span className="aal-fine">{ item.file }</span>
-				</>
-			}
-		>
-			{ error ? <Notice tone="error">{ error }</Notice> : null }
-			<div className="aal-dpreview">
-				{ item.type === 'image' ? (
-					<img src={ item.full || item.thumb } alt={ item.alt } />
-				) : item.type === 'video' ? (
-					// eslint-disable-next-line jsx-a11y/media-has-caption -- a preview of the file.
-					<video src={ item.full } controls preload="metadata" />
-				) : (
-					// eslint-disable-next-line jsx-a11y/media-has-caption -- a preview of the file.
-					<audio src={ item.full } controls preload="metadata" />
-				) }
-				{ labelled && item.type !== 'audio' ? (
-					<EuIcon
-						name={
-							state.settings.icon === 'official'
-								? item.state
-								: 'basic'
-						}
-						className={ `aal-dpreview__icon is-${ state.settings.position }` }
-					/>
-				) : null }
-			</div>
-
-			<Section title={ __( 'Decision', 'ai-act-labels' ) }>
-				<Decide
-					value={ item.state }
-					suggests={ item.suggests }
-					onChange={ ( s ) => onLabel( [ item.id ], s ) }
-				/>
-				{ labelled ? (
-					<p className="aal-small">
-						{ __( 'The site says:', 'ai-act-labels' ) }{ ' ' }
-						<b>“{ item.shown }”</b>
-					</p>
-				) : null }
-				{ labelled ? (
-					<div className="aal-grid2">
-						<Field
-							label={ __( 'AI tool', 'ai-act-labels' ) }
-							hint={ __(
-								'Optional, then appears in the notice.',
-								'ai-act-labels'
-							) }
-						>
-							<input
-								type="text"
-								value={ tool }
-								placeholder={
-									item.signals?.tool ||
-									__( 'e.g. Midjourney', 'ai-act-labels' )
-								}
-								onChange={ ( e ) => setTool( e.target.value ) }
-							/>
-						</Field>
-						<Field
-							label={ __( 'Own notice', 'ai-act-labels' ) }
-							hint={ __(
-								"Empty: the kind's default.",
-								'ai-act-labels'
-							) }
-						>
-							<input
-								type="text"
-								value={ notice }
-								placeholder={ item.hint?.notice || '' }
-								onChange={ ( e ) =>
-									setNotice( e.target.value )
-								}
-							/>
-						</Field>
-					</div>
-				) : null }
-			</Section>
-
-			<Section
-				title={ __( 'Image analysis (AI)', 'ai-act-labels' ) }
-				aside={
-					<Button
-						size="sm"
-						icon="sparkle"
-						busy={ busy === 'review' }
-						onClick={ () =>
-							assistant.ready
-								? run( 'review', '/review' )
-								: onSetup()
-						}
-					>
-						{ __( 'Analyze image (AI)', 'ai-act-labels' ) }
-					</Button>
-				}
-			>
-				{ item.hint ? (
-					<div className="aal-mini">
-						<HintLine hint={ item.hint } />
-						<span className="aal-row-inline">
-							{ item.hint.kind && item.hint.kind !== 'unsure' ? (
-								<StateChip state={ item.hint.kind } />
-							) : null }
-							{ item.hint.deepfake === 'yes' ? (
-								<Chip tone="rose">
-									{ __( 'Deepfake', 'ai-act-labels' ) }
-								</Chip>
-							) : null }
-							<span className="aal-fine">
-								{ item.hint.seen
-									? __(
-											'looking at the image',
-											'ai-act-labels'
-									  )
-									: __(
-											'without seeing the image',
-											'ai-act-labels'
-									  ) }
-								{ item.hint.model
-									? ` · ${ item.hint.model }`
-									: '' }
-							</span>
-						</span>
-					</div>
-				) : (
-					<p className="aal-fine">
-						{ __(
-							'The AI looks at the image, its traces and the pages it is on, and says whether a label is required.',
-							'ai-act-labels'
-						) }
-					</p>
-				) }
-			</Section>
-
-			<Section title={ __( 'Traces in the file', 'ai-act-labels' ) }>
-				{ item.signals?.items?.length ? (
-					<Traces signals={ item.signals } max={ 10 } />
-				) : (
-					<p className="aal-fine">
-						{ __(
-							'No traces found. That does not mean no AI was involved – after a screenshot or export they are usually gone.',
-							'ai-act-labels'
-						) }
-					</p>
-				) }
-			</Section>
-
-			<Section
-				title={ __( 'Where it is used', 'ai-act-labels' ) }
-				aside={
-					labelled && item.usage?.length ? (
-						<Button
-							size="sm"
-							icon="eye"
-							busy={ busy === 'verify' }
-							onClick={ () => run( 'verify', '/verify' ) }
-						>
-							{ __( 'Check on the site', 'ai-act-labels' ) }
-						</Button>
-					) : null
-				}
-			>
-				{ item.usage?.length ? (
-					<Card pad0>
-						{ item.usage.map( ( u, i ) => (
-							<div className="aal-row" key={ i }>
-								<span className="aal-row__main">
-									<span className="aal-row__t">
-										<b>
-											{ u.url ? (
-												<a
-													href={ u.url }
-													target="_blank"
-													rel="noreferrer"
-												>
-													{ u.title }
-												</a>
-											) : (
-												u.title
-											) }
-										</b>
-										<span>
-											{ u.type } ·{ ' ' }
-											{ CONTEXT_LABELS[ u.context ] ||
-												u.context }
-										</span>
-									</span>
-								</span>
-								<span className="aal-row__right">
-									{ u.check && CHECKS[ u.check ] ? (
-										<Chip tone={ CHECKS[ u.check ][ 0 ] }>
-											{ CHECKS[ u.check ][ 1 ] }
-										</Chip>
-									) : ! u.auto ? (
-										<Chip tone="amber">
-											{ __(
-												'Check label',
-												'ai-act-labels'
-											) }
-										</Chip>
-									) : null }
-								</span>
-							</div>
-						) ) }
-					</Card>
-				) : (
-					<p className="aal-fine">
-						{ __(
-							'Not found on any page. Check the site if you changed it recently.',
-							'ai-act-labels'
-						) }
-					</p>
-				) }
-				{ manual ? (
-					<span className="aal-fine">
-						{ __(
-							'“Check label”: there the file is only a URL or in a page builder. “Check on the site” shows whether the label still appears; otherwise the theme needs ai_act_labels_wrap().',
-							'ai-act-labels'
-						) }
-					</span>
-				) : null }
-			</Section>
-		</Drawer>
 	);
 }
 
@@ -549,7 +288,7 @@ export default function Review( { state, setState, initial } ) {
 	const [ data, setData ] = useState( null );
 	const [ error, setError ] = useState( null );
 	const [ busy, setBusy ] = useState( {} );
-	const [ open, setOpen ] = useState( null );
+	const [ verifying, setVerifying ] = useState( {} );
 	const [ reviewing, setReviewing ] = useState( {} );
 	const [ batch, setBatch ] = useState( null );
 	const [ accepted, setAccepted ] = useState( null );
@@ -598,9 +337,6 @@ export default function Review( { state, setState, initial } ) {
 				  }
 				: d
 		);
-		setOpen( ( o ) =>
-			o ? items.find( ( n ) => n.id === o.id ) || o : o
-		);
 	};
 
 	const label = ( ids, st, via = 'manual' ) => {
@@ -640,7 +376,25 @@ export default function Review( { state, setState, initial } ) {
 			);
 	};
 
-	/** The assistant looks at every file of the page without an assessment, one after another. */
+	/**
+	 * Opens the pages the file is used on and looks for its label there.
+	 * @param item
+	 */
+	const verify = ( item ) => {
+		setVerifying( ( v ) => ( { ...v, [ item.id ]: true } ) );
+		return post( '/verify', { id: item.id } )
+			.then( ( r ) => replace( [ r.item ] ) )
+			.catch( ( e ) => setError( problem( e ).message ) )
+			.finally( () =>
+				setVerifying( ( v ) => {
+					const n = { ...v };
+					delete n[ item.id ];
+					return n;
+				} )
+			);
+	};
+
+	/** The image analysis looks at every file of the page without one, one after another. */
 	const reviewAll = async () => {
 		const todo = ( data?.items || [] ).filter(
 			( i ) => ! i.hint && ! i.state
@@ -805,11 +559,12 @@ export default function Review( { state, setState, initial } ) {
 								item={ item }
 								busy={ !! busy[ item.id ] }
 								onLabel={ label }
-								onOpen={ setOpen }
 								onReview={ ( it ) =>
 									ready ? review( it ) : setSetup( true )
 								}
 								reviewing={ !! reviewing[ item.id ] }
+								onVerify={ verify }
+								verifying={ !! verifying[ item.id ] }
 							/>
 						) ) }
 					</Card>
@@ -856,16 +611,6 @@ export default function Review( { state, setState, initial } ) {
 				</span>
 			</Section>
 			<Promo wizards={ state.wizards } />
-			{ open ? (
-				<Details
-					item={ open }
-					state={ state }
-					onClose={ () => setOpen( null ) }
-					onItem={ ( it ) => replace( [ it ] ) }
-					onLabel={ label }
-					onSetup={ () => setSetup( true ) }
-				/>
-			) : null }
 			{ setup ? (
 				<SetupDialog
 					assistant={ state.assistant }

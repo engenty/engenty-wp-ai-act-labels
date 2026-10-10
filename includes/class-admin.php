@@ -88,6 +88,8 @@ class AI_Act_Labels_Admin {
 		$boot = array(
 			'tool'      => self::url(),
 			'upload'    => admin_url( 'upload.php' ),
+			// A file in the media library: its modal in the grid view, its edit screen in the list view.
+			'item'      => 'list' === get_user_option( 'media_library_mode' ) ? admin_url( 'post.php?action=edit&post=' ) : admin_url( 'upload.php?item=' ),
 			'version'   => AI_ACT_LABELS_VERSION,
 			'home'      => home_url( '/' ),
 			'locale'    => get_user_locale(),

@@ -146,9 +146,6 @@ class AI_Act_Labels_Media {
 		if ( is_array( $hint ) && ! empty( $hint['reason'] ) ) {
 			$html .= '<p class="ai-act-box__note"><b>' . esc_html__( 'Image analysis (AI):', 'ai-act-labels' ) . '</b> ' . esc_html( $hint['reason'] ) . '</p>';
 		}
-		if ( '' !== $state && '' === (string) get_post_meta( $id, AI_Act_Labels::META, true ) ) {
-			$html .= '<p class="ai-act-box__note">' . esc_html__( 'Taken over from the first version in the theme.', 'ai-act-labels' ) . '</p>';
-		}
 		$placeholder = AI_Act_Labels::default_notice( in_array( $state, AI_Act_Labels::KINDS, true ) ? $state : ( in_array( $suggest, AI_Act_Labels::KINDS, true ) ? $suggest : 'generated' ), AI_Act_Labels::media_type( $id ) );
 		$html       .= sprintf(
 			'<div class="ai-act-box__more"><label for="ai-act-tool-%1$d">%2$s</label><input type="text" class="widefat" id="ai-act-tool-%1$d" name="%3$s" value="%4$s" placeholder="%5$s"><label for="ai-act-notice-%1$d">%6$s</label><input type="text" class="widefat" id="ai-act-notice-%1$d" name="%7$s" value="%8$s" placeholder="%9$s"><p class="description">%10$s</p></div>',

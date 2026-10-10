@@ -216,6 +216,14 @@ export function HintLine( { hint } ) {
  * @param root0
  * @param root0.usage
  */
+/** What a check of a page found. */
+const CHECKS = {
+	shown: __( 'label visible', 'ai-act-labels' ),
+	missing: __( 'without label', 'ai-act-labels' ),
+	absent: __( 'not on the page', 'ai-act-labels' ),
+	error: __( 'page not reachable', 'ai-act-labels' ),
+};
+
 export function UsageLine( { usage } ) {
 	if ( ! usage?.length ) {
 		return (
@@ -228,9 +236,22 @@ export function UsageLine( { usage } ) {
 	return (
 		<span className="aal-usage">
 			{ shown.map( ( u, i ) => (
-				<span key={ i } className={ u.auto ? '' : 'is-manual' }>
+				<span
+					key={ i }
+					className={
+						CHECKS[ u.check ]
+							? `is-${ u.check }`
+							: u.auto
+							? ''
+							: 'is-manual'
+					}
+				>
 					{ u.title }{ ' ' }
-					<i>({ CONTEXT_LABELS[ u.context ] || u.context })</i>
+					<i>
+						({ CONTEXT_LABELS[ u.context ] || u.context }
+						{ CHECKS[ u.check ] ? ` · ${ CHECKS[ u.check ] }` : '' }
+						)
+					</i>
 					{ i < shown.length - 1 ? ', ' : '' }
 				</span>
 			) ) }
