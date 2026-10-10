@@ -24,6 +24,8 @@ Since 2 August 2026, Article 50 of the EU AI Act asks businesses to label images
 
 The tool is under Media › AI labels. This plugin helps with labelling; it is not legal advice.
 
+Source code: https://github.com/engenty/engenty-wp-ai-act-labels – the admin scripts in build/ are made from src/ with `npm install && npm run build`.
+
 == Installation ==
 
 1. Install the plugin from Plugins › Add New, or upload the zip under Plugins › Add New › Upload Plugin.
